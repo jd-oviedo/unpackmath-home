@@ -59,7 +59,7 @@ export function Header() {
           ))}
         </nav>
         
-          href="https://app.unpackmath.com"
+          <a href="https://app.unpackmath.com"
           style={{
             padding: "8px 18px", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)",
             borderRadius: "10px", fontSize: "13px", fontWeight: 700,

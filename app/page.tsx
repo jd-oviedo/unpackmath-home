@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
+import { Header, Footer } from "./components/Header";
 import { themes } from "./theme/themes";
 
 function Blobs() {
