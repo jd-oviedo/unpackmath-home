@@ -26,19 +26,46 @@ function RevolvingWord() {
   }, []);
 
   return (
-    <span
+    <div
       style={{
-        color: "#0F69BA",
-        fontStyle: "normal",
+        position: "relative",
         display: "inline-block",
-        minWidth: "280px",
-        transition: "opacity 0.35s ease, transform 0.35s ease",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(6px)",
+        minWidth: "340px",
+        height: "1.2em",
       }}
     >
-      {REVOLVING_WORDS[index]}
-    </span>
+      {/* Underline */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "100%",
+          height: "3px",
+          background: "#0F69BA",
+          borderRadius: "99px",
+          opacity: 0.35,
+        }}
+      />
+      {/* Revolving text */}
+      <span
+        style={{
+          color: "#0F69BA",
+          fontStyle: "normal",
+          display: "block",
+          textAlign: "center",
+          transition: "opacity 0.35s ease, transform 0.35s ease",
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(8px)",
+          fontFamily: "var(--font-kodchasan, \'Kodchasan\', sans-serif)",
+          fontWeight: 800,
+          lineHeight: 1.15,
+        }}
+      >
+        {REVOLVING_WORDS[index]}
+      </span>
+    </div>
   );
 }
 
@@ -88,28 +115,24 @@ export function HeroSection() {
         </span>
       </div>
 
-      {/* Headline with revolving word */}
-      <h1
-        style={{
-          fontSize: "clamp(38px, 6.5vw, 62px)",
-          fontWeight: 800,
-          color: "var(--ec-ink)",
-          letterSpacing: "-0.035em",
-          lineHeight: 1.15,
-          margin: 0,
-          fontFamily: "var(--font-kodchasan, \'Kodchasan\', sans-serif)",
-          display: "flex",
-          flexWrap: "nowrap",
-          alignItems: "baseline",
-          justifyContent: "center",
-          gap: "0.22em",
-          whiteSpace: "nowrap",
-        }}
-      >
-        <span style={{ color: "var(--ec-ink)" }}>{"Let\u2019s"}</span>
-        <span style={{ color: "#f2a541" }}>Unpack</span>
+      {/* Two-line headline */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
+        <h1
+          style={{
+            fontSize: "clamp(42px, 7vw, 68px)",
+            fontWeight: 800,
+            letterSpacing: "-0.035em",
+            lineHeight: 1.05,
+            margin: 0,
+            fontFamily: "var(--font-kodchasan, \'Kodchasan\', sans-serif)",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <span style={{ color: "var(--ec-ink)" }}>{"Let\u2019s "}</span>
+          <span style={{ color: "#f2a541" }}>Unpack</span>
+        </h1>
         <RevolvingWord />
-      </h1>
+      </div>
 
       {/* Subheadline */}
       <p
@@ -132,89 +155,74 @@ export function HeroSection() {
           flexWrap: "wrap",
           justifyContent: "center",
           width: "100%",
-          maxWidth: "440px",
+          maxWidth: "460px",
           marginTop: "4px",
         }}
       >
         
-        <a
           href="https://app.unpackmath.com/adaptive-test"
           style={{
             flex: 1,
             minWidth: "180px",
             display: "block",
             padding: "15px 20px",
-            background: "var(--ec-btn-bg)",
-            color: "var(--ec-btn-text)",
+            background: "rgba(26, 31, 46, 0.88)",
+            color: "#f0ede8",
             borderRadius: "14px",
             fontWeight: 700,
             fontSize: "15px",
             textDecoration: "none",
-            boxShadow: "var(--ec-shadow-btn)",
             textAlign: "center",
+            border: "1px solid rgba(26, 31, 46, 0.15)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            boxShadow: "0 4px 18px rgba(26,31,46,0.18)",
           }}
         >
           Try the Practice Test
         </a>
         
-        <a
           href="#waitlist"
           style={{
             flex: 1,
             minWidth: "180px",
             display: "block",
             padding: "15px 20px",
-            background: "var(--ec-surface)",
-            color: "var(--ec-ink)",
-            border: "1px solid var(--ec-line)",
+            background: "rgba(15, 105, 186, 0.08)",
+            color: "#0F69BA",
             borderRadius: "14px",
             fontWeight: 600,
             fontSize: "15px",
             textDecoration: "none",
-            boxShadow: "var(--ec-shadow)",
             textAlign: "center",
+            border: "1px solid rgba(15, 105, 186, 0.25)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            boxShadow: "0 4px 18px rgba(15,105,186,0.08)",
           }}
         >
           See What's Coming for Teachers
         </a>
       </div>
 
-      {/* Trust line */}
-      <p style={{ fontSize: "12px", color: "var(--ec-ink-faint)", margin: 0 }}>
+      {/* Trust line — quieter */}
+      <p style={{ fontSize: "11px", color: "var(--ec-ink-faint)", margin: 0, letterSpacing: "0.03em" }}>
         no account needed · free to use
       </p>
 
-      {/* Stats strip */}
-      <div style={{ display: "flex", gap: "36px", marginTop: "4px" }}>
-        {[
-          ["500+", "practice items"],
-          ["4", "math strands"],
-          ["97", "topics covered"],
-          ["20", "questions per test"],
-        ].map(([num, label]) => (
-          <div key={label} style={{ textAlign: "center" }}>
-            <div
-              style={{
-                fontSize: "22px",
-                fontWeight: 800,
-                color: "var(--ec-ink)",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              {num}
-            </div>
-            <div
-              style={{
-                fontSize: "11px",
-                color: "var(--ec-ink-muted)",
-                marginTop: "2px",
-              }}
-            >
-              {label}
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Proof sentence replacing stats */}
+      <p
+        style={{
+          fontSize: "13px",
+          color: "var(--ec-ink-muted)",
+          margin: 0,
+          fontStyle: "italic",
+          letterSpacing: "0.01em",
+        }}
+      >
+        Built to reveal misconceptions, not just scores.
+      </p>
+
     </section>
   );
 }
