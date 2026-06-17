@@ -28,7 +28,7 @@ export function DemoSection() {
       <div style={{ width: "100%", maxWidth: "860px", borderRadius: "20px", overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06)", position: "relative" }}>
         <div style={{ position: "relative", paddingBottom: "calc(56.25% + 41px)", height: 0, width: "100%" }}>
           <iframe
-            src="https://demo.arcade.software/ZxY3HwyMiCQQjyoMqh6i?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
+            src="https://demo.arcade.software/ZxY3HwyMiCQQjyoMqh6i?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
             title="Take a Computer-Adaptive TSIA2 Math Practice Test"
             frameBorder="0"
             loading="lazy"

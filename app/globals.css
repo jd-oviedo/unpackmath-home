@@ -64,3 +64,24 @@ body {
       border: 1px solid rgba(255, 255, 255, 0.70) !important;
     }
 */
+/* Dark mode glass card overrides */
+[data-theme="dark"] .um-glass-card,
+html[style*="--ec-bg: #0C1120"] .um-glass-card {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.2);
+}
+
+[data-theme="dark"] .um-glass-card--strong,
+html[style*="--ec-bg: #0C1120"] .um-glass-card--strong {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.25);
+}
+
+/* Mobile: stack name/role fields vertically */
+@media (max-width: 500px) {
+  .um-form-row {
+    flex-direction: column !important;
+  }
+}

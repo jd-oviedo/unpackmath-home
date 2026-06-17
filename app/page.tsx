@@ -80,7 +80,7 @@ function WaitlistForm() {
   const ready = form.name && form.role && form.email;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-      <div style={{ display: "flex", gap: "12px" }}>
+      <div className="um-form-row" style={{ display: "flex", gap: "12px" }}>
         <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "6px" }}>
           <label style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ec-ink-muted)" }}>Name</label>
           <input placeholder="Albert Diaz" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} style={{ padding: "12px 16px", borderRadius: "12px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", color: "var(--ec-ink)", fontFamily: "inherit", fontSize: "14px", outline: "none" }} />

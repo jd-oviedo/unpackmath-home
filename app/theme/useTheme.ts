@@ -14,6 +14,7 @@ export function useTheme() {
     const vars = themes[theme].vars;
     const root = document.documentElement;
     Object.entries(vars).forEach(([k, v]) => root.style.setProperty(k, v));
+    root.setAttribute("data-theme", theme);
     localStorage.setItem("um-theme", theme);
   }, [theme]);
 
