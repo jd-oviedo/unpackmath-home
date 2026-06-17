@@ -95,11 +95,19 @@ export function HeroSection() {
           fontWeight: 800,
           color: "var(--ec-ink)",
           letterSpacing: "-0.035em",
-          lineHeight: 1.08,
+          lineHeight: 1.15,
           margin: 0,
+          fontFamily: "var(--font-kodchasan, \'Kodchasan\', sans-serif)",
+          display: "flex",
+          flexWrap: "nowrap",
+          alignItems: "baseline",
+          justifyContent: "center",
+          gap: "0.22em",
+          whiteSpace: "nowrap",
         }}
       >
-        {"Let's Unpack "}
+        <span style={{ color: "var(--ec-ink)" }}>{"Let\u2019s"}</span>
+        <span style={{ color: "#f2a541" }}>Unpack</span>
         <RevolvingWord />
       </h1>
 
