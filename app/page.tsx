@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Header, Footer } from "./components/Header";
 import { DemoSection } from "./components/DemoSection";
+import { HeroSection } from "./components/HeroSection";
 import { themes } from "./theme/themes";
 
 function Blobs() {
@@ -122,35 +123,7 @@ export default function Home() {
       <main style={{ flex: 1, position: "relative", zIndex: 1 }}>
 
         {/* HERO */}
-        <section style={{ maxWidth: "720px", margin: "0 auto", padding: "140px 24px 40px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "24px" }}>
-          <div className="um-glass-card" style={{ display: "inline-flex", alignItems: "center", gap: "8px", borderRadius: "999px", padding: "6px 16px" }}>
-            <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--ec-green)", animation: "ecpulse 1.6s ease-in-out infinite" }} />
-            <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--ec-ink-muted)", letterSpacing: "0.05em" }}>open beta — practice test live now</span>
-          </div>
-          <h1 style={{ fontSize: "clamp(40px, 7vw, 64px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.035em", lineHeight: 1.05, margin: 0 }}>
-            math,{" "}<span style={{ color: "var(--ec-orange)", fontStyle: "italic" }}>unpacked.</span>
-          </h1>
-          <p style={{ fontSize: "18px", color: "var(--ec-ink-muted)", lineHeight: 1.65, maxWidth: "480px", margin: 0 }}>
-            Adaptive TSIA2 math prep that shows students exactly where their thinking breaks down — and gives teachers the data to do something about it.
-          </p>
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", width: "100%", maxWidth: "420px" }}>
-            <a href="https://app.unpackmath.com/adaptive-test" style={{ flex: 1, minWidth: "180px", display: "block", padding: "15px 20px", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", borderRadius: "14px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: "var(--ec-shadow-btn)", textAlign: "center" }}>
-              Start Practice Test
-            </a>
-            <a href="#waitlist" style={{ flex: 1, minWidth: "180px", display: "block", padding: "15px 20px", background: "var(--ec-surface)", color: "var(--ec-ink)", border: "1px solid var(--ec-line)", borderRadius: "14px", fontWeight: 600, fontSize: "15px", textDecoration: "none", boxShadow: "var(--ec-shadow)", textAlign: "center" }}>
-              Join the Waitlist
-            </a>
-          </div>
-          <p style={{ fontSize: "12px", color: "var(--ec-ink-faint)", margin: 0 }}>no account needed · free to use</p>
-          <div style={{ display: "flex", gap: "36px", marginTop: "8px" }}>
-            {[["500+", "practice items"], ["4", "math strands"], ["97", "topics covered"], ["20", "questions per test"]].map(([num, label]) => (
-              <div key={label} style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "22px", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.02em" }}>{num}</div>
-                <div style={{ fontSize: "11px", color: "var(--ec-ink-muted)", marginTop: "2px" }}>{label}</div>
-              </div>
-            ))}
-          </div>
-        </section>
+        <HeroSection />
 
         <DemoSection />
         {/* TEACHER DASHBOARD TEASER */}
