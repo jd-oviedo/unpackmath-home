@@ -125,7 +125,7 @@ export default function Home() {
         <section style={{ maxWidth: "720px", margin: "0 auto", padding: "140px 24px 40px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "24px" }}>
           <div className="um-glass-card" style={{ display: "inline-flex", alignItems: "center", gap: "8px", borderRadius: "999px", padding: "6px 16px" }}>
             <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--ec-green)", animation: "ecpulse 1.6s ease-in-out infinite" }} />
-            <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--ec-ink-muted)", letterSpacing: "0.05em" }}>practice test live now · soft launch summer 2026</span>
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--ec-ink-muted)", letterSpacing: "0.05em" }}>open beta — practice test live now</span>
           </div>
           <h1 style={{ fontSize: "clamp(40px, 7vw, 64px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.035em", lineHeight: 1.05, margin: 0 }}>
             math,{" "}<span style={{ color: "var(--ec-orange)", fontStyle: "italic" }}>unpacked.</span>
