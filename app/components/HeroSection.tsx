@@ -28,8 +28,8 @@ function RevolvingWord() {
   return (
     <span
       style={{
-        color: "var(--ec-orange)",
-        fontStyle: "italic",
+        color: "#0F69BA",
+        fontStyle: "normal",
         display: "inline-block",
         minWidth: "280px",
         transition: "opacity 0.35s ease, transform 0.35s ease",
