@@ -40,7 +40,7 @@ export function DemoSection() {
       </div>
 
       <div style={{ width: "60%", height: "1px", background: "linear-gradient(90deg, transparent, rgba(90,170,238,0.3), transparent)", marginTop: "-24px" }} />
-
+      <a
       
         href="https://app.unpackmath.com/adaptive-test"
         target="_blank"
