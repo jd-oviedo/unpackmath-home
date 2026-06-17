@@ -152,35 +152,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* WHO IT'S FOR */}
-        <section id="why" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
-          <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "12px", textAlign: "center" }}>who it's for</p>
-          <h2 style={{ fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "32px", textAlign: "center" }}>
-            grades show what.<br />UnpackMath shows <span style={{ color: "var(--ec-orange)", fontStyle: "italic" }}>why.</span>
-          </h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            {[
-              { audience: "Students", headline: "stop guessing. start knowing.", body: "Every wrong answer traces back to exactly one misconception. You'll see where your thinking broke down and what to do about it — not just a red X.", accent: "var(--ec-accent)", soft: "var(--ec-accent-soft)" },
-              { audience: "Teachers", headline: "see the why behind every wrong answer.", body: "The Misconception Dashboard (coming soon) shows you which errors are showing up across your class, ranked and ready to inform your next lesson.", accent: "var(--ec-orange)", soft: "var(--ec-orange-bg)" },
-              { audience: "Parents", headline: "show up differently at home.", body: "Same student data. Plain language. One thing you can do tonight. The Translation Layer (coming soon) turns classroom performance into something you can actually act on.", accent: "var(--ec-green)", soft: "var(--ec-green-bg)" },
-            ].map(({ audience, headline, body, accent, soft }) => (
-              <div key={audience} className="um-glass-card" style={{ borderRadius: "20px", padding: "24px 28px", display: "flex", gap: "20px", alignItems: "flex-start" }}>
-                <div style={{ width: "40px", height: "40px", minWidth: "40px", borderRadius: "50%", background: soft, border: `1.5px solid ${accent}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: "11px", fontWeight: 800, color: accent }}>{audience[0]}</span>
-                </div>
-                <div>
-                  <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: accent, marginBottom: "6px" }}>{audience}</p>
-                  <p style={{ fontSize: "17px", fontWeight: 700, color: "var(--ec-ink)", marginBottom: "8px", letterSpacing: "-0.01em", lineHeight: 1.3 }}>{headline}</p>
-                  <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: 0 }}>{body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* DEMO */}
-        <DemoSection />
-
         {/* MORE TO COME */}
         <section style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
           <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
