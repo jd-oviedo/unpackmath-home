@@ -5,7 +5,7 @@ export function DemoSection() {
     <section
       id="demo"
       style={{
-        background: "#0D1117",
+        background: "transparent",
         padding: "96px 24px 80px",
         display: "flex",
         flexDirection: "column",
@@ -14,13 +14,13 @@ export function DemoSection() {
       }}
     >
       <div style={{ textAlign: "center", maxWidth: "560px" }}>
-        <p style={{ fontSize: "12px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#5AAAEE", margin: "0 0 12px" }}>
+        <p style={{ fontSize: "12px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ec-accent)", margin: "0 0 12px" }}>
           see it in action
         </p>
-        <h2 style={{ fontWeight: 700, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.15, color: "#F0EDE8", margin: "0 0 16px", letterSpacing: "-0.02em" }}>
+        <h2 style={{ fontWeight: 700, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.15, color: "var(--ec-ink)", margin: "0 0 16px", letterSpacing: "-0.02em" }}>
           math, unpacked in real time.
         </h2>
-        <p style={{ fontSize: "16px", color: "rgba(240, 237, 232, 0.55)", margin: 0, lineHeight: 1.6 }}>
+        <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", margin: 0, lineHeight: 1.6 }}>
           watch the engine adapt question-by-question — then show you exactly where your thinking broke down.
         </p>
       </div>
@@ -45,7 +45,7 @@ export function DemoSection() {
         href="https://app.unpackmath.com/adaptive-test"
         target="_blank"
         rel="noopener noreferrer"
-        style={{ fontSize: "14px", fontWeight: 600, color: "#F0EDE8", background: "#0F69BA", padding: "12px 28px", borderRadius: "999px", textDecoration: "none", display: "inline-block" }}
+        style={{ fontSize: "14px", fontWeight: 600, color: "var(--ec-ink)", background: "#0F69BA", padding: "12px 28px", borderRadius: "999px", textDecoration: "none", display: "inline-block" }}
       >
         try the practice test →
       </a>
