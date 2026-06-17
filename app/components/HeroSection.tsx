@@ -182,6 +182,7 @@ export function HeroSection() {
           Try the Practice Test
         </a>
         
+        <a
           href="#waitlist"
           style={{
             flex: 1,
