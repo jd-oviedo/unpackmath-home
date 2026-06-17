@@ -25,7 +25,7 @@ function ThemeToggle() {
         transition: "background 0.15s ease",
       }}
     >
-      {isDark ? "☀️" : "🌙"}
+      {isDark ? "☼" : "☾"}
     </button>
   );
 }
