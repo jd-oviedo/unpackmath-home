@@ -120,7 +120,7 @@ export function Header() {
               fontWeight: 600,
               fontSize: "15px",
               color: "var(--ec-ink)",
-              letterSpacing: "-0.03em",
+              letterSpacing: "0.04em",
             }}
           >
             UnpackMath
