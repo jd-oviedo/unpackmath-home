@@ -152,6 +152,7 @@ export default function Home() {
           </div>
         </section>
 
+        <DemoSection />
         {/* MORE TO COME */}
         <section style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
           <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
