@@ -123,7 +123,7 @@ export function Header() {
               letterSpacing: "-0.01em",
             }}
           >
-            unpackmath
+            UnpackMath
           </span>
         </Link>
 
