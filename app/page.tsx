@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Header, Footer } from "./components/Header";
+import { DemoSection } from "./components/DemoSection";
 import { themes } from "./theme/themes";
 
 function Blobs() {
@@ -28,7 +29,7 @@ function FAQ() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
       {faqs.map((item, i) => (
-        <div key={i} style={{ background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "16px", overflow: "hidden", boxShadow: "var(--ec-shadow)" }}>
+        <div key={i} className="um-glass-card--strong" style={{ borderRadius: "16px", overflow: "hidden" }}>
           <button
             onClick={() => setOpen(open === i ? null : i)}
             style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", padding: "18px 22px", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", textAlign: "left", gap: "16px" }}
@@ -116,13 +117,13 @@ export default function Home() {
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--ec-bg)", position: "relative", overflow: "hidden" }}>
       <Blobs />
-      <div style={{ position: "relative", zIndex: 1 }}><Header /></div>
+      <Header />
 
       <main style={{ flex: 1, position: "relative", zIndex: 1 }}>
 
         {/* HERO */}
-        <section style={{ maxWidth: "720px", margin: "0 auto", padding: "60px 24px 80px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "24px" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "999px", padding: "6px 16px", boxShadow: "var(--ec-shadow)" }}>
+        <section style={{ maxWidth: "720px", margin: "0 auto", padding: "140px 24px 80px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "24px" }}>
+          <div className="um-glass-card" style={{ display: "inline-flex", alignItems: "center", gap: "8px", borderRadius: "999px", padding: "6px 16px" }}>
             <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--ec-green)", animation: "ecpulse 1.6s ease-in-out infinite" }} />
             <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--ec-ink-muted)", letterSpacing: "0.05em" }}>practice test live now · soft launch summer 2026</span>
           </div>
@@ -163,7 +164,7 @@ export default function Home() {
               { audience: "Teachers", headline: "see the why behind every wrong answer.", body: "The Misconception Dashboard (coming soon) shows you which errors are showing up across your class, ranked and ready to inform your next lesson.", accent: "var(--ec-orange)", soft: "var(--ec-orange-bg)" },
               { audience: "Parents", headline: "show up differently at home.", body: "Same student data. Plain language. One thing you can do tonight. The Translation Layer (coming soon) turns classroom performance into something you can actually act on.", accent: "var(--ec-green)", soft: "var(--ec-green-bg)" },
             ].map(({ audience, headline, body, accent, soft }) => (
-              <div key={audience} style={{ background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "20px", padding: "24px 28px", boxShadow: "var(--ec-shadow)", display: "flex", gap: "20px", alignItems: "flex-start" }}>
+              <div key={audience} className="um-glass-card" style={{ borderRadius: "20px", padding: "24px 28px", display: "flex", gap: "20px", alignItems: "flex-start" }}>
                 <div style={{ width: "40px", height: "40px", minWidth: "40px", borderRadius: "50%", background: soft, border: `1.5px solid ${accent}`, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <span style={{ fontSize: "11px", fontWeight: 800, color: accent }}>{audience[0]}</span>
                 </div>
@@ -178,34 +179,11 @@ export default function Home() {
         </section>
 
         {/* DEMO */}
-        <section id="demo" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
-          <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "12px", textAlign: "center" }}>try it now</p>
-          <h2 style={{ fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "12px", textAlign: "center" }}>see it in action.</h2>
-          <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.65, textAlign: "center", marginBottom: "28px" }}>No account. No signup. Just 20 questions that adapt to your level in real time.</p>
-          <div style={{ background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "20px", overflow: "hidden", boxShadow: "var(--ec-shadow)" }}>
-            <div style={{ padding: "16px 20px", borderBottom: "1px solid var(--ec-line)", display: "flex", alignItems: "center", gap: "10px" }}>
-              <div style={{ display: "flex", gap: "6px" }}>
-                {["var(--ec-red)", "var(--ec-orange)", "var(--ec-green)"].map((c, i) => (
-                  <div key={i} style={{ width: "10px", height: "10px", borderRadius: "50%", background: c, opacity: 0.6 }} />
-                ))}
-              </div>
-              <span style={{ fontSize: "12px", color: "var(--ec-ink-faint)", fontFamily: "monospace" }}>app.unpackmath.com/adaptive-test</span>
-            </div>
-            <div style={{ padding: "32px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-              <p style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--ec-accent)" }}>TSIA2 Adaptive Practice</p>
-              <p style={{ fontSize: "22px", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.02em", lineHeight: 1.2 }}>Let&rsquo;s find exactly where you are.</p>
-              <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.6 }}>500+ items · 20 questions · adapts as you go · scored on 910–990 scale</p>
-              <a href="https://app.unpackmath.com/adaptive-test" style={{ padding: "14px 36px", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", borderRadius: "14px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: "var(--ec-shadow-btn)" }}>
-                Begin Test →
-              </a>
-              <p style={{ fontSize: "11px", color: "var(--ec-ink-faint)" }}>no account needed · results shown at the end</p>
-            </div>
-          </div>
-        </section>
+        <DemoSection />
 
         {/* MORE TO COME */}
         <section style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
-          <div style={{ background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "20px", padding: "36px 32px", boxShadow: "var(--ec-shadow)" }}>
+          <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "12px", textAlign: "center" }}>what's being built</p>
             <h2 style={{ fontSize: "clamp(24px, 3vw, 32px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "24px", textAlign: "center" }}>this is just the beginning.</h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "28px" }}>
@@ -232,7 +210,7 @@ export default function Home() {
 
         {/* WAITLIST */}
         <section id="waitlist" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
-          <div style={{ background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "20px", padding: "36px 32px", boxShadow: "var(--ec-shadow)" }}>
+          <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "12px", textAlign: "center" }}>early access</p>
             <h2 style={{ fontSize: "clamp(24px, 3vw, 32px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "8px", textAlign: "center" }}>get your spot.</h2>
             <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.65, textAlign: "center", marginBottom: "28px" }}>Sign up to receive early access and updates straight to your inbox.</p>

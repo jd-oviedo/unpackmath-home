@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
+import { Kodchasan } from "next/font/google";
 import "./globals.css";
+
+const kodchasan = Kodchasan({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-kodchasan",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "UnpackMath – TSIA2 Math Prep",
@@ -8,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={kodchasan.variable}>
       <body>{children}</body>
     </html>
   );

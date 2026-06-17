@@ -19,3 +19,48 @@ body {
   0%, 100% { opacity: 0.3; transform: scale(0.8); }
   50% { opacity: 1; transform: scale(1); }
 }
+/*
+  UnpackMath Glass Card Utilities
+  Add these rules to app/globals.css (or paste at the bottom).
+
+  These replace the solid white card backgrounds with a frosted-glass
+  treatment so the sand background bleeds through gently as you scroll.
+
+  Usage: add className="um-glass-card" to any surface div that currently
+  has a white or solid background.
+*/
+
+.um-glass-card {
+  background: rgba(255, 255, 255, 0.60) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.70) !important;
+  box-shadow: 0 2px 16px rgba(26, 31, 46, 0.06), 0 1px 3px rgba(26, 31, 46, 0.04);
+}
+
+/*
+  Slightly more opaque variant for cards that need higher contrast
+  (e.g. FAQ accordion items, waitlist form card).
+*/
+.um-glass-card--strong {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.80) !important;
+  box-shadow: 0 4px 24px rgba(26, 31, 46, 0.08), 0 1px 4px rgba(26, 31, 46, 0.05);
+}
+
+/*
+  If you prefer to target by existing class names rather than adding new ones,
+  you can use the selectors below instead. Edit to match your actual classnames.
+
+  Example:
+    .who-card,
+    .roadmap-card,
+    .faq-item {
+      background: rgba(255, 255, 255, 0.60) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.70) !important;
+    }
+*/

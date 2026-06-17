@@ -1,4 +1,6 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "../theme/useTheme";
@@ -12,86 +14,218 @@ function ThemeToggle() {
       aria-label="Switch light or dark mode"
       style={{
         display: "flex", alignItems: "center", justifyContent: "center",
-        width: "40px", height: "40px", borderRadius: "50%",
+        width: "34px", height: "34px", borderRadius: "50%",
         border: "1px solid var(--ec-line)",
         background: "rgba(255,255,255,0.18)",
         backdropFilter: "blur(8px)",
         WebkitBackdropFilter: "blur(8px)",
         cursor: "pointer",
-        color: "var(--ec-ink-muted)",
-        transition: "background 0.3s",
+        flexShrink: 0,
+        fontSize: "16px",
+        transition: "background 0.15s ease",
       }}
     >
-      {isDark ? (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-        </svg>
-      ) : (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-          <circle cx="12" cy="12" r="4" />
-          <line x1="12" y1="2" x2="12" y2="4.5" /><line x1="12" y1="19.5" x2="12" y2="22" />
-          <line x1="2" y1="12" x2="4.5" y2="12" /><line x1="19.5" y1="12" x2="22" y2="12" />
-          <line x1="4.9" y1="4.9" x2="6.6" y2="6.6" /><line x1="17.4" y1="17.4" x2="19.1" y2="19.1" />
-          <line x1="4.9" y1="19.1" x2="6.6" y2="17.4" /><line x1="17.4" y1="6.6" x2="19.1" y2="4.9" />
-        </svg>
-      )}
+      {isDark ? "☀️" : "🌙"}
     </button>
   );
 }
 
 export function Header() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 16);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
   return (
-    <header style={{
-      position: "relative", zIndex: 10, padding: "14px 24px",
-      maxWidth: "900px", margin: "0 auto",
-      display: "flex", alignItems: "center", justifyContent: "space-between",
-    }}>
-      <Link href="/" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}>
-        <Image src="/unpackmath-logo.png" alt="UnpackMath logo" width={32} height={32} style={{ objectFit: "contain" }} />
-        <span style={{ fontSize: "18px", fontWeight: 700, color: "var(--ec-ink)", letterSpacing: "-0.01em" }}>
-          UnpackMath
-        </span>
-      </Link>
-      <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-        <nav style={{ display: "flex", gap: "24px" }}>
-          {[["Why", "#why"], ["How it Works", "#demo"], ["FAQ", "#faq"]].map(([label, href]) => (
-            <a key={label} href={href} style={{ fontSize: "14px", fontWeight: 500, color: "var(--ec-ink-muted)", textDecoration: "none" }}>{label}</a>
-          ))}
-        </nav>
-        
-          <a href="https://app.unpackmath.com"
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        display: "flex",
+        justifyContent: "center",
+        padding: "12px 16px",
+        pointerEvents: "none",
+      }}
+    >
+      <nav
+        style={{
+          pointerEvents: "all",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "16px",
+          padding: "8px 12px 8px 8px",
+          borderRadius: "999px",
+          maxWidth: "860px",
+          width: "100%",
+          background: scrolled
+            ? "rgba(240, 237, 232, 0.82)"
+            : "rgba(240, 237, 232, 0.65)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(26, 31, 46, 0.10)",
+          boxShadow: scrolled
+            ? "0 8px 32px rgba(26, 31, 46, 0.14), 0 2px 8px rgba(26, 31, 46, 0.08)"
+            : "0 4px 20px rgba(26, 31, 46, 0.10), 0 1px 4px rgba(26, 31, 46, 0.06)",
+          transition: "box-shadow 0.25s ease, background 0.25s ease",
+        }}
+      >
+        {/* Logo + wordmark */}
+        <Link
+          href="/"
           style={{
-            padding: "8px 18px", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)",
-            borderRadius: "10px", fontSize: "13px", fontWeight: 700,
-            textDecoration: "none", boxShadow: "var(--ec-shadow-btn)",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            textDecoration: "none",
+            flexShrink: 0,
           }}
         >
-          Open App
-        </a>
-        <ThemeToggle />
-      </div>
-    </header>
+          {/* App icon box — sand/glass background */}
+          <div
+            style={{
+              width: "36px",
+              height: "36px",
+              borderRadius: "10px",
+              background: "rgba(240, 237, 232, 0.75)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              border: "1px solid rgba(26, 31, 46, 0.12)",
+              boxShadow: "0 2px 8px rgba(26, 31, 46, 0.10)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src="/unpackmath-logo.png"
+              alt="UnpackMath logo"
+              width={24}
+              height={24}
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+
+          <span
+            style={{
+              fontFamily: "var(--font-kodchasan, 'Kodchasan', sans-serif)",
+              fontWeight: 600,
+              fontSize: "15px",
+              color: "var(--ec-ink)",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            unpackmath
+          </span>
+        </Link>
+
+        {/* Nav links */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "2px",
+            flex: 1,
+            justifyContent: "center",
+          }}
+          className="um-nav-links"
+        >
+          {[
+            { label: "why", href: "#why" },
+            { label: "how it works", href: "#demo" },
+            { label: "faq", href: "#faq" },
+          ].map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              style={{
+                fontFamily: "var(--font-kodchasan, 'Kodchasan', sans-serif)",
+                fontSize: "13px",
+                fontWeight: 500,
+                color: "var(--ec-ink)",
+                opacity: 0.65,
+                textDecoration: "none",
+                padding: "6px 14px",
+                borderRadius: "999px",
+                transition: "opacity 0.15s ease, background 0.15s ease",
+                whiteSpace: "nowrap",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
+                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(26, 31, 46, 0.06)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.opacity = "0.65";
+                (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+              }}
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
+        {/* Right side: CTA + theme toggle */}
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+          <a
+            href="https://app.unpackmath.com/adaptive-test"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "var(--font-kodchasan, 'Kodchasan', sans-serif)",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "var(--ec-btn-text)",
+              background: "var(--ec-btn-bg)",
+              padding: "7px 18px",
+              borderRadius: "999px",
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+              transition: "opacity 0.15s ease",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.85"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
+          >
+            Open App
+          </a>
+          <ThemeToggle />
+        </div>
+      </nav>
+
+      <style>{`
+        @media (max-width: 580px) {
+          .um-nav-links { display: none !important; }
+        }
+      `}</style>
+    </div>
   );
 }
 
 export function Footer() {
   return (
-    <footer style={{
-      position: "relative", zIndex: 1, padding: "32px 24px",
-      borderTop: "1px solid var(--ec-line)", marginTop: "40px",
-    }}>
-      <div style={{ maxWidth: "900px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Image src="/unpackmath-logo.png" alt="UnpackMath" width={20} height={20} style={{ objectFit: "contain" }} />
-          <span style={{ fontSize: "13px", fontWeight: 700, color: "var(--ec-ink-muted)" }}>UnpackMath</span>
-        </div>
-        <div style={{ display: "flex", gap: "20px" }}>
-          {[["Privacy Policy", "/privacy-policy"], ["Terms of Use", "/terms-of-use"]].map(([label, href]) => (
-            <a key={label} href={href} style={{ fontSize: "12px", color: "var(--ec-ink-faint)", textDecoration: "none" }}>{label}</a>
-          ))}
-        </div>
-        <span style={{ fontSize: "12px", color: "var(--ec-ink-faint)" }}>© 2026 UnpackMath / JDOM LLC</span>
-      </div>
+    <footer
+      style={{
+        padding: "40px 24px",
+        textAlign: "center",
+        fontFamily: "var(--font-kodchasan, 'Kodchasan', sans-serif)",
+        fontSize: "13px",
+        color: "var(--ec-ink)",
+        opacity: 0.45,
+      }}
+    >
+      <p style={{ margin: 0 }}>
+        &copy; {new Date().getFullYear()} JDOM LLC &middot;{" "}
+        <a href="/privacy" style={{ color: "inherit", textDecoration: "underline" }}>privacy</a>
+        {" "}&middot;{" "}
+        <a href="/terms" style={{ color: "inherit", textDecoration: "underline" }}>terms</a>
+      </p>
     </footer>
   );
 }
