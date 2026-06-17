@@ -65,8 +65,8 @@ export function Header() {
           maxWidth: "860px",
           width: "100%",
           background: scrolled
-            ? "rgba(240, 237, 232, 0.82)"
-            : "rgba(240, 237, 232, 0.65)",
+            ? "var(--ec-header-bg)"
+            : "var(--ec-header-bg)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
           border: "1px solid rgba(26, 31, 46, 0.10)",
@@ -93,7 +93,7 @@ export function Header() {
               width: "36px",
               height: "36px",
               borderRadius: "10px",
-              background: "rgba(240, 237, 232, 0.75)",
+              background: "var(--ec-glass-bg)",
               backdropFilter: "blur(8px)",
               WebkitBackdropFilter: "blur(8px)",
               border: "1px solid rgba(26, 31, 46, 0.12)",
