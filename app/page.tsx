@@ -153,33 +153,57 @@ export default function Home() {
         </section>
 
         <DemoSection />
-        {/* MORE TO COME */}
+        {/* TEACHER DASHBOARD TEASER */}
         <section style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
           <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
-            <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "12px", textAlign: "center" }}>what's being built</p>
-            <h2 style={{ fontSize: "clamp(24px, 3vw, 32px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "24px", textAlign: "center" }}>this is just the beginning.</h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "28px" }}>
-              {[
-                { label: "Student Accounts", desc: "Save your progress, track improvement over time, and pick up where you left off.", status: "building" },
-                { label: "Teacher Dashboard", desc: "See every student's misconception patterns, ranked and ready to inform your next lesson.", status: "next" },
-                { label: "Parent View", desc: "Plain-language summaries that tell parents exactly what their student needs and one thing they can do tonight.", status: "next" },
-                { label: "Full TSIA2 Curriculum", desc: "Guided lessons, worked examples, and targeted practice for every strand and topic.", status: "planned" },
-              ].map(({ label, desc, status }) => (
-                <div key={label} style={{ display: "flex", gap: "14px", alignItems: "flex-start", background: "var(--ec-surface2)", borderRadius: "14px", padding: "14px 16px" }}>
-                  <div style={{ flexShrink: 0, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "3px 8px", borderRadius: "999px", marginTop: "2px", background: status === "building" ? "var(--ec-accent-soft)" : status === "next" ? "var(--ec-orange-bg)" : "var(--ec-line)", color: status === "building" ? "var(--ec-accent)" : status === "next" ? "var(--ec-orange)" : "var(--ec-ink-muted)", border: `1px solid ${status === "building" ? "var(--ec-accent)" : status === "next" ? "var(--ec-orange-border)" : "var(--ec-line)"}` }}>
-                    {status === "building" ? "in progress" : status === "next" ? "up next" : "planned"}
-                  </div>
-                  <div>
-                    <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--ec-ink)", marginBottom: "2px" }}>{label}</p>
-                    <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.6, margin: 0 }}>{desc}</p>
-                  </div>
-                </div>
-              ))}
+
+            {/* Eyebrow */}
+            <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "12px", textAlign: "center" }}>coming next for teachers</p>
+
+            {/* Headline */}
+            <h2 style={{ fontSize: "clamp(22px, 3vw, 30px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px", textAlign: "center" }}>
+              See what your students are misunderstanding — before the next lesson.
+            </h2>
+
+            {/* Body */}
+            <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, textAlign: "center", marginBottom: "28px", maxWidth: "520px", margin: "0 auto 28px" }}>
+              A new teacher dashboard is on the way to help you spot class-wide misconceptions, group students by need, and plan your next instructional move faster.
+            </p>
+
+            {/* Feature pill */}
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", background: "var(--ec-surface2)", borderRadius: "14px", padding: "16px 20px", marginBottom: "28px" }}>
+              <div style={{ flexShrink: 0, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "3px 10px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)", whiteSpace: "nowrap" }}>
+                up next
+              </div>
+              <div>
+                <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--ec-ink)", margin: "0 0 2px" }}>Teacher Misconception Dashboard</p>
+                <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.5, margin: 0 }}>Built to turn student reasoning into grouped insights and clear next steps.</p>
+              </div>
             </div>
-            <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, textAlign: "center" }}>Join the waitlist to get early access as each feature ships.</p>
+
+            {/* Bullets */}
+            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: "10px" }}>
+              {[
+                "See the most common misconceptions in your class",
+                "Identify which students are stuck on the same concept",
+                "Get small-group-ready next steps and follow-up prompts",
+              ].map((item) => (
+                <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.6 }}>
+                  <span style={{ color: "var(--ec-orange)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>—</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            {/* CTA */}
+            <div style={{ textAlign: "center" }}>
+              <a href="#waitlist" style={{ display: "inline-block", padding: "13px 32px", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", borderRadius: "12px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: "var(--ec-shadow-btn)" }}>
+                Join the teacher waitlist
+              </a>
+            </div>
+
           </div>
         </section>
-
         {/* WAITLIST */}
         <section id="waitlist" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
           <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
