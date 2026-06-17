@@ -6,7 +6,7 @@ export function DemoSection() {
       id="demo"
       style={{
         background: "transparent",
-        padding: "96px 24px 80px",
+        padding: "48px 24px 80px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
