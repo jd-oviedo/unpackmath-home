@@ -83,7 +83,7 @@ function Notice({ label, children }: { label?: string; children: React.ReactNode
   );
 }
 
-const CONTACT_EMAIL = "juan@unpackmath.com";
+const CONTACT_EMAIL = "contact@unpackmath.com";
 const PRIVACY_URL = "unpackmath.com/privacy-policy";
 
 export default function TermsOfUsePage() {
@@ -399,7 +399,7 @@ export default function TermsOfUsePage() {
           <Card>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {[
-                ["Platform", "UnpackMath / JDOM LLC"],
+                ["Platform", "UnpackMath"],
                 ["Email", CONTACT_EMAIL],
                 ["Website", "www.unpackmath.com"],
               ].map(([label, value]) => (
