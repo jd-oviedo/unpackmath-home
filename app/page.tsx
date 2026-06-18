@@ -131,7 +131,7 @@ export default function Home() {
 
         <DemoSection />
         {/* TEACHER DASHBOARD TEASER */}
-        <section style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
+        <section id="teachers" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
           <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
 
             {/* Eyebrow */}

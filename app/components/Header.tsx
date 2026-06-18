@@ -140,7 +140,7 @@ export function Header() {
         >
           {[
             { label: "how it works", href: "#demo" },
-            { label: "for teachers", href: "#waitlist" },
+            { label: "for teachers", href: "#teachers" },
             { label: "faq", href: "#faq" },
           ].map((link) => (
             <a
