@@ -61,7 +61,7 @@ export function DemoSection() {
           2-minute interactive walkthrough · no account needed
         </p>
         
-          href="https://app.unpackmath.com/adaptive-test"
+          <a href="https://app.unpackmath.com/adaptive-test"
           target="_blank"
           rel="noopener noreferrer"
           style={{ fontSize: "14px", fontWeight: 600, color: "#fff", background: "#0F69BA", padding: "12px 28px", borderRadius: "999px", textDecoration: "none", display: "inline-block" }}
