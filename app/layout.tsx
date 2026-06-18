@@ -10,7 +10,11 @@ const kodchasan = Kodchasan({
 });
 
 export const metadata: Metadata = {
-  title: "UnpackMath – TSIA2 Math Prep",
+  icons: {
+    icon: "/unpackmath-logo.png",
+    apple: "/unpackmath-logo.png",
+  },
+  title: "UnpackMath",
   description: "Adaptive TSIA2 math prep that shows students exactly where their thinking breaks down — and gives teachers the data to do something about it.",
 };
 
