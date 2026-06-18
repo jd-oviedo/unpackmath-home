@@ -36,6 +36,9 @@ function RevolvingWord() {
 }
 
 export function HeroSection() {
+  const [hoverPrimary, setHoverPrimary] = useState(false);
+  const [hoverSecondary, setHoverSecondary] = useState(false);
+
   return (
     <section style={{ maxWidth: "720px", margin: "0 auto", padding: "140px 24px 40px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
 
@@ -57,10 +60,18 @@ export function HeroSection() {
       </p>
 
       <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", width: "100%", maxWidth: "460px", marginTop: "4px" }}>
-        <a href="https://app.unpackmath.com/adaptive-test" style={{ flex: 1, minWidth: "180px", padding: "15px 20px", background: "rgba(255,255,255,0.35)", color: "var(--ec-ink)", borderRadius: "14px", fontWeight: 700, fontSize: "15px", textDecoration: "none", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(203,113,25,0.3)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", boxShadow: "0 8px 28px rgba(203,113,25,0.22), 0 2px 8px rgba(203,113,25,0.12)" }}>
+        
+          href="https://app.unpackmath.com/adaptive-test"
+          onMouseEnter={() => setHoverPrimary(true)}
+          onMouseLeave={() => setHoverPrimary(false)}
+          style={{ flex: 1, minWidth: "180px", padding: "15px 20px", background: "rgba(255,255,255,0.35)", color: "var(--ec-ink)", borderRadius: "14px", fontWeight: 700, fontSize: "15px", textDecoration: "none", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(203,113,25,0.3)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", boxShadow: "0 8px 28px rgba(203,113,25,0.22), 0 2px 8px rgba(203,113,25,0.12)", transition: "transform 0.18s ease, box-shadow 0.18s ease", transform: hoverPrimary ? "scale(1.04)" : "scale(1)", boxShadow: hoverPrimary ? "0 12px 36px rgba(203,113,25,0.32), 0 4px 12px rgba(203,113,25,0.18)" : "0 8px 28px rgba(203,113,25,0.22), 0 2px 8px rgba(203,113,25,0.12)" }}>
           Try the Practice Test
         </a>
-        <a href="#waitlist" style={{ flex: 1, minWidth: "180px", padding: "15px 20px", background: "rgba(255,255,255,0.35)", color: "#0F69BA", borderRadius: "14px", fontWeight: 600, fontSize: "15px", textDecoration: "none", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(15,105,186,0.3)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", boxShadow: "0 8px 28px rgba(15,105,186,0.22), 0 2px 8px rgba(15,105,186,0.12)" }}>
+        
+          href="#waitlist"
+          onMouseEnter={() => setHoverSecondary(true)}
+          onMouseLeave={() => setHoverSecondary(false)}
+          style={{ flex: 1, minWidth: "180px", padding: "15px 20px", background: "rgba(255,255,255,0.35)", color: "var(--ec-ink)", borderRadius: "14px", fontWeight: 600, fontSize: "15px", textDecoration: "none", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(15,105,186,0.3)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", transition: "transform 0.18s ease, box-shadow 0.18s ease", transform: hoverSecondary ? "scale(1.04)" : "scale(1)", boxShadow: hoverSecondary ? "0 12px 36px rgba(15,105,186,0.32), 0 4px 12px rgba(15,105,186,0.18)" : "0 8px 28px rgba(15,105,186,0.22), 0 2px 8px rgba(15,105,186,0.12)" }}>
           See What’s Coming for Teachers
         </a>
       </div>
