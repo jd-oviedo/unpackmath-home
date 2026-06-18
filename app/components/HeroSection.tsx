@@ -26,42 +26,9 @@ function RevolvingWord() {
   }, []);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        display: "inline-block",
-        minWidth: "340px",
-        height: "1.15em",
-        fontSize: "clamp(42px, 7vw, 68px)",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "80%",
-          height: "3px",
-          background: "#0F69BA",
-          borderRadius: "99px",
-          opacity: 0.3,
-        }}
-      />
-      <span
-        style={{
-          color: "#0F69BA",
-          display: "block",
-          textAlign: "center",
-          transition: "opacity 0.35s ease, transform 0.35s ease",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(8px)",
-          fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)",
-          fontWeight: 800,
-          lineHeight: 1.15,
-          letterSpacing: "-0.035em",
-        }}
-      >
+    <div style={{ position: "relative", display: "inline-block", minWidth: "340px", height: "1.15em", fontSize: "clamp(42px, 7vw, 68px)" }}>
+      <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "80%", height: "3px", background: "#0F69BA", borderRadius: "99px", opacity: 0.3 }} />
+      <span style={{ color: "#0F69BA", display: "block", textAlign: "center", transition: "opacity 0.35s ease, transform 0.35s ease", opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(8px)", fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)", fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.035em" }}>
         {REVOLVING_WORDS[index]}
       </span>
     </div>
@@ -70,136 +37,30 @@ function RevolvingWord() {
 
 export function HeroSection() {
   return (
-    <section
-      style={{
-        maxWidth: "720px",
-        margin: "0 auto",
-        padding: "140px 24px 40px",
-        textAlign: "center",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: "20px",
-      }}
-    >
-      <div
-        className="um-glass-card"
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "8px",
-          borderRadius: "999px",
-          padding: "6px 16px",
-        }}
-      >
-        <div
-          style={{
-            width: "6px",
-            height: "6px",
-            borderRadius: "50%",
-            background: "var(--ec-green)",
-            animation: "ecpulse 1.6s ease-in-out infinite",
-          }}
-        />
-        <span
-          style={{
-            fontSize: "12px",
-            fontWeight: 600,
-            color: "var(--ec-ink-muted)",
-            letterSpacing: "0.05em",
-          }}
-        >
-          open beta for TSIA2 math prep
-        </span>
+    <section style={{ maxWidth: "720px", margin: "0 auto", padding: "140px 24px 40px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
+
+      <div className="um-glass-card" style={{ display: "inline-flex", alignItems: "center", gap: "8px", borderRadius: "999px", padding: "6px 16px" }}>
+        <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--ec-green)", animation: "ecpulse 1.6s ease-in-out infinite" }} />
+        <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--ec-ink-muted)", letterSpacing: "0.05em" }}>open beta for TSIA2 math prep</span>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
-        <h1
-          style={{
-            fontSize: "clamp(42px, 7vw, 68px)",
-            fontWeight: 800,
-            letterSpacing: "-0.035em",
-            lineHeight: 1.05,
-            margin: 0,
-            fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)",
-            whiteSpace: "nowrap",
-          }}
-        >
+        <h1 style={{ fontSize: "clamp(42px, 7vw, 68px)", fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05, margin: 0, fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)", whiteSpace: "nowrap" }}>
           <span style={{ color: "var(--ec-ink)" }}>Let’s </span>
           <span style={{ color: "#f2a541" }}>Unpack</span>
         </h1>
         <RevolvingWord />
       </div>
 
-      <p
-        style={{
-          fontSize: "17px",
-          color: "var(--ec-ink-muted)",
-          lineHeight: 1.65,
-          maxWidth: "460px",
-          margin: 0,
-        }}
-      >
+      <p style={{ fontSize: "17px", color: "var(--ec-ink-muted)", lineHeight: 1.65, maxWidth: "460px", margin: 0 }}>
         Adaptive math prep that helps students improve — and gives teachers something more useful than a score.
       </p>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "12px",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          width: "100%",
-          maxWidth: "460px",
-          marginTop: "4px",
-        }}
-      >
-        
-          href="https://app.unpackmath.com/adaptive-test"
-          style={{
-            flex: 1,
-            minWidth: "180px",
-            padding: "15px 20px",
-            background: "rgba(255, 255, 255, 0.35)",
-            color: "var(--ec-ink)",
-            borderRadius: "14px",
-            fontWeight: 700,
-            fontSize: "15px",
-            textDecoration: "none",
-            textAlign: "center",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "1px solid rgba(203, 113, 25, 0.3)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            boxShadow: "0 8px 28px rgba(203,113,25,0.22), 0 2px 8px rgba(203,113,25,0.12)",
-          }}
-        >
+      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", width: "100%", maxWidth: "460px", marginTop: "4px" }}>
+        <a href="https://app.unpackmath.com/adaptive-test" style={{ flex: 1, minWidth: "180px", padding: "15px 20px", background: "rgba(255,255,255,0.35)", color: "var(--ec-ink)", borderRadius: "14px", fontWeight: 700, fontSize: "15px", textDecoration: "none", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(203,113,25,0.3)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", boxShadow: "0 8px 28px rgba(203,113,25,0.22), 0 2px 8px rgba(203,113,25,0.12)" }}>
           Try the Practice Test
         </a>
-        
-          href="#waitlist"
-          style={{
-            flex: 1,
-            minWidth: "180px",
-            padding: "15px 20px",
-            background: "rgba(255, 255, 255, 0.35)",
-            color: "#0F69BA",
-            borderRadius: "14px",
-            fontWeight: 600,
-            fontSize: "15px",
-            textDecoration: "none",
-            textAlign: "center",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "1px solid rgba(15, 105, 186, 0.3)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            boxShadow: "0 8px 28px rgba(15,105,186,0.22), 0 2px 8px rgba(15,105,186,0.12)",
-          }}
-        >
+        <a href="#waitlist" style={{ flex: 1, minWidth: "180px", padding: "15px 20px", background: "rgba(255,255,255,0.35)", color: "#0F69BA", borderRadius: "14px", fontWeight: 600, fontSize: "15px", textDecoration: "none", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(15,105,186,0.3)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", boxShadow: "0 8px 28px rgba(15,105,186,0.22), 0 2px 8px rgba(15,105,186,0.12)" }}>
           See What’s Coming for Teachers
         </a>
       </div>
