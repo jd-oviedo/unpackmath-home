@@ -98,7 +98,7 @@ export default function TermsOfUsePage() {
           Terms of Use.
         </h1>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-          {["Effective: May 25, 2025", "Last Updated: June 2026", "A product of JDOM LLC"].map((tag) => (
+          {["Effective: May 25, 2025", "Last Updated: June 2026", "UnpackMath · Texas"].map((tag) => (
             <span key={tag} style={{ fontSize: "12px", color: "var(--ec-ink-muted)", background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "999px", padding: "4px 14px", boxShadow: "var(--ec-shadow)" }}>
               {tag}
             </span>
@@ -110,7 +110,7 @@ export default function TermsOfUsePage() {
       <div style={{ maxWidth: "680px", margin: "0 auto 48px" }}>
         <Card>
           <Body>
-            Please read these Terms of Use ("Terms") carefully before accessing or using unpackmath.com (the "Platform"). These Terms constitute a legally binding agreement between you and JDOM LLC ("UnpackMath," "we," "our," or "us"). By accessing or using the Platform, you agree to be bound by these Terms. If you do not agree, do not use the Platform.
+            Please read these Terms of Use ("Terms") carefully before accessing or using unpackmath.com (the "Platform"). These Terms constitute a legally binding agreement between you and UnpackMath, operated by JDOM LLC ("we," "our," or "us"). By accessing or using the Platform, you agree to be bound by these Terms. If you do not agree, do not use the Platform.
           </Body>
           <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.75, margin: 0 }}>
             These Terms apply to all users of the Platform, including individual students, parents or guardians, and institutional users such as schools, districts, and administrators.
