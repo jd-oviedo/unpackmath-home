@@ -11,7 +11,7 @@ const kodchasan = Kodchasan({
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/unpackmath-logo.png",
+    icon: "/favicon.png",
     apple: "/unpackmath-logo.png",
   },
   title: "UnpackMath",
