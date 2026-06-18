@@ -11,8 +11,7 @@ const kodchasan = Kodchasan({
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/favicon.png",
-    apple: "/unpackmath-logo.png",
+    icon: "/favicon.ico",
   },
   title: "UnpackMath",
   description: "Adaptive TSIA2 math prep that shows students exactly where their thinking breaks down — and gives teachers the data to do something about it.",
@@ -21,10 +20,6 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={kodchasan.variable}>
-      <head>
-        <link rel="icon" href="/unpackmath-logo.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/unpackmath-logo.png" />
-      </head>
       <body>{children}</body>
     </html>
   );
