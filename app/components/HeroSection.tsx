@@ -61,7 +61,7 @@ export function HeroSection() {
 
       <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", width: "100%", maxWidth: "460px", marginTop: "4px" }}>
         
-          href="https://app.unpackmath.com/adaptive-test"
+          <a href="https://app.unpackmath.com/adaptive-test"
           onMouseEnter={() => setHoverPrimary(true)}
           onMouseLeave={() => setHoverPrimary(false)}
           style={{
