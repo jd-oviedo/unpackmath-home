@@ -211,16 +211,7 @@ export function HeroSection() {
       {/* Trust line — quieter */}
       <p style={{ fontSize: "11px", color: "var(--ec-ink-faint)", margin: 0, letterSpacing: "0.03em" }}>
         no account needed · free to use
-      </p>
-
-      {/* Proof sentence replacing stats */}
-      <p
-        style={{
-          fontSize: "13px",
-          color: "var(--ec-ink-muted)",
-          margin: 0,
-          fontStyle: "italic",
-          letterSpacing: "0.01em",
+      >Built to reveal misconceptions, not just scores.</p>
     </section>
   );
 }
