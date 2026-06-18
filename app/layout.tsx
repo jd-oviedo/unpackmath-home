@@ -11,7 +11,7 @@ const kodchasan = Kodchasan({
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.ico?v=2",
   },
   title: "UnpackMath",
   description: "Adaptive TSIA2 math prep that shows students exactly where their thinking breaks down — and gives teachers the data to do something about it.",
