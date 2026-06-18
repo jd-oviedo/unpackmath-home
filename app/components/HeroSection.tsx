@@ -88,8 +88,7 @@ export function HeroSection() {
         >
           Try the Practice Test
         </a>
-        
-          href="#waitlist"
+          <a href="#waitlist"
           onMouseEnter={() => setHoverSecondary(true)}
           onMouseLeave={() => setHoverSecondary(false)}
           style={{
