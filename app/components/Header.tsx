@@ -139,8 +139,8 @@ export function Header() {
           className="um-nav-links"
         >
           {[
-            { label: "why", href: "#why" },
             { label: "how it works", href: "#demo" },
+            { label: "for teachers", href: "#waitlist" },
             { label: "faq", href: "#faq" },
           ].map((link) => (
             <a
