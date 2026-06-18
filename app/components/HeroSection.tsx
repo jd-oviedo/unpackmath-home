@@ -49,14 +49,14 @@ export function HeroSection() {
 
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
         <h1 style={{ fontSize: "clamp(42px, 7vw, 68px)", fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05, margin: 0, fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)", whiteSpace: "nowrap" }}>
-          <span style={{ color: "var(--ec-ink)" }}>Let’s </span>
+          <span style={{ color: "var(--ec-ink)" }}>Let&apos;s </span>
           <span style={{ color: "#f2a541" }}>Unpack</span>
         </h1>
         <RevolvingWord />
       </div>
 
       <p style={{ fontSize: "17px", color: "var(--ec-ink-muted)", lineHeight: 1.65, maxWidth: "460px", margin: 0 }}>
-        Adaptive math prep that helps students improve — and gives teachers something more useful than a score.
+        Adaptive math prep that helps students improve &mdash; and gives teachers something more useful than a score.
       </p>
 
       <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", width: "100%", maxWidth: "460px", marginTop: "4px" }}>
@@ -114,7 +114,7 @@ export function HeroSection() {
             transition: "transform 0.18s ease, box-shadow 0.18s ease",
           }}
         >
-          See What’s Coming for Teachers
+          See What&apos;s Coming for Teachers
         </a>
       </div>
 
