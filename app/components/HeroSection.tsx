@@ -31,6 +31,7 @@ function RevolvingWord() {
         position: "relative",
         display: "inline-block",
         minWidth: "340px",
+        fontSize: "clamp(42px, 7vw, 68px)",
         height: "1.2em",
       }}
     >
@@ -167,17 +168,17 @@ export function HeroSection() {
             minWidth: "180px",
             display: "block",
             padding: "15px 20px",
-            background: "rgba(26, 31, 46, 0.88)",
-            color: "#f0ede8",
+            background: "rgba(255, 255, 255, 0.35)",
+            color: "var(--ec-ink)",
             borderRadius: "14px",
             fontWeight: 700,
             fontSize: "15px",
             textDecoration: "none",
             textAlign: "center",
-            border: "1px solid rgba(26, 31, 46, 0.15)",
-            backdropFilter: "blur(8px)",
-            WebkitBackdropFilter: "blur(8px)",
-            boxShadow: "0 4px 18px rgba(26,31,46,0.18)",
+            border: "1px solid rgba(203, 113, 25, 0.3)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            boxShadow: "0 8px 28px rgba(203,113,25,0.22), 0 2px 8px rgba(203,113,25,0.12)",
           }}
         >
           Try the Practice Test
@@ -190,17 +191,17 @@ export function HeroSection() {
             minWidth: "180px",
             display: "block",
             padding: "15px 20px",
-            background: "rgba(15, 105, 186, 0.08)",
+            background: "rgba(255, 255, 255, 0.35)",
             color: "#0F69BA",
             borderRadius: "14px",
             fontWeight: 600,
             fontSize: "15px",
             textDecoration: "none",
             textAlign: "center",
-            border: "1px solid rgba(15, 105, 186, 0.25)",
+            border: "1px solid rgba(15, 105, 186, 0.3)",
             backdropFilter: "blur(8px)",
             WebkitBackdropFilter: "blur(8px)",
-            boxShadow: "0 4px 18px rgba(15,105,186,0.08)",
+            boxShadow: "0 8px 28px rgba(15,105,186,0.22), 0 2px 8px rgba(15,105,186,0.12)",
           }}
         >
           See What's Coming for Teachers
@@ -220,11 +221,6 @@ export function HeroSection() {
           margin: 0,
           fontStyle: "italic",
           letterSpacing: "0.01em",
-        }}
-      >
-        Built to reveal misconceptions, not just scores.
-      </p>
-
     </section>
   );
 }
