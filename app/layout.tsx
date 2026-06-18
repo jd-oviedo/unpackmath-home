@@ -21,6 +21,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={kodchasan.variable}>
+      <head>
+        <link rel="icon" href="/unpackmath-logo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/unpackmath-logo.png" />
+      </head>
       <body>{children}</body>
     </html>
   );
