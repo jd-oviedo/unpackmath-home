@@ -16,10 +16,10 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--ec-bg)", position: "relative" }}>
       <Blobs />
-      <div style={{ position: "relative", zIndex: 1 }}>
+      <div style={{ position: "relative" }}>
         <Header />
       </div>
-      <main style={{ flex: 1, maxWidth: "800px", margin: "0 auto", width: "100%", padding: "24px 24px 80px", position: "relative", zIndex: 1 }}>
+      <main style={{ flex: 1, maxWidth: "800px", margin: "0 auto", width: "100%", padding: "24px 24px 80px" }}>
         {children}
       </main>
       <Footer />
@@ -35,7 +35,7 @@ const sections = [
     content: (
       <>
         <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.75, marginBottom: "16px" }}>
-          UnpackMath is an adaptive math learning platform designed to help students prepare for college placement assessments. The Platform is operated by JDOM LLC, a Texas-based limited liability company. We serve two primary audiences:
+          UnpackMath is an adaptive math learning platform designed to help students prepare for college placement assessments. The Platform is operated by UnpackMath, a trade name of JDOM LLC, a Texas-based limited liability company. We serve two primary audiences:
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {[
@@ -340,7 +340,7 @@ const sections = [
     content: (
       <div style={{ background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "14px", padding: "24px", boxShadow: "var(--ec-shadow)", display: "flex", flexDirection: "column", gap: "12px" }}>
         {[
-          ["Platform", "UnpackMath / JDOM LLC"],
+          ["Platform", "UnpackMath"],
           ["Email", "privacy@unpackmath.com"],
           ["Website", "www.unpackmath.com"],
         ].map(([label, value]) => (
@@ -379,7 +379,7 @@ export default function PrivacyPolicyPage() {
           {[
             "Effective: May 26, 2025",
             "Last Updated: June 2026",
-            "A product of JDOM LLC",
+            "UnpackMath 00b7 Texas",
           ].map((tag) => (
             <span key={tag} style={{ fontSize: "12px", color: "var(--ec-ink-muted)", background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "999px", padding: "4px 14px", boxShadow: "var(--ec-shadow)" }}>
               {tag}
@@ -391,7 +391,7 @@ export default function PrivacyPolicyPage() {
       {/* Intro */}
       <div style={{ maxWidth: "680px", margin: "0 auto 48px", background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "20px", padding: "28px 30px", boxShadow: "var(--ec-shadow)" }}>
         <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.75, marginBottom: "16px" }}>
-          UnpackMath ("we," "our," or "us"), a product of JDOM LLC, is committed to protecting the privacy of every person who visits or uses unpackmath.com (the "Platform"). This Privacy Policy explains what information we collect, how we use it, who we share it with, and what rights you have.
+          UnpackMath ("we," "our," or "us") is committed to protecting the privacy of every person who visits or uses unpackmath.com (the "Platform"). This Privacy Policy explains what information we collect, how we use it, who we share it with, and what rights you have.
         </p>
         <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.75, margin: 0 }}>
           By accessing or using our Platform, you agree to the practices described in this policy. If you do not agree, please do not use our Platform.
