@@ -31,37 +31,35 @@ function RevolvingWord() {
         position: "relative",
         display: "inline-block",
         minWidth: "340px",
+        height: "1.15em",
         fontSize: "clamp(42px, 7vw, 68px)",
-        height: "1.2em",
       }}
     >
-      {/* Underline */}
       <div
         style={{
           position: "absolute",
           bottom: 0,
           left: "50%",
           transform: "translateX(-50%)",
-          width: "100%",
+          width: "80%",
           height: "3px",
           background: "#0F69BA",
           borderRadius: "99px",
-          opacity: 0.35,
+          opacity: 0.3,
         }}
       />
-      {/* Revolving text */}
       <span
         style={{
           color: "#0F69BA",
-          fontStyle: "normal",
           display: "block",
           textAlign: "center",
           transition: "opacity 0.35s ease, transform 0.35s ease",
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(8px)",
-          fontFamily: "var(--font-kodchasan, \'Kodchasan\', sans-serif)",
+          fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)",
           fontWeight: 800,
           lineHeight: 1.15,
+          letterSpacing: "-0.035em",
         }}
       >
         {REVOLVING_WORDS[index]}
@@ -84,7 +82,6 @@ export function HeroSection() {
         gap: "20px",
       }}
     >
-      {/* Eyebrow pill */}
       <div
         className="um-glass-card"
         style={{
@@ -116,7 +113,6 @@ export function HeroSection() {
         </span>
       </div>
 
-      {/* Two-line headline */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
         <h1
           style={{
@@ -125,17 +121,16 @@ export function HeroSection() {
             letterSpacing: "-0.035em",
             lineHeight: 1.05,
             margin: 0,
-            fontFamily: "var(--font-kodchasan, \'Kodchasan\', sans-serif)",
+            fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)",
             whiteSpace: "nowrap",
           }}
         >
-          <span style={{ color: "var(--ec-ink)" }}>{"Let\u2019s "}</span>
+          <span style={{ color: "var(--ec-ink)" }}>Let’s </span>
           <span style={{ color: "#f2a541" }}>Unpack</span>
         </h1>
         <RevolvingWord />
       </div>
 
-      {/* Subheadline */}
       <p
         style={{
           fontSize: "17px",
@@ -148,7 +143,6 @@ export function HeroSection() {
         Adaptive math prep that helps students improve — and gives teachers something more useful than a score.
       </p>
 
-      {/* CTAs */}
       <div
         style={{
           display: "flex",
@@ -161,12 +155,10 @@ export function HeroSection() {
         }}
       >
         
-        <a
           href="https://app.unpackmath.com/adaptive-test"
           style={{
             flex: 1,
             minWidth: "180px",
-            display: "block",
             padding: "15px 20px",
             background: "rgba(255, 255, 255, 0.35)",
             color: "var(--ec-ink)",
@@ -175,6 +167,9 @@ export function HeroSection() {
             fontSize: "15px",
             textDecoration: "none",
             textAlign: "center",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             border: "1px solid rgba(203, 113, 25, 0.3)",
             backdropFilter: "blur(12px)",
             WebkitBackdropFilter: "blur(12px)",
@@ -184,12 +179,10 @@ export function HeroSection() {
           Try the Practice Test
         </a>
         
-        <a
           href="#waitlist"
           style={{
             flex: 1,
             minWidth: "180px",
-            display: "block",
             padding: "15px 20px",
             background: "rgba(255, 255, 255, 0.35)",
             color: "#0F69BA",
@@ -198,20 +191,23 @@ export function HeroSection() {
             fontSize: "15px",
             textDecoration: "none",
             textAlign: "center",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             border: "1px solid rgba(15, 105, 186, 0.3)",
-            backdropFilter: "blur(8px)",
-            WebkitBackdropFilter: "blur(8px)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
             boxShadow: "0 8px 28px rgba(15,105,186,0.22), 0 2px 8px rgba(15,105,186,0.12)",
           }}
         >
-          See What's Coming for Teachers
+          See What’s Coming for Teachers
         </a>
       </div>
 
-      {/* Trust line — quieter */}
       <p style={{ fontSize: "11px", color: "var(--ec-ink-faint)", margin: 0, letterSpacing: "0.03em" }}>
         no account needed · free to use
-      >Built to reveal misconceptions, not just scores.</p>
+      </p>
+
     </section>
   );
 }
