@@ -56,7 +56,7 @@ export function HeroSection() {
       </div>
 
       <p style={{ fontSize: "17px", color: "var(--ec-ink-muted)", lineHeight: 1.65, maxWidth: "460px", margin: 0 }}>
-        Adaptive math prep that helps students improve &mdash; and gives teachers something more useful than a score.
+        Adaptive math prep that helps students improve, and gives teachers something more useful than a score.
       </p>
 
       <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", width: "100%", maxWidth: "460px", marginTop: "4px" }}>
