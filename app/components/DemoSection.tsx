@@ -269,8 +269,8 @@ export function DemoSection() {
                     style={{
                       borderRadius: "16px",
                       padding: "16px 18px",
-                      border: `1px solid ${isCorrectAns ? "var(--ec-green-border)" : "var(--ec-red-border)"}`,
-                      background: isCorrectAns ? "var(--ec-green-bg)" : "var(--ec-red-bg)",
+                      border: `1px solid ${isCorrectAns ? "var(--ec-green-border)" : "var(--ec-orange-border)"}`,
+                      background: isCorrectAns ? "var(--ec-green-bg)" : "var(--ec-orange-bg)",
                     }}
                   >
                     <div
@@ -279,7 +279,7 @@ export function DemoSection() {
                         fontWeight: 700,
                         letterSpacing: "0.13em",
                         textTransform: "uppercase",
-                        color: isCorrectAns ? "var(--ec-green)" : "var(--ec-red)",
+                        color: isCorrectAns ? "var(--ec-green)" : "var(--ec-orange)",
                         marginBottom: "8px",
                       }}
                     >
@@ -289,7 +289,11 @@ export function DemoSection() {
                       {isCorrectAns ? q.clean : q.broke}
                     </div>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", marginTop: "20px" }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", marginTop: "20px", flexWrap: "wrap" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "9px", fontSize: "13px", fontWeight: 600, color: "var(--ec-ink-muted)" }}>
+                      <span style={{ width: "9px", height: "9px", borderRadius: "50%", background: "var(--ec-accent)", animation: "ecpulse 1.4s ease-in-out infinite" }} />
+                      Adjusting to your level…
+                    </div>
                     <button
                       onClick={next}
                       style={{
