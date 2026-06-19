@@ -146,8 +146,8 @@ export function DemoSection() {
           ["3. Review", "See where thinking broke down"],
         ].map(([step, desc]) => (
           <div key={step} style={{ textAlign: "center" }}>
-            <p style={{ fontSize: "12px", fontWeight: 700, color: "var(--ec-accent)", marginBottom: "4px", letterSpacing: "0.05em" }}>{step}</p>
-            <p style={{ fontSize: "12px", color: "var(--ec-ink-muted)", margin: 0 }}>{desc}</p>
+            <p style={{ fontSize: "15px", fontWeight: 700, color: "var(--ec-accent)", marginBottom: "5px", letterSpacing: "0.04em" }}>{step}</p>
+            <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", margin: 0 }}>{desc}</p>
           </div>
         ))}
       </div>

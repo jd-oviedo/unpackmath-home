@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 
 const REVOLVING_WORDS = [
   "the TSIA2",
-  "student thinking",
-  "the math",
-  "misconceptions",
-  "what went wrong",
+  "Algebra",
+  "Geometry",
+  "Statistics",
+  "Probability",
 ];
 
 function RevolvingWord() {
@@ -26,9 +26,9 @@ function RevolvingWord() {
   }, []);
 
   return (
-    <div style={{ position: "relative", display: "inline-block", minWidth: "340px", height: "1.15em", fontSize: "clamp(42px, 7vw, 68px)" }}>
-      <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "80%", height: "3px", background: "#0F69BA", borderRadius: "99px", opacity: 0.3 }} />
-      <span style={{ color: "#0F69BA", display: "block", textAlign: "center", transition: "opacity 0.35s ease, transform 0.35s ease", opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(8px)", fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)", fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.035em" }}>
+    <div style={{ position: "relative", display: "block", width: "100%", height: "1.15em", fontSize: "clamp(34px, 5.4vw, 54px)" }}>
+      <div style={{ position: "absolute", bottom: 0, left: "50%", transform: "translateX(-50%)", width: "min(80%, 320px)", height: "3px", background: "#0F69BA", borderRadius: "99px", opacity: 0.3 }} />
+      <span style={{ color: "#0F69BA", display: "block", textAlign: "center", whiteSpace: "nowrap", transition: "opacity 0.35s ease, transform 0.35s ease", opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(8px)", fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)", fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.035em" }}>
         {REVOLVING_WORDS[index]}
       </span>
     </div>
@@ -116,8 +116,8 @@ export function HeroSection() {
                 flex: 1,
                 minWidth: "180px",
                 padding: "15px 20px",
-                background: "rgba(255,255,255,0.35)",
-                color: "var(--ec-ink)",
+                background: "var(--ec-orange)",
+                color: "#ffffff",
                 borderRadius: "14px",
                 fontWeight: 700,
                 fontSize: "15px",
@@ -126,24 +126,22 @@ export function HeroSection() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: "1px solid rgba(203,113,25,0.3)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                boxShadow: hoverPrimary ? "0 12px 36px rgba(203,113,25,0.32)" : "0 8px 28px rgba(203,113,25,0.22)",
+                border: "1px solid var(--ec-orange)",
+                boxShadow: "var(--ec-shadow)",
                 transform: hoverPrimary ? "scale(1.04)" : "scale(1)",
-                transition: "transform 0.18s ease, box-shadow 0.18s ease",
+                transition: "transform 0.18s ease",
               }}
             >
               Try the Practice Test
             </a>
-            <a href="#waitlist"
+            <a href="#teachers"
               onMouseEnter={() => setHoverSecondary(true)}
               onMouseLeave={() => setHoverSecondary(false)}
               style={{
                 flex: 1,
                 minWidth: "180px",
                 padding: "15px 20px",
-                background: "rgba(255,255,255,0.35)",
+                background: "var(--ec-surface2)",
                 color: "var(--ec-ink)",
                 borderRadius: "14px",
                 fontWeight: 600,
@@ -153,12 +151,10 @@ export function HeroSection() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                border: "1px solid rgba(15,105,186,0.3)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                boxShadow: hoverSecondary ? "0 12px 36px rgba(15,105,186,0.32)" : "0 8px 28px rgba(15,105,186,0.22)",
+                border: "1px solid var(--ec-line)",
+                boxShadow: "var(--ec-shadow)",
                 transform: hoverSecondary ? "scale(1.04)" : "scale(1)",
-                transition: "transform 0.18s ease, box-shadow 0.18s ease",
+                transition: "transform 0.18s ease",
               }}
             >
               See What's Coming for Teachers
