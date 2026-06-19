@@ -99,7 +99,7 @@ export function HeroSection() {
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
             <h1 style={{ fontSize: "clamp(42px, 7vw, 68px)", fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05, margin: 0, fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)", whiteSpace: "nowrap" }}>
               <span style={{ color: "var(--ec-ink)" }}>Let's </span>
-              <span style={{ color: "#f2a541" }}>Unpack</span>
+              <span style={{ color: "#CB7119" }}>Unpack</span>
             </h1>
             <RevolvingWord />
           </div>
@@ -142,7 +142,7 @@ export function HeroSection() {
                 minWidth: "180px",
                 padding: "15px 20px",
                 background: "var(--ec-surface2)",
-                color: "var(--ec-ink)",
+                color: "#CB7119",
                 borderRadius: "14px",
                 fontWeight: 600,
                 fontSize: "15px",
