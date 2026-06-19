@@ -8,6 +8,7 @@ const REVOLVING_WORDS = [
   "Geometry",
   "Statistics",
   "Probability",
+  "Math",
 ];
 
 function RevolvingWord() {
