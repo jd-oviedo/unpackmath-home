@@ -118,19 +118,19 @@ export function DemoSection() {
       id="demo"
       style={{
         background: "transparent",
-        padding: "48px 24px 80px",
+        padding: "64px 24px 96px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "32px",
+        gap: "56px",
       }}
     >
       {/* Section header */}
-      <div style={{ textAlign: "center", maxWidth: "560px" }}>
-        <p style={{ fontSize: "12px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ec-accent)", margin: "0 0 12px" }}>
+      <div style={{ textAlign: "center", maxWidth: "600px" }}>
+        <p style={{ fontSize: "12px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ec-accent)", margin: "0 0 14px" }}>
           product demo
         </p>
-        <h2 style={{ fontWeight: 700, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.15, color: "var(--ec-ink)", margin: "0 0 16px", letterSpacing: "-0.02em" }}>
+        <h2 style={{ fontWeight: 700, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.15, color: "var(--ec-ink)", margin: "0 0 18px", letterSpacing: "-0.02em" }}>
           See how UnpackMath works in real time.
         </h2>
         <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", margin: 0, lineHeight: 1.6 }}>
@@ -139,7 +139,7 @@ export function DemoSection() {
       </div>
 
       {/* Step indicators */}
-      <div style={{ display: "flex", gap: "32px", flexWrap: "wrap", justifyContent: "center" }}>
+      <div style={{ display: "flex", gap: "48px", flexWrap: "wrap", justifyContent: "center" }}>
         {[
           ["1. Practice", "Answer adaptive questions"],
           ["2. Adapt", "Difficulty adjusts in real time"],

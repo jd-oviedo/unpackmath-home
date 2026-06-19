@@ -132,23 +132,22 @@ export default function Home() {
         <DemoSection />
         {/* TEACHER DASHBOARD TEASER */}
         <section id="teachers" style={{ maxWidth: "980px", margin: "0 auto", padding: "0 24px 80px" }}>
+
+          {/* Section header — centered above the card */}
+          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 40px" }}>
+            <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "14px" }}>coming next for teachers</p>
+            <h2 style={{ fontSize: "clamp(26px, 3.4vw, 40px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
+              See what your students are misunderstanding — before the next lesson.
+            </h2>
+            <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: 0 }}>
+              A new teacher dashboard is on the way to help you spot class-wide misconceptions, group students by need, and plan your next instructional move faster.
+            </p>
+          </div>
+
           <div className="um-glass-card--strong um-teacher-grid" style={{ borderRadius: "20px", padding: "36px 32px", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "40px", alignItems: "center" }}>
 
             {/* Left: copy */}
             <div>
-              {/* Eyebrow */}
-              <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "12px" }}>coming next for teachers</p>
-
-              {/* Headline */}
-              <h2 style={{ fontSize: "clamp(22px, 3vw, 30px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
-                See what your students are misunderstanding — before the next lesson.
-              </h2>
-
-              {/* Body */}
-              <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, marginBottom: "28px" }}>
-                A new teacher dashboard is on the way to help you spot class-wide misconceptions, group students by need, and plan your next instructional move faster.
-              </p>
-
               {/* Feature pill */}
               <div style={{ display: "flex", alignItems: "center", gap: "12px", background: "var(--ec-surface2)", borderRadius: "14px", padding: "16px 20px", marginBottom: "28px" }}>
                 <div style={{ flexShrink: 0, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "3px 10px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)", whiteSpace: "nowrap" }}>
@@ -240,6 +239,14 @@ export default function Home() {
 
           </div>
         </section>
+
+        <style>{`
+          @media (max-width: 760px) {
+            .um-teacher-grid {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}</style>
 
         <style>{`
           @media (max-width: 760px) {
