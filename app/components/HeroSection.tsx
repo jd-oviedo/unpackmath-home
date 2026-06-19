@@ -116,7 +116,7 @@ export function HeroSection() {
                 flex: 1,
                 minWidth: "180px",
                 padding: "15px 20px",
-                background: "#F2A541",
+                background: "#0F69BA",
                 color: "#ffffff",
                 borderRadius: "14px",
                 fontWeight: 700,
