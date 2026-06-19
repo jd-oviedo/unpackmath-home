@@ -182,8 +182,8 @@ export function HeroSection() {
             gap: 56px !important;
           }
           .um-hero-text {
-            align-items: flex-start !important;
-            text-align: left !important;
+            align-items: center !important;
+            text-align: center !important;
           }
           .um-hero-text > div:first-child {
             margin: 0 !important;
