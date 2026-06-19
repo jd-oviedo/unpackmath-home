@@ -131,56 +131,123 @@ export default function Home() {
 
         <DemoSection />
         {/* TEACHER DASHBOARD TEASER */}
-        <section id="teachers" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
-          <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
+        <section id="teachers" style={{ maxWidth: "980px", margin: "0 auto", padding: "0 24px 80px" }}>
+          <div className="um-glass-card--strong um-teacher-grid" style={{ borderRadius: "20px", padding: "36px 32px", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "40px", alignItems: "center" }}>
 
-            {/* Eyebrow */}
-            <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "12px", textAlign: "center" }}>coming next for teachers</p>
+            {/* Left: copy */}
+            <div>
+              {/* Eyebrow */}
+              <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "12px" }}>coming next for teachers</p>
 
-            {/* Headline */}
-            <h2 style={{ fontSize: "clamp(22px, 3vw, 30px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px", textAlign: "center" }}>
-              See what your students are misunderstanding — before the next lesson.
-            </h2>
+              {/* Headline */}
+              <h2 style={{ fontSize: "clamp(22px, 3vw, 30px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
+                See what your students are misunderstanding — before the next lesson.
+              </h2>
 
-            {/* Body */}
-            <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, textAlign: "center", marginBottom: "28px", maxWidth: "520px", margin: "0 auto 28px" }}>
-              A new teacher dashboard is on the way to help you spot class-wide misconceptions, group students by need, and plan your next instructional move faster.
-            </p>
+              {/* Body */}
+              <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, marginBottom: "28px" }}>
+                A new teacher dashboard is on the way to help you spot class-wide misconceptions, group students by need, and plan your next instructional move faster.
+              </p>
 
-            {/* Feature pill */}
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", background: "var(--ec-surface2)", borderRadius: "14px", padding: "16px 20px", marginBottom: "28px" }}>
-              <div style={{ flexShrink: 0, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "3px 10px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)", whiteSpace: "nowrap" }}>
-                up next
+              {/* Feature pill */}
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", background: "var(--ec-surface2)", borderRadius: "14px", padding: "16px 20px", marginBottom: "28px" }}>
+                <div style={{ flexShrink: 0, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "3px 10px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)", whiteSpace: "nowrap" }}>
+                  up next
+                </div>
+                <div>
+                  <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--ec-ink)", margin: "0 0 2px" }}>Teacher Misconception Dashboard</p>
+                  <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.5, margin: 0 }}>Built to turn student reasoning into grouped insights and clear next steps.</p>
+                </div>
               </div>
-              <div>
-                <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--ec-ink)", margin: "0 0 2px" }}>Teacher Misconception Dashboard</p>
-                <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.5, margin: 0 }}>Built to turn student reasoning into grouped insights and clear next steps.</p>
-              </div>
-            </div>
 
-            {/* Bullets */}
-            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: "10px" }}>
-              {[
-                "See the most common misconceptions in your class",
-                "Identify which students are stuck on the same concept",
-                "Get small-group-ready next steps and follow-up prompts",
-              ].map((item) => (
-                <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.6 }}>
-                  <span style={{ color: "var(--ec-orange)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>—</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
+              {/* Bullets */}
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                {[
+                  "See the most common misconceptions in your class",
+                  "Identify which students are stuck on the same concept",
+                  "Get small-group-ready next steps and follow-up prompts",
+                ].map((item) => (
+                  <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.6 }}>
+                    <span style={{ color: "var(--ec-orange)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>—</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
 
-            {/* CTA */}
-            <div style={{ textAlign: "center" }}>
+              {/* CTA */}
               <a href="#waitlist" style={{ display: "inline-block", padding: "13px 32px", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", borderRadius: "12px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: "var(--ec-shadow-btn)" }}>
                 Join the teacher waitlist
               </a>
             </div>
 
+            {/* Right: wireframe preview */}
+            <div style={{ position: "relative", borderRadius: "16px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", padding: "18px", minHeight: "300px" }}>
+
+              {/* Coming soon badge */}
+              <div style={{ position: "absolute", top: "14px", right: "14px", zIndex: 2, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "4px 11px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)" }}>
+                coming soon
+              </div>
+
+              <svg viewBox="0 0 360 280" width="100%" height="auto" style={{ display: "block" }} role="img" aria-label="Preview wireframe of the upcoming teacher misconception dashboard">
+                {/* Header bar */}
+                <rect x="0" y="0" width="360" height="28" rx="6" fill="var(--ec-surface)" stroke="var(--ec-line)" />
+                <rect x="12" y="10" width="80" height="8" rx="4" fill="var(--ec-ink-faint)" />
+                <rect x="280" y="9" width="68" height="10" rx="5" fill="var(--ec-accent-soft)" />
+
+                {/* Misconception tag pills */}
+                <rect x="0" y="40" width="108" height="26" rx="13" fill="var(--ec-orange-bg)" stroke="var(--ec-orange-border)" />
+                <rect x="14" y="49" width="80" height="8" rx="4" fill="var(--ec-orange)" opacity="0.55" />
+
+                <rect x="118" y="40" width="92" height="26" rx="13" fill="var(--ec-accent-soft)" stroke="var(--ec-line)" />
+                <rect x="132" y="49" width="64" height="8" rx="4" fill="var(--ec-accent)" opacity="0.55" />
+
+                <rect x="220" y="40" width="100" height="26" rx="13" fill="var(--ec-green-bg)" stroke="var(--ec-green-border)" />
+                <rect x="234" y="49" width="72" height="8" rx="4" fill="var(--ec-green)" opacity="0.55" />
+
+                {/* Bar chart rows */}
+                {[
+                  { y: 90, w: 240, fill: "var(--ec-orange)" },
+                  { y: 118, w: 180, fill: "var(--ec-accent)" },
+                  { y: 146, w: 140, fill: "var(--ec-accent)" },
+                  { y: 174, w: 95, fill: "var(--ec-green)" },
+                ].map((bar) => (
+                  <g key={bar.y}>
+                    <rect x="0" y={bar.y} width="64" height="10" rx="3" fill="var(--ec-ink-faint)" opacity="0.5" />
+                    <rect x="76" y={bar.y - 1} width="284" height="12" rx="6" fill="var(--ec-line)" />
+                    <rect x="76" y={bar.y - 1} width={bar.w} height="12" rx="6" fill={bar.fill} opacity="0.55" />
+                  </g>
+                ))}
+
+                {/* Student grid (grouped by misconception) */}
+                <rect x="0" y="204" width="100" height="8" rx="4" fill="var(--ec-ink-faint)" opacity="0.6" />
+                {Array.from({ length: 18 }).map((_, i) => {
+                  const col = i % 9;
+                  const row = Math.floor(i / 9);
+                  const grouped = i < 5;
+                  return (
+                    <circle
+                      key={i}
+                      cx={8 + col * 22}
+                      cy={228 + row * 22}
+                      r="7"
+                      fill={grouped ? "var(--ec-orange-bg)" : "var(--ec-surface)"}
+                      stroke={grouped ? "var(--ec-orange-border)" : "var(--ec-line)"}
+                    />
+                  );
+                })}
+              </svg>
+            </div>
+
           </div>
         </section>
+
+        <style>{`
+          @media (max-width: 760px) {
+            .um-teacher-grid {
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}</style>
         {/* WAITLIST */}
         <section id="waitlist" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
           <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
