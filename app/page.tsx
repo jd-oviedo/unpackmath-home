@@ -18,10 +18,10 @@ function Blobs() {
 
 const faqs = [
   { q: "What is the TSIA2?", a: "The TSIA2 (Texas Success Initiative Assessment 2.0) is a college placement test required by most Texas public colleges and universities. Your math score determines whether you place into college-level math or need developmental coursework. The passing score is 950 on a 910–990 scale." },
-  { q: "How does UnpackMath's adaptive test work?", a: "Every question you answer adjusts the next one. Answer correctly and the difficulty increases. Struggle and it backs off. After 20 questions, the engine estimates your score on the TSIA2 scale and shows you exactly where your thinking broke down — not just what you got wrong." },
+  { q: "What kind of test does UnpackMath offer?", a: "UnpackMath gives you an adaptive practice test, meaning the questions change based on how you're doing. Get a question right, the next one gets a little harder. Get one wrong, the next one gets a little easier. This is the same basic idea the real TSIA2 college placement test uses: instead of giving everyone the same fixed set of questions, the test finds your actual skill level by adjusting as you go." },
   { q: "Is this free to use?", a: "The practice test is free with no account required. Try it right now. Additional features including saved progress, detailed analytics, and teacher tools are coming soon." },
-  { q: "I'm a teacher. How is this different from other test prep?", a: "Most test prep tells students what they got wrong. UnpackMath shows why — tracing each wrong answer to a specific misconception. The teacher dashboard (coming soon) surfaces those patterns across your whole class so you can teach to the actual gap, not the symptom." },
-  { q: "What math topics does it cover?", a: "The item bank covers all four TSIA2 math strands: Quantitative Reasoning, Algebraic Reasoning, Geometric Reasoning, and Probabilistic Reasoning — across 97 topics and 500+ items aligned to the official test blueprint." },
+  { q: "I'm a teacher. How is this different from other test prep?", a: "Most test prep tells students what they got wrong. UnpackMath shows why, tracing each wrong answer to a specific misconception. The teacher dashboard (coming soon) surfaces those patterns across your whole class so you can teach to the actual gap, not the symptom." },
+  { q: "What math topics does it cover?", a: "The item bank covers all four TSIA2 math strands: Quantitative Reasoning, Algebraic Reasoning, Geometric Reasoning, and Probabilistic Reasoning, across 97 topics and 500+ items aligned to the official test blueprint." },
   { q: "When will the full platform launch?", a: "The adaptive practice test is live now. Student accounts with saved progress, a teacher misconception dashboard, and a parent-facing translation layer are in active development. Join the waitlist to get early access." },
 ];
 
@@ -137,7 +137,7 @@ export default function Home() {
           <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 40px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "14px" }}>coming next for teachers</p>
             <h2 style={{ fontSize: "clamp(26px, 3.4vw, 40px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
-              See what your students are misunderstanding — before the next lesson.
+              See what your students are misunderstanding before the next lesson.
             </h2>
             <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: 0 }}>
               A new teacher dashboard is on the way to help you spot class-wide misconceptions, group students by need, and plan your next instructional move faster.
