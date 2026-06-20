@@ -58,7 +58,7 @@ function WaitlistForm() {
     if (!form.name || !form.role || !form.email || !form.challenge) return;
     setLoading(true);
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbzSMdDiVwaFtFqeg6i2BBOIC5jYDJrb5W5aUEhZkeihUD_5O56D1lZMfRGEHQLkv1W-/exec", {
+      await fetch("https://script.google.com/macros/s/AKfycbzpwg99prZVT1E3nebMgZkudikGblQVBJsO8Ey4IrOD40YhtdGfEsnm18KRxvLJJQLvuw/exec", {
         method: "POST",
         body: JSON.stringify(form),
       });
