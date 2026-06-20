@@ -134,7 +134,7 @@ export function DemoSection() {
           See how UnpackMath works in real time.
         </h2>
         <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", margin: 0, lineHeight: 1.6 }}>
-          Answer the adaptive questions below and watch the engine pinpoint what to study next — the same experience students get in the app.
+          Answer the adaptive questions below and watch the engine pinpoint what to study next. The same experience students get in the app.
         </p>
       </div>
 
