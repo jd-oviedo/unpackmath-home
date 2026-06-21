@@ -511,14 +511,13 @@ function FoundingTeacherCard({ annual }: { annual: boolean }) {
         </div>
         <CardPrice big={big} unit={unit} note={note} strike={strike} />
         <PrimaryButton href="https://www.unpackmath.com/#waitlist">Reserve your founding spot</PrimaryButton>
-        <FinePrint>No card today. Billing starts when the Dashboard launches.</FinePrint>
+        <FinePrint>No card today — billing starts when the Dashboard launches.</FinePrint>
       </CardHead>
       <CardBody>
         <FeatureGroupLabel>Everything in Free, plus</FeatureGroupLabel>
         <FeatureRow label="Unlimited practice for every student in your classes" done />
         <FeatureRow label="Student scores and strand breakdowns, by class" done />
         <FeatureRow label="Full Misconception Dashboard, item and strand level" done={false} badge="coming with v1" />
-        <FeatureRow label="Parent-friendly reports and exports" done={false} badge="coming with v1" />
         <FeatureRow label="Email support and early access to new features" done />
       </CardBody>
     </CardShell>
@@ -531,7 +530,7 @@ function DistrictsCard() {
       <CardHead>
         <CardEyebrow>Schools &amp; Districts</CardEyebrow>
         <CardPrice big="$6–10" unit="per student, per year" note="Custom quote by campus size" />
-        <SecondaryButton href="mailto:schools@unpackmath.com?subject=UnpackMath%20for%20our%20campus">
+        <SecondaryButton href="mailto:hello@unpackmath.com?subject=UnpackMath%20for%20our%20campus">
           Talk to us
         </SecondaryButton>
         <FinePrint>Founding-campus discounts for early partners.</FinePrint>
@@ -552,23 +551,23 @@ function DistrictsCard() {
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Will I be charged anything today?",
-    a: "No. Students practice free with no card at all, and the Founding Teacher plan does not bill until the full Misconception Dashboard launches. Reserving a spot now just locks in your rate. It is not a payment.",
+    a: "No. Students practice free with no card at all, and the Founding Teacher plan does not bill until the full Misconception Dashboard launches. Reserving a spot now just locks in your rate — it is not a payment.",
   },
   {
     q: "What's live right now versus coming soon?",
-    a: 'The adaptive practice engine, student scores, and strand breakdowns are live today. The full Misconception Dashboard and parent-friendly reports are still being built. Anything marked "coming with v1" on the plans above is not available yet.',
+    a: 'The adaptive practice engine, student scores, and strand breakdowns are live today. The full Misconception Dashboard and parent-friendly reports are still being built — anything marked "coming with v1" on the plans above is not available yet.',
   },
   {
     q: 'Why is the Founding Teacher rate "locked in for life"?',
-    a: "Founding teachers take a chance on us before the dashboard ships, so the rate you join at never goes up. Even as we add features and later plans are priced higher.",
+    a: "Founding teachers take a chance on us before the dashboard ships, so the rate you join at never goes up — even as we add features and later plans are priced higher.",
   },
   {
     q: "Is the annual plan really two months free?",
-    a: "Yes. $100 a year works out to about $8.33 a month. You pay for ten months and get all twelve. You can also stay monthly at $10 and switch whenever you like.",
+    a: "Yes. $100 a year works out to about $8.33 a month — you pay for ten months and get all twelve. You can also stay monthly at $10 and switch whenever you like.",
   },
   {
     q: "How does pricing work for a school or district?",
-    a: "Districts pay per student, per year, and the rate depends on how many students you have. Tell us about your campus and we'll put together a quote. Early partners get a founding-campus discount.",
+    a: "Districts pay per student, per year, and the rate depends on how many students you have. Tell us about your campus and we'll put together a quote — early partners get a founding-campus discount.",
   },
 ];
 
