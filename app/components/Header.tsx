@@ -141,6 +141,7 @@ export function Header() {
           {[
             { label: "how it works", href: "#demo" },
             { label: "for teachers", href: "#teachers" },
+            { label: "pricing", href: "/pricing" },
             { label: "faq", href: "#faq" },
           ].map((link) => (
             <a
