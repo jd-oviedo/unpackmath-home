@@ -90,8 +90,8 @@ export function Header() {
           {/* App icon box — sand/glass background */}
           <div
             style={{
-              width: "36px",
-              height: "36px",
+              width: "42px",
+              height: "42px",
               borderRadius: "10px",
               background: "var(--ec-glass-bg)",
               backdropFilter: "blur(8px)",
@@ -108,8 +108,8 @@ export function Header() {
             <Image
               src="/unpackmath-logo.png"
               alt="UnpackMath logo"
-              width={24}
-              height={24}
+              width={30}
+              height={30}
               style={{ objectFit: "contain" }}
             />
           </div>
