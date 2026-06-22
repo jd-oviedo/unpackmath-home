@@ -187,7 +187,7 @@ export default function Home() {
                 coming soon
               </div>
 
-              <svg viewBox="0 0 360 280" width="100%" height="auto" style={{ display: "block" }} role="img" aria-label="Preview wireframe of the upcoming teacher misconception dashboard">
+              <svg viewBox="0 0 360 280" width="100%" style={{ display: "block" }} role="img" aria-label="Preview wireframe of the upcoming teacher misconception dashboard">
                 {/* Header bar */}
                 <rect x="0" y="0" width="360" height="28" rx="6" fill="var(--ec-surface)" stroke="var(--ec-line)" />
                 <rect x="12" y="10" width="80" height="8" rx="4" fill="var(--ec-ink-faint)" />
