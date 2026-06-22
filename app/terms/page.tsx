@@ -84,7 +84,7 @@ function Notice({ label, children }: { label?: string; children: React.ReactNode
 }
 
 const CONTACT_EMAIL = "contact@unpackmath.com";
-const PRIVACY_URL = "unpackmath.com/privacy-policy";
+const PRIVACY_URL = "unpackmath.com/privacy";
 
 export default function TermsOfUsePage() {
   return (
@@ -98,7 +98,7 @@ export default function TermsOfUsePage() {
           Terms of Use.
         </h1>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-          {["Effective: May 25, 2025", "Last Updated: June 2026", "UnpackMath · Texas"].map((tag) => (
+          {["Effective: May 25, 2026", "Last Updated: June 22, 2026", "UnpackMath · Texas"].map((tag) => (
             <span key={tag} style={{ fontSize: "12px", color: "var(--ec-ink-muted)", background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "999px", padding: "4px 14px", boxShadow: "var(--ec-shadow)" }}>
               {tag}
             </span>
