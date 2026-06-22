@@ -80,7 +80,7 @@ const sections = [
               "Usage data: pages visited, features used, time spent, and actions taken.",
               "Performance data: quiz scores, question responses, accuracy rates, and learning progress.",
               "Device information: browser type, operating system, IP address, and device identifiers.",
-              "Cookies and similar technologies: used to maintain sessions and analyze usage.",
+              "Cookies and similar technologies: used to maintain sessions and analyze usage. Analytics are processed through PostHog.",
             ],
           },
           {
@@ -191,7 +191,7 @@ const sections = [
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {[
-            ["Service Providers", "Trusted vendors who help us operate the Platform. They are contractually bound to protect your data and may only use it to provide services on our behalf."],
+            ["Service Providers", "Trusted vendors who help us operate the Platform, including Supabase (database and authentication), Vercel (hosting), PostHog (analytics), and Upstash (infrastructure). They are contractually bound to protect your data and may only use it to provide services on our behalf."],
             ["Institutional Partners", "If you access the Platform through a school, we may share your performance data with authorized staff at that institution."],
             ["Legal Requirements", "If required by law, court order, or government authority, we may disclose information as necessary."],
             ["Business Transfers", "In a merger, acquisition, or sale of assets, your information may be transferred. We will notify you before it becomes subject to a different privacy policy."],
@@ -377,9 +377,9 @@ export default function PrivacyPolicyPage() {
         </h1>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           {[
-            "Effective: May 26, 2025",
-            "Last Updated: June 2026",
-            "UnpackMath 00b7 Texas",
+            "Effective: May 26, 2026",
+            "Last Updated: June 22, 2026",
+            "UnpackMath · Texas",
           ].map((tag) => (
             <span key={tag} style={{ fontSize: "12px", color: "var(--ec-ink-muted)", background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "999px", padding: "4px 14px", boxShadow: "var(--ec-shadow)" }}>
               {tag}
