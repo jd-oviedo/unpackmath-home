@@ -358,32 +358,6 @@ function SecondaryButton({ href, children }: { href: string; children: React.Rea
   );
 }
 
-function PrimaryButton({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <a
-      href={href}
-      onMouseEnter={(e) => dim(e, "0.85")}
-      onMouseLeave={(e) => dim(e, "1")}
-      style={{
-        marginTop: 22,
-        display: "block",
-        textAlign: "center",
-        background: "var(--ec-btn-bg)",
-        color: "var(--ec-btn-text)",
-        textDecoration: "none",
-        fontWeight: 700,
-        fontSize: 15,
-        padding: 14,
-        borderRadius: 12,
-        boxShadow: "var(--ec-shadow-btn)",
-        transition: "opacity .15s ease",
-      }}
-    >
-      {children}
-    </a>
-  );
-}
-
 function FinePrint({ children }: { children: React.ReactNode }) {
   return (
     <p style={{ margin: "12px 0 0", textAlign: "center", fontSize: 12.5, color: "var(--ec-ink-faint)", fontWeight: 600 }}>
@@ -482,7 +456,60 @@ function StudentsCard() {
     </CardShell>
   );
 }
+function CheckoutButton({ annual }: { annual: boolean }) {
+  const [loading, setLoading] = useState(false);
 
+  const handleCheckout = async () => {
+    setLoading(true);
+    try {
+      const priceId = annual
+        ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ANNUAL
+        : process.env.NEXT_PUBLIC_STRIPE_PRICE_MONTHLY;
+
+      const res = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ priceId }),
+      });
+
+      const data = await res.json();
+      if (data.url) window.location.href = data.url;
+    } catch (err) {
+      console.error("Checkout error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <button
+      onClick={handleCheckout}
+      disabled={loading}
+      onMouseEnter={(e) => dim(e, "0.85")}
+      onMouseLeave={(e) => dim(e, "1")}
+      style={{
+        marginTop: 22,
+        display: "block",
+        width: "100%",
+        textAlign: "center",
+        background: "var(--ec-btn-bg)",
+        color: "var(--ec-btn-text)",
+        fontFamily: "inherit",
+        fontWeight: 700,
+        fontSize: 15,
+        padding: 14,
+        borderRadius: 12,
+        boxShadow: "var(--ec-shadow-btn)",
+        border: "none",
+        cursor: loading ? "not-allowed" : "pointer",
+        transition: "opacity .15s ease",
+        opacity: loading ? 0.6 : 1,
+      }}
+    >
+      {loading ? "Redirecting..." : "Reserve your founding spot"}
+    </button>
+  );
+}
 function FoundingTeacherCard({ annual }: { annual: boolean }) {
   const big = annual ? "$100" : "$10";
   const unit = annual ? "per teacher, per year" : "per teacher, per month";
@@ -510,7 +537,7 @@ function FoundingTeacherCard({ annual }: { annual: boolean }) {
           </span>
         </div>
         <CardPrice big={big} unit={unit} note={note} strike={strike} />
-        <PrimaryButton href="https://www.unpackmath.com/#waitlist">Reserve your founding spot</PrimaryButton>
+        <CheckoutButton annual={annual} />
         <FinePrint>No card today — billing starts when the Dashboard launches.</FinePrint>
       </CardHead>
       <CardBody>
