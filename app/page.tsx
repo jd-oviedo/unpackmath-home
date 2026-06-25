@@ -184,62 +184,55 @@ export default function Home() {
             </div>
 
             {/* Right: wireframe preview */}
-            <div style={{ position: "relative", borderRadius: "16px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", padding: "18px", minHeight: "300px" }}>
-
-              {/* Coming soon badge */}
-              <div style={{ position: "absolute", top: "14px", right: "14px", zIndex: 2, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "4px 11px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)" }}>
-                coming soon
-              </div>
-
-              <svg viewBox="0 0 360 280" width="100%" style={{ display: "block" }} role="img" aria-label="Preview wireframe of the upcoming teacher misconception dashboard">
-                {/* Header bar */}
-                <rect x="0" y="0" width="360" height="28" rx="6" fill="var(--ec-surface)" stroke="var(--ec-line)" />
-                <rect x="12" y="10" width="80" height="8" rx="4" fill="var(--ec-ink-faint)" />
-                <rect x="280" y="9" width="68" height="10" rx="5" fill="var(--ec-accent-soft)" />
-
-                {/* Misconception tag pills */}
-                <rect x="0" y="40" width="108" height="26" rx="13" fill="var(--ec-orange-bg)" stroke="var(--ec-orange-border)" />
-                <rect x="14" y="49" width="80" height="8" rx="4" fill="var(--ec-orange)" opacity="0.55" />
-
-                <rect x="118" y="40" width="92" height="26" rx="13" fill="var(--ec-accent-soft)" stroke="var(--ec-line)" />
-                <rect x="132" y="49" width="64" height="8" rx="4" fill="var(--ec-accent)" opacity="0.55" />
-
-                <rect x="220" y="40" width="100" height="26" rx="13" fill="var(--ec-green-bg)" stroke="var(--ec-green-border)" />
-                <rect x="234" y="49" width="72" height="8" rx="4" fill="var(--ec-green)" opacity="0.55" />
-
-                {/* Bar chart rows */}
-                {[
-                  { y: 90, w: 240, fill: "var(--ec-orange)" },
-                  { y: 118, w: 180, fill: "var(--ec-accent)" },
-                  { y: 146, w: 140, fill: "var(--ec-accent)" },
-                  { y: 174, w: 95, fill: "var(--ec-green)" },
-                ].map((bar) => (
-                  <g key={bar.y}>
-                    <rect x="0" y={bar.y} width="64" height="10" rx="3" fill="var(--ec-ink-faint)" opacity="0.5" />
-                    <rect x="76" y={bar.y - 1} width="284" height="12" rx="6" fill="var(--ec-line)" />
-                    <rect x="76" y={bar.y - 1} width={bar.w} height="12" rx="6" fill={bar.fill} opacity="0.55" />
-                  </g>
-                ))}
-
-                {/* Student grid (grouped by misconception) */}
-                <rect x="0" y="204" width="100" height="8" rx="4" fill="var(--ec-ink-faint)" opacity="0.6" />
-                {Array.from({ length: 18 }).map((_, i) => {
-                  const col = i % 9;
-                  const row = Math.floor(i / 9);
-                  const grouped = i < 5;
-                  return (
-                    <circle
-                      key={i}
-                      cx={8 + col * 22}
-                      cy={228 + row * 22}
-                      r="7"
-                      fill={grouped ? "var(--ec-orange-bg)" : "var(--ec-surface)"}
-                      stroke={grouped ? "var(--ec-orange-border)" : "var(--ec-line)"}
-                    />
-                  );
-                })}
-              </svg>
-            </div>
+<div style={{ position: "relative", borderRadius: "16px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", padding: "18px", minHeight: "300px" }}>
+  <div style={{ position: "absolute", top: "14px", right: "14px", zIndex: 2, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "4px 11px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)" }}>
+    coming soon
+  </div>
+  {/* Strand pills */}
+  <div style={{ display: "flex", gap: "8px", marginBottom: "16px", flexWrap: "wrap" }}>
+    {[["QR","#E6F1FB","#185FA5","#B5D4F4"],["AR","#E1F5EE","#0F6E56","#9FE1CB"],["GR","#FAEEDA","#854F0B","#FAC775"],["PR","#EEEDFE","#534AB7","#CECBF6"]].map(([code,bg,text,border]) => (
+      <span key={code} style={{ fontSize: "12px", fontWeight: 600, padding: "5px 12px", borderRadius: "999px", background: bg, color: text, border: `1px solid ${border}` }}>{code}</span>
+    ))}
+  </div>
+  {/* Misconception cards */}
+  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "14px" }}>
+    {[
+      { rank: 1, strand: "AR", topic: "AR.2.3", color: "#9FE1CB", textColor: "#0F6E56", bg: "#E1F5EE", border: "#9FE1CB", bars: [40,60,70,85,75,100], count: "18×" },
+      { rank: 2, strand: "QR", topic: "QR.1.4", color: "#B5D4F4", textColor: "#185FA5", bg: "#E6F1FB", border: "#B5D4F4", bars: [50,50,30,60,55,50], count: "11×" },
+    ].map(m => (
+      <div key={m.rank} style={{ background: "var(--ec-surface)", borderRadius: "10px", padding: "11px", border: "1px solid var(--ec-line)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "10px" }}>
+          <div style={{ width: "22px", height: "22px", borderRadius: "6px", background: "#0F1E35", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <span style={{ fontSize: "10px", fontWeight: 700, color: "#E7BE7B" }}>{m.rank}</span>
+          </div>
+          <span style={{ fontSize: "11px", fontWeight: 600, padding: "2px 8px", borderRadius: "999px", background: m.bg, color: m.textColor, border: `1px solid ${m.border}` }}>{m.strand}</span>
+          <span style={{ fontSize: "10px", fontFamily: "monospace", color: "var(--ec-ink-muted)", background: "var(--ec-surface2)", padding: "2px 5px", borderRadius: "4px" }}>{m.topic}</span>
+        </div>
+        <div style={{ height: "6px", width: "100%", background: "var(--ec-line)", borderRadius: "3px", marginBottom: "4px" }} />
+        <div style={{ height: "6px", width: "80%", background: "var(--ec-line)", borderRadius: "3px", marginBottom: "4px", opacity: 0.6 }} />
+        <div style={{ height: "6px", width: "55%", background: "var(--ec-line)", borderRadius: "3px", opacity: 0.4 }} />
+        <div style={{ marginTop: "10px", display: "flex", gap: "3px", alignItems: "flex-end", height: "20px" }}>
+          {m.bars.map((h, i) => (
+            <div key={i} style={{ width: "5px", background: m.color, borderRadius: "2px 2px 0 0", height: `${h}%`, opacity: 0.8 }} />
+          ))}
+          <span style={{ fontSize: "9px", color: "var(--ec-ink-muted)", marginLeft: "4px", alignSelf: "flex-end" }}>{m.count}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+  {/* Strand profile bar */}
+  <div style={{ display: "flex", gap: "4px" }}>
+    {[["#B5D4F4","30%"],["#9FE1CB","25%"],["#FAC775","26%"],["#CECBF6","19%"]].map(([color, width]) => (
+      <div key={color} style={{ height: "8px", borderRadius: "999px", background: color, width }} />
+    ))}
+  </div>
+  {/* Demo link */}
+  <div style={{ marginTop: "16px", textAlign: "center" }}>
+    <a href="https://app.unpackmath.com/demo" style={{ fontSize: "13px", fontWeight: 700, color: "var(--ec-accent)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+      Preview the dashboard →
+    </a>
+  </div>
+</div>
 
           </div>
         </section>
