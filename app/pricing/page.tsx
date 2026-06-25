@@ -538,7 +538,17 @@ function FoundingTeacherCard({ annual }: { annual: boolean }) {
         </div>
         <CardPrice big={big} unit={unit} note={note} strike={strike} />
         <CheckoutButton annual={annual} />
-        <FinePrint>No card today — billing starts when the Dashboard launches.</FinePrint>
+<div style={{ textAlign: 'center', marginTop: 12 }}>
+  
+   <a href="https://app.unpackmath.com/demo"
+    style={{ fontSize: 13, fontWeight: 600, color: 'var(--ec-accent)', textDecoration: 'none' }}
+    onMouseEnter={e => dim(e, '0.75')}
+    onMouseLeave={e => dim(e, '1')}
+  >
+    Preview the dashboard first →
+  </a>
+</div>
+<FinePrint>No card today — billing starts when the Dashboard launches.</FinePrint>
       </CardHead>
       <CardBody>
         <FeatureGroupLabel>Everything in Free, plus</FeatureGroupLabel>
