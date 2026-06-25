@@ -52,7 +52,7 @@ function FAQ() {
 function WaitlistForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ name: "", role: "", email: "", challenge: "" });
+  const [form, setForm] = useState({ name: "", role: "", email: "", school: "", challenge: "" });
 
   const handleSubmit = async () => {
     if (!form.name || !form.role || !form.email || !form.challenge) return;
@@ -78,7 +78,7 @@ function WaitlistForm() {
     );
   }
 
-  const ready = form.name && form.role && form.email && form.challenge;
+  const ready = form.name && form.role && form.email && form.school && form.challenge;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
       <div className="um-form-row" style={{ display: "flex", gap: "12px" }}>
@@ -101,6 +101,10 @@ function WaitlistForm() {
         <label style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ec-ink-muted)" }}>Email Address *</label>
         <input required placeholder="you@email.com" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} style={{ padding: "12px 16px", borderRadius: "12px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", color: "var(--ec-ink)", fontFamily: "inherit", fontSize: "14px", outline: "none" }} />
       </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+  <label style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ec-ink-muted)" }}>School / District *</label>
+  <input required placeholder="e.g. Summertime ISD" value={form.school} onChange={e => setForm({ ...form, school: e.target.value })} style={{ padding: "12px 16px", borderRadius: "12px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", color: "var(--ec-ink)", fontFamily: "inherit", fontSize: "14px", outline: "none" }} />
+</div>
       <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
         <label style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ec-ink-muted)" }}>What is the biggest challenge you're trying to solve right now? *</label>
         <textarea required placeholder="e.g. my students freeze up on test day even when they know the material..." value={form.challenge} onChange={e => setForm({ ...form, challenge: e.target.value })} rows={3} style={{ padding: "12px 16px", borderRadius: "12px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", color: "var(--ec-ink)", fontFamily: "inherit", fontSize: "14px", outline: "none", resize: "vertical", lineHeight: 1.6 }} />

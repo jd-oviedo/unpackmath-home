@@ -230,6 +230,14 @@ function BillingToggle({ billing, onChange }: { billing: Billing; onChange: (b: 
 /* ------------------------------ pricing cards ------------------------------ */
 
 function PricingCards({ annual }: { annual: boolean }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    fetch("/api/founding-count")
+      .then(r => r.json())
+      .then(d => setCount(d.count ?? 0))
+      .catch(() => {});
+  }, []);
   return (
     <section id="compare" style={{ scrollMarginTop: 90, padding: "0 24px 80px" }}>
       <div style={{ maxWidth: 1140, margin: "0 auto" }}>
@@ -238,14 +246,14 @@ function PricingCards({ annual }: { annual: boolean }) {
           style={{ display: "grid", gridTemplateColumns: "repeat(3,minmax(0,1fr))", gap: 24, alignItems: "start" }}
         >
           <StudentsCard />
-          <FoundingTeacherCard annual={annual} />
+          <FoundingTeacherCard annual={annual} count={count} />
           <DistrictsCard />
         </div>
 
         <div style={{ maxWidth: 720, margin: "28px auto 0", textAlign: "center" }}>
           <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "var(--ec-ink-muted)" }}>
             <span style={{ fontWeight: 700, color: "var(--ec-ink)" }}>More for teachers is on the way.</span>{" "}
-            Insights and Insights + Curriculum plans launch after the Misconception Dashboard ships — founding
+            Insights and Insights + Curriculum plans launch after the Misconception Dashboard ships. Founding
             teachers keep their rate the whole way.
           </p>
         </div>
@@ -443,7 +451,7 @@ function StudentsCard() {
     <CardShell>
       <CardHead>
         <CardEyebrow>Students</CardEyebrow>
-        <CardPrice big="Free" unit="always — no account needed" />
+        <CardPrice big="Free" unit="always. No account needed." />
         <SecondaryButton href="https://app.unpackmath.com/adaptive-test">Take a free practice test</SecondaryButton>
         <FinePrint>No account or credit card required.</FinePrint>
       </CardHead>
@@ -456,64 +464,76 @@ function StudentsCard() {
     </CardShell>
   );
 }
-function CheckoutButton({ annual }: { annual: boolean }) {
+function FoundingSpotButton({ annual, count }: { annual: boolean; count: number }) {
+  const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", school: "" });
+  const isFull = count >= 50;
 
-  const handleCheckout = async () => {
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.school) return;
     setLoading(true);
     try {
-      const priceId = annual
-        ? process.env.NEXT_PUBLIC_STRIPE_PRICE_ANNUAL
-        : process.env.NEXT_PUBLIC_STRIPE_PRICE_MONTHLY;
-
-      const res = await fetch("/api/stripe/checkout", {
+      await fetch("https://script.google.com/macros/s/AKfycbzpwg99prZVT1E3nebMgZkudikGblQVBJsO8Ey4IrOD40YhtdGfEsnm18KRxvLJJQLvuw/exec", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ priceId }),
+        body: JSON.stringify({ ...form, role: "teacher", billing: annual ? "annual" : "monthly", challenge: "founding teacher signup" }),
       });
-
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-    } catch (err) {
-      console.error("Checkout error:", err);
     } finally {
+      setSubmitted(true);
       setLoading(false);
     }
   };
 
+  if (submitted) {
+    return (
+      <div style={{ marginTop: 22, textAlign: "center", padding: "16px", background: "var(--ec-green-bg)", border: "1px solid var(--ec-green-border)", borderRadius: 12 }}>
+        <div style={{ fontSize: 24, marginBottom: 6 }}>✓</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ec-ink)" }}>You're on the list.</div>
+        <div style={{ fontSize: 13, color: "var(--ec-ink-muted)", marginTop: 4 }}>We'll reach out before billing starts.</div>
+      </div>
+    );
+  }
+
+  if (isFull) {
+    return (
+      <div style={{ marginTop: 22, textAlign: "center", padding: 14, background: "var(--ec-line)", borderRadius: 12, fontSize: 14, fontWeight: 700, color: "var(--ec-ink-muted)" }}>
+        Founding cohort is full. Join the general waitlist.
+      </div>
+    );
+  }
+
+  if (showForm) {
+    const ready = form.name && form.email && form.school;
+    return (
+      <div style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 10 }}>
+        <input placeholder="Your name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })}
+          style={{ padding: "11px 14px", borderRadius: 10, border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", color: "var(--ec-ink)", fontFamily: "inherit", fontSize: 14, outline: "none" }} />
+        <input placeholder="School or district" value={form.school} onChange={e => setForm({ ...form, school: e.target.value })}
+          style={{ padding: "11px 14px", borderRadius: 10, border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", color: "var(--ec-ink)", fontFamily: "inherit", fontSize: 14, outline: "none" }} />
+        <input placeholder="Work email" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}
+          style={{ padding: "11px 14px", borderRadius: 10, border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", color: "var(--ec-ink)", fontFamily: "inherit", fontSize: 14, outline: "none" }} />
+        <button onClick={handleSubmit} disabled={loading || !ready}
+          style={{ padding: 13, background: ready ? "var(--ec-btn-bg)" : "var(--ec-line)", color: ready ? "var(--ec-btn-text)" : "var(--ec-ink-faint)", border: "none", borderRadius: 10, fontFamily: "inherit", fontSize: 14, fontWeight: 700, cursor: ready ? "pointer" : "not-allowed" }}>
+          {loading ? "Reserving..." : "Reserve my spot"}
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <button
-      onClick={handleCheckout}
-      disabled={loading}
-      onMouseEnter={(e) => dim(e, "0.85")}
-      onMouseLeave={(e) => dim(e, "1")}
-      style={{
-        marginTop: 22,
-        display: "block",
-        width: "100%",
-        textAlign: "center",
-        background: "var(--ec-btn-bg)",
-        color: "var(--ec-btn-text)",
-        fontFamily: "inherit",
-        fontWeight: 700,
-        fontSize: 15,
-        padding: 14,
-        borderRadius: 12,
-        boxShadow: "var(--ec-shadow-btn)",
-        border: "none",
-        cursor: loading ? "not-allowed" : "pointer",
-        transition: "opacity .15s ease",
-        opacity: loading ? 0.6 : 1,
-      }}
-    >
-      {loading ? "Redirecting..." : "Reserve your founding spot"}
+    <button onClick={() => setShowForm(true)}
+      onMouseEnter={e => dim(e, "0.85")} onMouseLeave={e => dim(e, "1")}
+      style={{ marginTop: 22, display: "block", width: "100%", textAlign: "center", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", fontFamily: "inherit", fontWeight: 700, fontSize: 15, padding: 14, borderRadius: 12, boxShadow: "var(--ec-shadow-btn)", border: "none", cursor: "pointer", transition: "opacity .15s ease" }}>
+      Reserve your founding spot
     </button>
   );
 }
-function FoundingTeacherCard({ annual }: { annual: boolean }) {
+function FoundingTeacherCard({ annual, count }: { annual: boolean; count: number }) {
+  const spotsLeft = Math.max(0, 50 - count);
   const big = annual ? "$100" : "$10";
   const unit = annual ? "per teacher, per year" : "per teacher, per month";
-  const note = annual ? "About $8.33/mo — two months free." : "Or go annual for two months free.";
+  const note = annual ? "About $8.33/mo. Two months free." : "Or go annual for two months free.";
   const strike = annual ? "$120" : undefined;
 
   return (
@@ -537,7 +557,12 @@ function FoundingTeacherCard({ annual }: { annual: boolean }) {
           </span>
         </div>
         <CardPrice big={big} unit={unit} note={note} strike={strike} />
-        <CheckoutButton annual={annual} />
+        <FoundingSpotButton annual={annual} count={count} />
+<div style={{ marginTop: 10, textAlign: "center" }}>
+  <span style={{ fontSize: 12, fontWeight: 700, color: spotsLeft <= 10 ? "var(--ec-orange)" : "var(--ec-ink-muted)" }}>
+    {spotsLeft} of 50 founding spots remaining
+  </span>
+</div>
 <div style={{ textAlign: 'center', marginTop: 12 }}>
   
    <a href="https://app.unpackmath.com/demo"
@@ -548,7 +573,7 @@ function FoundingTeacherCard({ annual }: { annual: boolean }) {
     Preview the dashboard first →
   </a>
 </div>
-<FinePrint>No card today — billing starts when the Dashboard launches.</FinePrint>
+<FinePrint>No card today. Billing starts when the Dashboard launches.</FinePrint>
       </CardHead>
       <CardBody>
         <FeatureGroupLabel>Everything in Free, plus</FeatureGroupLabel>
@@ -588,23 +613,23 @@ function DistrictsCard() {
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Will I be charged anything today?",
-    a: "No. Students practice free with no card at all, and the Founding Teacher plan does not bill until the full Misconception Dashboard launches. Reserving a spot now just locks in your rate — it is not a payment.",
+    a: "No. Students practice free with no card at all, and the Founding Teacher plan does not bill until the full Misconception Dashboard launches. Reserving a spot now just locks in your rate. It is not a payment.",
   },
   {
     q: "What's live right now versus coming soon?",
-    a: 'The adaptive practice engine, student scores, and strand breakdowns are live today. The full Misconception Dashboard and parent-friendly reports are still being built — anything marked "coming with v1" on the plans above is not available yet.',
+    a: 'The adaptive practice engine, student scores, and strand breakdowns are live today. The full Misconception Dashboard and parent-friendly reports are still being built. Anything marked "coming with v1" on the plans above is not available yet.',
   },
   {
     q: 'Why is the Founding Teacher rate "locked in for life"?',
-    a: "Founding teachers take a chance on us before the dashboard ships, so the rate you join at never goes up — even as we add features and later plans are priced higher.",
+    a: "Founding teachers take a chance on us before the dashboard ships, so the rate you join at never goes up. Even as we add features and later plans are priced higher.",
   },
   {
     q: "Is the annual plan really two months free?",
-    a: "Yes. $100 a year works out to about $8.33 a month — you pay for ten months and get all twelve. You can also stay monthly at $10 and switch whenever you like.",
+    a: "Yes. $100 a year works out to about $8.33 a month. You pay for ten months and get all twelve. You can also stay monthly at $10 and switch whenever you like.",
   },
   {
     q: "How does pricing work for a school or district?",
-    a: "Districts pay per student, per year, and the rate depends on how many students you have. Tell us about your campus and we'll put together a quote — early partners get a founding-campus discount.",
+    a: "Districts pay per student, per year, and the rate depends on how many students you have. Tell us about your campus and we'll put together a quote.",
   },
 ];
 
