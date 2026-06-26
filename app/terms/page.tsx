@@ -98,7 +98,7 @@ export default function TermsOfUsePage() {
           Terms of Use.
         </h1>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-          {["Effective: May 25, 2026", "Last Updated: June 22, 2026", "UnpackMath · Texas"].map((tag) => (
+          {["Effective: May 25, 2026", "Last Updated: June 26, 2026", "UnpackMath · Texas"].map((tag) => (
             <span key={tag} style={{ fontSize: "12px", color: "var(--ec-ink-muted)", background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "999px", padding: "4px 14px", boxShadow: "var(--ec-shadow)" }}>
               {tag}
             </span>
@@ -148,7 +148,7 @@ export default function TermsOfUsePage() {
             ]} />
           </Card>
           <Notice label="Coming Soon">
-            Additional features including student accounts with saved progress, a teacher dashboard for misconception tracking, and a parent view are in active development and will be added prior to full launch. These Terms will be updated to reflect those features as they become available.
+            A parent view is in active development and will be added in a future release. The teacher dashboard for misconception tracking is live and available to founding teacher subscribers. These Terms will be updated to reflect new features as they become available.
           </Notice>
           <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.65, marginTop: "12px" }}>
             We reserve the right to modify, suspend, or discontinue any feature of the Platform at any time with reasonable notice.

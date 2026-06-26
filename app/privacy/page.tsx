@@ -68,7 +68,7 @@ const sections = [
           {
             label: "Information You Provide Directly",
             items: [
-              "Account registration: name, email address, username, and password.",
+              "Account registration: name and email address, via Google OAuth.",
               "Institutional information: school or organization name, district, and point-of-contact details.",
               "Payment information: processed securely through a third-party processor. We do not store your card number.",
               "Communications: messages you send through contact forms or email.",
@@ -80,7 +80,7 @@ const sections = [
               "Usage data: pages visited, features used, time spent, and actions taken.",
               "Performance data: quiz scores, question responses, accuracy rates, and learning progress.",
               "Device information: browser type, operating system, IP address, and device identifiers.",
-              "Cookies and similar technologies: used to maintain sessions and analyze usage. Analytics are processed through PostHog.",
+              "Cookies and similar technologies: used to maintain sessions and analyze usage. Analytics are processed through PostHog. Error monitoring is processed through Sentry.",
             ],
           },
           {
@@ -120,6 +120,7 @@ const sections = [
             "Improve our Platform, fix bugs, and develop new features.",
             "Process payments and manage billing.",
             "Comply with legal obligations and enforce our Terms of Service.",
+            "Use an algorithmic adaptive engine to adjust question difficulty based on your responses. We do not use third-party AI models to make decisions about individual students.",
           ].map((item, i) => (
             <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
               <div style={{ width: "5px", height: "5px", borderRadius: "50%", background: "var(--ec-accent)", marginTop: "8px", flexShrink: 0 }} />
@@ -191,7 +192,7 @@ const sections = [
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           {[
-            ["Service Providers", "Trusted vendors who help us operate the Platform, including Supabase (database and authentication), Vercel (hosting), PostHog (analytics), and Upstash (infrastructure). They are contractually bound to protect your data and may only use it to provide services on our behalf."],
+            ["Service Providers", "Trusted vendors who help us operate the Platform, including Supabase (database and authentication), Vercel (hosting), PostHog (analytics), Sentry (error monitoring), Resend (transactional email), and Upstash (infrastructure). They are contractually bound to protect your data and may only use it to provide services on our behalf."],
             ["Institutional Partners", "If you access the Platform through a school, we may share your performance data with authorized staff at that institution."],
             ["Legal Requirements", "If required by law, court order, or government authority, we may disclose information as necessary."],
             ["Business Transfers", "In a merger, acquisition, or sale of assets, your information may be transferred. We will notify you before it becomes subject to a different privacy policy."],
@@ -378,7 +379,7 @@ export default function PrivacyPolicyPage() {
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           {[
             "Effective: May 26, 2026",
-            "Last Updated: June 22, 2026",
+            "Last Updated: June 26, 2026",
             "UnpackMath · Texas",
           ].map((tag) => (
             <span key={tag} style={{ fontSize: "12px", color: "var(--ec-ink-muted)", background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "999px", padding: "4px 14px", boxShadow: "var(--ec-shadow)" }}>
