@@ -10,9 +10,10 @@ const kodchasan = Kodchasan({
 });
 
 export const metadata: Metadata = {
-  icons: {
-    icon: "/favicon.ico?v=3",
-  },
+  icons: [
+    { rel: "icon", url: "/favicon.png?v=3", type: "image/png" },
+    { rel: "shortcut icon", url: "/favicon.ico?v=3" },
+  ],
   title: "UnpackMath",
   description: "Adaptive TSIA2 math prep that shows students exactly where their thinking breaks down — and gives teachers the data to do something about it.",
 };
