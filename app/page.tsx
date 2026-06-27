@@ -184,7 +184,7 @@ export default function Home() {
             </div>
 
             {/* Right: wireframe preview */}
-<div style={{ position: "relative", borderRadius: "16px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", padding: "18px", minHeight: "300px" }}>
+<div style={{ position: "relative", borderRadius: "16px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", padding: "18px" }}>
   <div style={{ position: "absolute", top: "14px", right: "14px", zIndex: 2, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "4px 11px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)" }}>
     coming soon
   </div>
@@ -239,9 +239,11 @@ export default function Home() {
 
       <style>{`
   @media (max-width: 760px) {
-    .um-teacher-grid {
-      grid-template-columns: 1fr !important;
-    }
+   .um-teacher-grid {
+  grid-template-columns: 1fr !important;
+  padding: 20px 16px !important;
+  gap: 24px !important;
+}
     #teachers {
       padding-top: 24px !important;
       padding-bottom: 40px !important;
