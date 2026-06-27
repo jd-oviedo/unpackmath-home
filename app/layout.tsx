@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
-import { Kodchasan } from "next/font/google";
+import { Kodchasan, Hanken_Grotesk } from "next/font/google";
 import "./globals.css";
+
+const hanken = Hanken_Grotesk({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-hanken",
+  display: "swap",
+});
 
 const kodchasan = Kodchasan({
   weight: ["400", "500", "600", "700"],
@@ -20,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={kodchasan.variable}>
+    <html lang="en" className={`${kodchasan.variable} ${hanken.variable}`}>
       <body>{children}</body>
     </html>
   );

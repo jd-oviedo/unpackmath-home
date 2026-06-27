@@ -39,7 +39,7 @@ html {
 }
 
 body {
-  font-family: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-hanken), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: var(--ec-bg);
   color: var(--ec-ink);
   -webkit-font-smoothing: antialiased;
