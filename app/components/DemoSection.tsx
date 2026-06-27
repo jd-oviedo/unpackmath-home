@@ -118,7 +118,7 @@ export function DemoSection() {
       id="demo"
       style={{
         background: "transparent",
-        padding: "64px 24px 96px",
+        padding: "48px 24px 56px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -139,7 +139,7 @@ export function DemoSection() {
       </div>
 
       {/* Step indicators */}
-      <div style={{ display: "flex", gap: "48px", flexWrap: "wrap", justifyContent: "center" }}>
+      <div style={{ display: "flex", gap: "24px", flexWrap: "wrap", justifyContent: "center" }}>
         {[
           ["1. Practice", "Answer adaptive questions"],
           ["2. Adapt", "Difficulty adjusts in real time"],
@@ -409,6 +409,15 @@ export function DemoSection() {
       <p style={{ fontSize: "12px", color: "var(--ec-ink-faint)", margin: 0, letterSpacing: "0.03em" }}>
         a real taste of the adaptive engine · no account needed
       </p>
+<style>{`
+  @media (max-width: 760px) {
+    #demo {
+      padding-top: 32px !important;
+      padding-bottom: 40px !important;
+    }
+  }
+`}</style>
+
     </section>
   );
 }
