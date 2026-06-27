@@ -87,7 +87,7 @@ export function HeroSection() {
   const [hoverSecondary, setHoverSecondary] = useState(false);
 
   return (
-    <section style={{ maxWidth: "1140px", margin: "0 auto", padding: "140px 24px 40px" }}>
+    <section className="um-hero-section" style={{ maxWidth: "1140px", margin: "0 auto", padding: "140px 24px 40px" }}>
       <div className="um-hero-grid" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
 
         <div className="um-hero-text" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px", textAlign: "center", width: "100%" }}>
@@ -174,31 +174,35 @@ export function HeroSection() {
       </div>
 
       <style>{`
-        @media (min-width: 980px) {
-          .um-hero-grid {
-            display: grid !important;
-            grid-template-columns: 1.04fr 0.96fr !important;
-            align-items: center !important;
-            gap: 56px !important;
-          }
-          .um-hero-text {
-            align-items: center !important;
-            text-align: center !important;
-          }
-          .um-hero-text > div:first-child {
-            margin: 0 !important;
-          }
-          .um-hero-preview-slot {
-            display: flex !important;
-            justify-content: center;
-          }
-        }
-        @media (max-width: 979px) {
-          .um-hero-preview-slot {
-            display: none !important;
-          }
-        }
-      `}</style>
+  @media (min-width: 980px) {
+    .um-hero-grid {
+      display: grid !important;
+      grid-template-columns: 1.04fr 0.96fr !important;
+      align-items: center !important;
+      gap: 56px !important;
+    }
+    .um-hero-text {
+      align-items: center !important;
+      text-align: center !important;
+    }
+    .um-hero-text > div:first-child {
+      margin: 0 !important;
+    }
+    .um-hero-preview-slot {
+      display: flex !important;
+      justify-content: center;
+    }
+  }
+  @media (max-width: 979px) {
+    .um-hero-preview-slot {
+      display: none !important;
+    }
+    .um-hero-section {
+      padding-top: 90px !important;
+      padding-bottom: 24px !important;
+    }
+  }
+`}</style>
     </section>
   );
 }
