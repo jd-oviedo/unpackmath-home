@@ -135,10 +135,10 @@ export default function Home() {
 
         <DemoSection />
         {/* TEACHER DASHBOARD TEASER */}
-        <section id="teachers" style={{ maxWidth: "980px", margin: "0 auto", padding: "0 24px 80px" }}>
+        <section id="teachers" style={{ maxWidth: "980px", margin: "0 auto", padding: "40px 24px 48px" }}>
 
           {/* Section header — centered above the card */}
-          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 40px" }}>
+          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 28px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "14px" }}>coming next for teachers</p>
             <h2 style={{ fontSize: "clamp(26px, 3.4vw, 40px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
               See what your students are misunderstanding before the next lesson.
@@ -238,22 +238,22 @@ export default function Home() {
         </section>
 
         <style>{`
-          @media (max-width: 760px) {
-            .um-teacher-grid {
-              grid-template-columns: 1fr !important;
-            }
-          }
-        `}</style>
+  @media (max-width: 760px) {
+    .um-teacher-grid {
+      grid-template-columns: 1fr !important;
+    }
+    #teachers, #waitlist, #faq {
+      padding-bottom: 40px !important;
+    }
+    #teachers {
+      padding-top: 24px !important;
+    }
+  }
+`}</style>
 
-        <style>{`
-          @media (max-width: 760px) {
-            .um-teacher-grid {
-              grid-template-columns: 1fr !important;
-            }
-          }
-        `}</style>
+
         {/* WAITLIST */}
-        <section id="waitlist" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
+        <section id="waitlist" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 48px" }}>
           <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "12px", textAlign: "center" }}>early access</p>
             <h2 style={{ fontSize: "clamp(24px, 3vw, 32px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "8px", textAlign: "center" }}>get your spot.</h2>
@@ -263,7 +263,7 @@ export default function Home() {
         </section>
 
         {/* FAQ */}
-        <section id="faq" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 80px" }}>
+        <section id="faq" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 48px" }}>
           <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "12px", textAlign: "center" }}>good questions</p>
           <h2 style={{ fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "32px", textAlign: "center" }}>what people are asking.</h2>
           <FAQ />
