@@ -114,4 +114,10 @@ html[style*="--ec-bg: #0C1120"] .um-glass-card--strong {
   .um-form-row {
     flex-direction: column !important;
   }
+  .um-hero-btn {
+  transition: transform 0.18s ease;
+}
+.um-hero-btn:hover {
+  transform: scale(1.04);
+}
 }
