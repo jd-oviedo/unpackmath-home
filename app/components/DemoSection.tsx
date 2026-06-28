@@ -118,11 +118,11 @@ export function DemoSection() {
       id="demo"
       style={{
         background: "transparent",
-        padding: "48px 24px 56px",
+        padding: "24px 24px 32px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "56px",
+        gap: "24px",
       }}
     >
       {/* Section header */}
@@ -139,18 +139,21 @@ export function DemoSection() {
       </div>
 
       {/* Step indicators */}
-      <div style={{ display: "flex", gap: "24px", flexWrap: "wrap", justifyContent: "center" }}>
-        {[
-          ["1. Practice", "Answer adaptive questions"],
-          ["2. Adapt", "Difficulty adjusts in real time"],
-          ["3. Review", "See where thinking broke down"],
-        ].map(([step, desc]) => (
-          <div key={step} style={{ textAlign: "center" }}>
-            <p style={{ fontSize: "15px", fontWeight: 700, color: "var(--ec-accent)", marginBottom: "5px", letterSpacing: "0.04em" }}>{step}</p>
-            <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", margin: 0 }}>{desc}</p>
-          </div>
-        ))}
+      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center", width: "100%", maxWidth: "640px" }}>
+  {[
+    { num: "1", label: "Practice", desc: "Answer adaptive questions" },
+    { num: "2", label: "Adapt", desc: "Difficulty adjusts in real time" },
+    { num: "3", label: "Review", desc: "See where thinking broke down" },
+  ].map((s) => (
+    <div key={s.num} className="um-glass-card--strong" style={{ flex: 1, minWidth: "160px", borderRadius: "16px", padding: "18px 16px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
+      <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "var(--ec-accent-soft)", border: "1px solid var(--ec-accent)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+        <span style={{ fontSize: "14px", fontWeight: 800, color: "var(--ec-accent)" }}>{s.num}</span>
       </div>
+      <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--ec-ink)", margin: 0 }}>{s.label}</p>
+      <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", margin: 0, lineHeight: 1.5 }}>{s.desc}</p>
+    </div>
+  ))}
+</div>
 
       {/* Live quiz card */}
       <div
