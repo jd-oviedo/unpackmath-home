@@ -28,8 +28,8 @@ export default function Home() {
         <DemoSection />
 
         {/* TEACHER DASHBOARD TEASER */}
-        <section id="teachers" style={{ maxWidth: "980px", margin: "0 auto", padding: "40px 24px 56px" }}>
-          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 28px" }}>
+        <section id="teachers" style={{ maxWidth: "980px", margin: "0 auto", padding: "30px 24px 44px" }}>
+          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 22px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "14px" }}>for teachers</p>
             <h2 style={{ fontSize: "clamp(26px, 3.4vw, 40px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
               <span style={{ display: "block" }}>See what your students are</span>
@@ -41,7 +41,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="um-glass-card--strong um-teacher-grid" style={{ borderRadius: "20px", padding: "36px 32px", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "40px", alignItems: "center" }}>
+          <div className="um-glass-card--strong um-teacher-grid" style={{ borderRadius: "20px", padding: "30px 32px", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "40px", alignItems: "center" }}>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "12px", background: "var(--ec-surface2)", borderRadius: "14px", padding: "16px 20px", marginBottom: "28px" }}>
                 <div style={{ flexShrink: 0, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "3px 10px", borderRadius: "999px", background: "var(--ec-green-bg)", color: "var(--ec-green)", border: "1px solid var(--ec-green-border)", whiteSpace: "nowrap" }}>
@@ -120,8 +120,8 @@ export default function Home() {
         </section>
 
         {/* PARENT DIGEST TEASER */}
-        <section id="parents" style={{ maxWidth: "980px", margin: "0 auto", padding: "0 24px 56px" }}>
-          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 28px" }}>
+        <section id="parents" style={{ maxWidth: "980px", margin: "0 auto", padding: "0 24px 44px" }}>
+          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 22px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "14px" }}>coming next for families</p>
             <h2 style={{ fontSize: "clamp(26px, 3.4vw, 40px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
               <span style={{ display: "block" }}>Parents get the story too,</span>
@@ -135,7 +135,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="um-glass-card--strong um-teacher-grid" style={{ borderRadius: "20px", padding: "36px 32px", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "40px", alignItems: "center" }}>
+          <div className="um-glass-card--strong um-teacher-grid" style={{ borderRadius: "20px", padding: "30px 32px", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "40px", alignItems: "center" }}>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "12px", background: "var(--ec-surface2)", borderRadius: "14px", padding: "16px 20px", marginBottom: "28px" }}>
                 <div style={{ flexShrink: 0, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "3px 10px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)", whiteSpace: "nowrap" }}>
@@ -231,8 +231,8 @@ export default function Home() {
         `}</style>
 
         {/* WAITLIST */}
-        <section id="waitlist" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 56px" }}>
-          <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
+        <section id="waitlist" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 44px" }}>
+          <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "30px 32px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "12px", textAlign: "center" }}>early access</p>
             <h2 style={{ fontSize: "clamp(24px, 3vw, 32px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "8px", textAlign: "center" }}>get your spot.</h2>
             <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.65, textAlign: "center", marginBottom: "28px" }}>Sign up to receive early access and updates straight to your inbox.</p>
@@ -241,7 +241,7 @@ export default function Home() {
         </section>
 
         {/* FAQ */}
-        <section id="faq" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 56px" }}>
+        <section id="faq" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 44px" }}>
           <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "12px", textAlign: "center" }}>good questions</p>
           <h2 style={{ fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "32px", textAlign: "center" }}>what people are asking.</h2>
           <FAQ />

@@ -38,9 +38,9 @@ function HeroPreviewCard() {
 
 export function HeroSection() {
   return (
-    <section className="um-hero-section" style={{ maxWidth: "1140px", margin: "0 auto", padding: "140px 24px 40px" }}>
-      <div className="um-hero-grid" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
-        <div className="um-hero-text" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px", textAlign: "center", width: "100%" }}>
+    <section className="um-hero-section" style={{ maxWidth: "1140px", margin: "0 auto", padding: "118px 24px 30px" }}>
+      <div className="um-hero-grid" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
+        <div className="um-hero-text" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "16px", textAlign: "center", width: "100%" }}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", width: "100%" }}>
             <h1 style={{ fontSize: "clamp(42px, 7vw, 68px)", fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05, margin: 0, fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)", whiteSpace: "nowrap" }}>
               <span style={{ color: "var(--ec-ink)" }}>Let's </span>
@@ -55,7 +55,7 @@ export function HeroSection() {
             <a href="https://app.unpackmath.com/adaptive-test" className="um-hero-btn" style={{ flex: 1, minWidth: "160px", padding: "15px 20px", background: "var(--ec-accent)", color: "var(--ec-btn-text, #ffffff)", borderRadius: "14px", fontWeight: 600, fontSize: "15px", textDecoration: "none", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid var(--ec-line)", boxShadow: "var(--ec-shadow)", transition: "transform 0.18s ease" }}>
               Try the Practice Test
             </a>
-            <a href="https://app.unpackmath.com/demo" className="um-hero-btn" style={{ flex: 1, minWidth: "160px", padding: "15px 20px", background: "var(--ec-surface2)", color: "var(--ec-ink)", borderRadius: "14px", fontWeight: 600, fontSize: "15px", textDecoration: "none", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid var(--ec-line)", boxShadow: "var(--ec-shadow)", transition: "transform 0.18s ease" }}>
+            <a href="https://app.unpackmath.com/demo" className="um-hero-btn" style={{ flex: 1, minWidth: "160px", padding: "15px 20px", background: "#1a1a2e", color: "#ffffff", borderRadius: "14px", fontWeight: 600, fontSize: "15px", textDecoration: "none", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid var(--ec-line)", boxShadow: "var(--ec-shadow)", transition: "transform 0.18s ease" }}>
               Teacher Dashboard
             </a>
             <a href="#parents" className="um-hero-btn" style={{ flex: 1, minWidth: "160px", padding: "15px 20px", background: "var(--ec-surface2)", color: "var(--ec-ink)", borderRadius: "14px", fontWeight: 600, fontSize: "15px", textDecoration: "none", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid var(--ec-line)", boxShadow: "var(--ec-shadow)", transition: "transform 0.18s ease" }}>

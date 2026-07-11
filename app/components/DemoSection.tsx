@@ -118,11 +118,11 @@ export function DemoSection() {
       id="demo"
       style={{
         background: "transparent",
-        padding: "24px 24px 32px",
+        padding: "20px 24px 24px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "24px",
+        gap: "20px",
       }}
     >
       {/* Section header */}
