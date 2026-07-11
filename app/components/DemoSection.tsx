@@ -131,7 +131,8 @@ export function DemoSection() {
           product demo
         </p>
         <h2 style={{ fontWeight: 700, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.15, color: "var(--ec-ink)", margin: "0 0 18px", letterSpacing: "-0.02em" }}>
-          See how UnpackMath works in real time.
+          <span style={{ display: "block" }}>See how UnpackMath</span>
+          <span style={{ display: "block" }}>works in real time.</span>
         </h2>
         <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", margin: 0, lineHeight: 1.6 }}>
           Answer the adaptive questions below and watch the engine pinpoint what to study next. The same experience students get in the app.

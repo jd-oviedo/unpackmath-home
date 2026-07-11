@@ -57,17 +57,17 @@ function Blobs() {
 const HEADLINE: { text: string; accent?: boolean; breakAfter?: boolean }[] = [
   { text: "Start" },
   { text: "free.", breakAfter: true },
-  { text: "Pay" },
-  { text: "when", accent: true },
-  { text: "it's" },
-  { text: "ready." },
+  { text: "Lock" },
+  { text: "in" },
+  { text: "your" },
+  { text: "rate.", accent: true },
 ];
 
 function Headline() {
   return (
     <h1
       style={{
-        margin: "22px 0 0",
+        margin: 0,
         fontFamily: "var(--font-kodchasan, 'Kodchasan', sans-serif)",
         fontSize: "clamp(38px,5.2vw,62px)",
         fontWeight: 800,
@@ -96,7 +96,7 @@ function Headline() {
   );
 }
 
-function HeroPill({ dotColor, label }: { dotColor: string; label: string }) {
+function HeroPill({ label }: { label: string }) {
   return (
     <span
       className="um-glass-card"
@@ -111,7 +111,6 @@ function HeroPill({ dotColor, label }: { dotColor: string; label: string }) {
         color: "var(--ec-ink-muted)",
       }}
     >
-      <span style={{ width: 6, height: 6, borderRadius: "50%", background: dotColor, flexShrink: 0 }} />
       {label}
     </span>
   );
@@ -119,46 +118,26 @@ function HeroPill({ dotColor, label }: { dotColor: string; label: string }) {
 
 function Hero() {
   return (
-    <section style={{ maxWidth: 760, margin: "0 auto", padding: "140px 24px 40px", scrollMarginTop: 90 }}>
+    <section style={{ maxWidth: 760, margin: "0 auto", padding: "120px 24px 40px", scrollMarginTop: 90 }}>
       <div style={{ textAlign: "center" }}>
-        <div
-          className="um-glass-card"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 9,
-            padding: "7px 14px",
-            borderRadius: 999,
-            fontSize: 12,
-            fontWeight: 700,
-            letterSpacing: ".14em",
-            textTransform: "uppercase",
-            color: "var(--ec-accent)",
-          }}
-        >
-          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--ec-accent)", flexShrink: 0 }} />
-          simple, honest pricing
-        </div>
-
         <Headline />
 
         <p
           style={{
-            margin: "22px auto 0",
+            margin: "12px auto 0",
             fontSize: "clamp(17px,1.4vw,20px)",
             lineHeight: 1.6,
             color: "var(--ec-ink-muted)",
             maxWidth: 560,
           }}
         >
-          Students practice free today. Teachers can lock in a founding rate now and aren&apos;t billed a cent
-          until the full Misconception Dashboard is live.
+          Students practice free. Founding teachers lock in today&apos;s pricing forever.
         </p>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center", marginTop: 26 }}>
-          <HeroPill dotColor="var(--ec-green)" label="No card to start" />
-          <HeroPill dotColor="var(--ec-accent)" label="Founding rate locked for life" />
-          <HeroPill dotColor="var(--ec-orange)" label="Nothing charges before launch" />
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center", marginTop: 16 }}>
+          <HeroPill label="Free for students" />
+          <HeroPill label="Your rate never rises" />
+          <HeroPill label="Transparent pricing" />
         </div>
       </div>
 
@@ -291,18 +270,6 @@ function CardShell({ children, featured }: { children: React.ReactNode; featured
           : {}),
       }}
     >
-      {featured && (
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 4,
-            background: "linear-gradient(90deg,var(--ec-accent),#7ACCCF)",
-          }}
-        />
-      )}
       {children}
     </div>
   );
@@ -464,36 +431,11 @@ function StudentsCard() {
     </CardShell>
   );
 }
+const STRIPE_MONTHLY = "https://buy.stripe.com/9B614ndby1je9210YT7AI02";
+const STRIPE_ANNUAL = "https://buy.stripe.com/fZu6oH8Vi3rm921cHB7AI03";
+
 function FoundingSpotButton({ annual, count }: { annual: boolean; count: number }) {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", school: "" });
   const isFull = count >= 50;
-
-  const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.school) return;
-    setLoading(true);
-    try {
-      await fetch("https://script.google.com/macros/s/AKfycbzpwg99prZVT1E3nebMgZkudikGblQVBJsO8Ey4IrOD40YhtdGfEsnm18KRxvLJJQLvuw/exec", {
-        method: "POST",
-        body: JSON.stringify({ ...form, role: "teacher", billing: annual ? "annual" : "monthly", challenge: "founding teacher signup" }),
-      });
-    } finally {
-      setSubmitted(true);
-      setLoading(false);
-    }
-  };
-
-  if (submitted) {
-    return (
-      <div style={{ marginTop: 22, textAlign: "center", padding: "16px", background: "var(--ec-green-bg)", border: "1px solid var(--ec-green-border)", borderRadius: 12 }}>
-        <div style={{ fontSize: 24, marginBottom: 6 }}>✓</div>
-        <div style={{ fontSize: 14, fontWeight: 700, color: "var(--ec-ink)" }}>You're on the list.</div>
-        <div style={{ fontSize: 13, color: "var(--ec-ink-muted)", marginTop: 4 }}>We'll reach out before billing starts.</div>
-      </div>
-    );
-  }
 
   if (isFull) {
     return (
@@ -503,30 +445,12 @@ function FoundingSpotButton({ annual, count }: { annual: boolean; count: number 
     );
   }
 
-  if (showForm) {
-    const ready = form.name && form.email && form.school;
-    return (
-      <div style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 10 }}>
-        <input placeholder="Your name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })}
-          style={{ padding: "11px 14px", borderRadius: 10, border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", color: "var(--ec-ink)", fontFamily: "inherit", fontSize: 14, outline: "none" }} />
-        <input placeholder="School or district" value={form.school} onChange={e => setForm({ ...form, school: e.target.value })}
-          style={{ padding: "11px 14px", borderRadius: 10, border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", color: "var(--ec-ink)", fontFamily: "inherit", fontSize: 14, outline: "none" }} />
-        <input placeholder="Work email" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}
-          style={{ padding: "11px 14px", borderRadius: 10, border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", color: "var(--ec-ink)", fontFamily: "inherit", fontSize: 14, outline: "none" }} />
-        <button onClick={handleSubmit} disabled={loading || !ready}
-          style={{ padding: 13, background: ready ? "var(--ec-btn-bg)" : "var(--ec-line)", color: ready ? "var(--ec-btn-text)" : "var(--ec-ink-faint)", border: "none", borderRadius: 10, fontFamily: "inherit", fontSize: 14, fontWeight: 700, cursor: ready ? "pointer" : "not-allowed" }}>
-          {loading ? "Reserving..." : "Reserve my spot"}
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <button onClick={() => setShowForm(true)}
+    <a href={annual ? STRIPE_ANNUAL : STRIPE_MONTHLY}
       onMouseEnter={e => dim(e, "0.85")} onMouseLeave={e => dim(e, "1")}
-      style={{ marginTop: 22, display: "block", width: "100%", textAlign: "center", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", fontFamily: "inherit", fontWeight: 700, fontSize: 15, padding: 14, borderRadius: 12, boxShadow: "var(--ec-shadow-btn)", border: "none", cursor: "pointer", transition: "opacity .15s ease" }}>
+      style={{ marginTop: 22, display: "block", width: "100%", boxSizing: "border-box", textAlign: "center", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", textDecoration: "none", fontFamily: "inherit", fontWeight: 700, fontSize: 15, padding: 14, borderRadius: 12, boxShadow: "var(--ec-shadow-btn)", border: "none", cursor: "pointer", transition: "opacity .15s ease" }}>
       Reserve your founding spot
-    </button>
+    </a>
   );
 }
 function FoundingTeacherCard({ annual, count }: { annual: boolean; count: number }) {
@@ -573,13 +497,13 @@ function FoundingTeacherCard({ annual, count }: { annual: boolean; count: number
     Preview the dashboard first →
   </a>
 </div>
-<FinePrint>No card today. Billing starts when the Dashboard launches.</FinePrint>
+<FinePrint>Billing starts immediately.</FinePrint>
       </CardHead>
       <CardBody>
         <FeatureGroupLabel>Everything in Free, plus</FeatureGroupLabel>
         <FeatureRow label="Unlimited practice for every student in your classes" done />
         <FeatureRow label="Student scores and strand breakdowns, by class" done />
-        <FeatureRow label="Full Misconception Dashboard, item and strand level" done={false} badge="coming with v1" />
+        <FeatureRow label="Full Misconception Dashboard, item and strand level" done />
         <FeatureRow label="Email support and early access to new features" done />
       </CardBody>
     </CardShell>
@@ -600,8 +524,8 @@ function DistrictsCard() {
       <CardBody>
         <FeatureGroupLabel>Everything teachers get, campus-wide, plus</FeatureGroupLabel>
         <FeatureRow label="Unlimited practice for every student on campus" done />
-        <FeatureRow label="Misconception Dashboards for your whole math team" done={false} badge="coming with v1" />
-        <FeatureRow label="Campus-level reporting" done={false} badge="coming with v1" />
+        <FeatureRow label="Misconception Dashboards for your whole math team" done />
+        <FeatureRow label="Campus-level reporting" done={false} />
         <FeatureRow label="Onboarding and implementation support" done />
       </CardBody>
     </CardShell>
@@ -613,7 +537,7 @@ function DistrictsCard() {
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Will I be charged anything today?",
-    a: "No. Students practice free with no card at all, and the Founding Teacher plan does not bill until the full Misconception Dashboard launches. Reserving a spot now just locks in your rate. It is not a payment.",
+    a: "Students practice free with no card at all. For the Founding Teacher plan, billing starts immediately when you reserve your spot, and that founding rate is locked in for life.",
   },
   {
     q: "What's live right now versus coming soon?",

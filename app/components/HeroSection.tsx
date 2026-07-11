@@ -41,10 +41,6 @@ export function HeroSection() {
     <section className="um-hero-section" style={{ maxWidth: "1140px", margin: "0 auto", padding: "140px 24px 40px" }}>
       <div className="um-hero-grid" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
         <div className="um-hero-text" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px", textAlign: "center", width: "100%" }}>
-          <div className="um-glass-card" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", borderRadius: "999px", padding: "6px 16px", width: "fit-content", margin: "0 auto" }}>
-            <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--ec-green)", animation: "ecpulse 1.6s ease-in-out infinite", flexShrink: 0 }} />
-            <span style={{ fontSize: "12px", fontWeight: 600, color: "var(--ec-ink-muted)", letterSpacing: "0.05em", whiteSpace: "nowrap" }}>open beta for TSIA2 math prep</span>
-          </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", width: "100%" }}>
             <h1 style={{ fontSize: "clamp(42px, 7vw, 68px)", fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05, margin: 0, fontFamily: "var(--font-kodchasan, Kodchasan, sans-serif)", whiteSpace: "nowrap" }}>
               <span style={{ color: "var(--ec-ink)" }}>Let's </span>
