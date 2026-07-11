@@ -3,28 +3,28 @@
 /**
  * /pricing
  *
- * v3 — rebuilt against the real Header.tsx / page.tsx / themes.ts, not
+ * v3, rebuilt against the real Header.tsx / page.tsx / themes.ts, not
  * guesses. Corrections from v2:
  *
  *   - Primary buttons use --ec-btn-bg / --ec-btn-text / --ec-shadow-btn
- *     (the ink/accent pair that flips per theme — dark navy button in
+ *     (the ink/accent pair that flips per theme, dark navy button in
  *     light mode, light-blue button in dark mode), not --ec-accent.
  *     --ec-accent is reserved for text, icons, and the "Locked in for
  *     life" badge, not CTA buttons.
  *   - FAQ items use um-glass-card--strong (not the plain variant), a
  *     filled circular ×/+ badge instead of bare characters, and a flat
- *     conditional render — no expand/collapse animation, matching the
+ *     conditional render, no expand/collapse animation, matching the
  *     home page's actual FAQ exactly.
- *   - Section h2s (FAQ heading) are plain Hanken Grotesk, not Kodchasan —
+ *   - Section h2s (FAQ heading) are plain Hanken Grotesk, not Kodchasan.
  *     Kodchasan is reserved for the hero-scale headline, the nav
  *     wordmark, and the footer.
  *   - Hover states are imperative onMouseEnter/onMouseLeave opacity dims
- *     (to 0.85), matching the nav links and the Open App CTA — dropped
+ *     (to 0.85), matching the nav links and the Open App CTA. Dropped
  *     the scale-transform/useHover hook from v2.
  *   - Card radius is 20px (matches the teacher-dashboard and waitlist
  *     cards), not 24px.
  *   - This page now renders its own <Header/>, <Footer/>, <Blobs/>, and
- *     theme-init effect — there's no shared layout doing this, same as
+ *     theme-init effect. There's no shared layout doing this, same as
  *     Home(). Adjust the import paths below if your folder layout
  *     differs from app/pricing/page.tsx + app/components/Header.tsx +
  *     app/theme/themes.ts.

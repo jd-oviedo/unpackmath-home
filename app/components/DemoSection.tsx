@@ -23,7 +23,7 @@ const QUESTIONS: Question[] = [
     choices: [[{ t: "12" }], [{ t: "2" }], [{ t: "−2" }], [{ t: "−12" }]],
     correct: 0,
     clean: "Move the variables to one side and the constants to the other: 3x − 2x = 5 + 7, so x = 12.",
-    broke: "The constants landed on the wrong side. Subtract 2x from both sides first, then add 7 — the 5 and 7 should combine as 5 + 7 = 12.",
+    broke: "The constants landed on the wrong side. Subtract 2x from both sides first, then add 7. The 5 and 7 should combine as 5 + 7 = 12.",
   },
   {
     topic: "Fractions",
@@ -109,8 +109,8 @@ export function DemoSection() {
   const isCorrectAns = answered && selected === q.correct;
 
   let resultMsg: string;
-  if (correctCount === total) resultMsg = "Sharp work. You're testing at the top of this set — time to stretch into harder material.";
-  else if (correctCount >= Math.ceil(total / 2)) resultMsg = "Solid. You're close — a little focused practice on one idea and you're there.";
+  if (correctCount === total) resultMsg = "Sharp work. You're testing at the top of this set. Time to stretch into harder material.";
+  else if (correctCount >= Math.ceil(total / 2)) resultMsg = "Solid. You're close. A little focused practice on one idea and you're there.";
   else resultMsg = "Good start. We'll spend more time right here and build it up.";
 
   return (
@@ -128,7 +128,7 @@ export function DemoSection() {
       {/* Section header */}
       <div style={{ textAlign: "center", maxWidth: "600px" }}>
         <p style={{ fontSize: "12px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ec-accent)", margin: "0 0 14px" }}>
-          product demo
+          cat engine demo
         </p>
         <h2 style={{ fontWeight: 700, fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.15, color: "var(--ec-ink)", margin: "0 0 18px", letterSpacing: "-0.02em" }}>
           <span style={{ display: "block" }}>See how UnpackMath</span>

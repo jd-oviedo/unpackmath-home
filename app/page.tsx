@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Header, Footer } from "./components/Header";
 import { DemoSection } from "./components/DemoSection";
 import { HeroSection } from "./components/HeroSection";
@@ -31,10 +32,12 @@ export default function Home() {
           <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 28px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "14px" }}>for teachers</p>
             <h2 style={{ fontSize: "clamp(26px, 3.4vw, 40px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
-              See what your students are misunderstanding, before your next lesson.
+              <span style={{ display: "block" }}>See what your students are</span>
+              <span style={{ display: "block" }}>misunderstanding, before</span>
+              <span style={{ display: "block" }}>your next lesson.</span>
             </h2>
             <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: 0 }}>
-              The Misconception Dashboard is live — see class-wide patterns, group students by need, and get next-step suggestions in seconds.
+              The Misconception Dashboard is live. See class-wide patterns, group students by need, and get next-step suggestions in seconds.
             </p>
           </div>
 
@@ -57,7 +60,7 @@ export default function Home() {
                   "Get small-group-ready next steps and follow-up prompts",
                 ].map((item) => (
                   <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.6 }}>
-                    <span style={{ color: "var(--ec-accent)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>—</span>
+                    <span style={{ color: "var(--ec-accent)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>•</span>
                     {item}
                   </li>
                 ))}
@@ -121,10 +124,14 @@ export default function Home() {
           <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 28px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "14px" }}>coming next for families</p>
             <h2 style={{ fontSize: "clamp(26px, 3.4vw, 40px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
-              Parents get the story too, not just the score.
+              <span style={{ display: "block" }}>Parents get the story too,</span>
+              <span style={{ display: "block" }}>not just the score.</span>
             </h2>
+            <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: "0 0 8px" }}>
+              A weekly report in plain language, Spanish-first, no jargon and no raw scores.
+            </p>
             <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: 0 }}>
-              A weekly report in plain language, Spanish-first, no jargon and no raw scores. Just what to ask your kid tonight.
+              Just what to ask your kid tonight.
             </p>
           </div>
 
@@ -142,12 +149,12 @@ export default function Home() {
 
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: "10px" }}>
                 {[
-                  "A weekly update in plain language — no scores, no jargon",
+                  "A weekly update in plain language, no scores, no jargon",
                   "One thing your child is doing well, one to work on",
                   "A specific question to ask at home tonight",
                 ].map((item) => (
                   <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.6 }}>
-                    <span style={{ color: "var(--ec-orange)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>—</span>
+                    <span style={{ color: "var(--ec-orange)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>•</span>
                     {item}
                   </li>
                 ))}
@@ -165,22 +172,20 @@ export default function Home() {
 
               {/* trusted-sender header */}
               <div style={{ display: "flex", alignItems: "center", gap: "10px", background: "var(--ec-surface)", borderRadius: "10px", padding: "11px 13px", border: "1px solid var(--ec-line)", marginBottom: "10px", marginTop: "6px" }}>
-                <div style={{ width: "34px", height: "34px", borderRadius: "9px", background: "#0F1E35", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <span style={{ fontSize: "13px", fontWeight: 800, color: "#E7BE7B" }}>U</span>
-                </div>
+                <Image src="/unpackmath-logo.png" alt="UnpackMath" width={34} height={34} style={{ borderRadius: "9px", flexShrink: 0, objectFit: "contain" }} />
                 <div style={{ minWidth: 0 }}>
                   <p style={{ fontSize: "13px", fontWeight: 700, color: "var(--ec-ink)", margin: 0, display: "flex", alignItems: "center", gap: "5px" }}>
                     UnpackMath
                     <span style={{ width: "14px", height: "14px", borderRadius: "50%", background: "var(--ec-accent)", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "9px", fontWeight: 700, flexShrink: 0 }}>✓</span>
                   </p>
-                  <p style={{ fontSize: "11px", color: "var(--ec-ink-muted)", margin: 0 }}>para Sra. García · sobre María A.</p>
+                  <p style={{ fontSize: "11px", color: "var(--ec-ink-muted)", margin: 0 }}>para Sra. García · sobre Camila A.</p>
                 </div>
               </div>
 
               {/* one-line status */}
               <div style={{ display: "flex", alignItems: "center", gap: "9px", background: "var(--ec-green-bg)", border: "1px solid var(--ec-green-border)", borderRadius: "10px", padding: "11px 13px", marginBottom: "10px" }}>
                 <span style={{ width: "20px", height: "20px", borderRadius: "50%", background: "var(--ec-green)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 700, flexShrink: 0 }}>✓</span>
-                <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--ec-ink)" }}>Esta semana María va por buen camino.</span>
+                <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--ec-ink)" }}>Esta semana Camila va por buen camino.</span>
               </div>
 
               {/* one focus area */}
@@ -195,7 +200,7 @@ export default function Home() {
               {/* tonight's action */}
               <div style={{ background: "var(--ec-accent-soft)", borderRadius: "10px", padding: "11px 13px", border: "1px solid var(--ec-accent)" }}>
                 <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ec-accent)", margin: "0 0 6px" }}>Para esta noche</p>
-                <p style={{ fontSize: "13px", lineHeight: 1.55, color: "var(--ec-ink)", margin: 0 }}>Pregúntale a María cómo sumar 2/3 + 1/6. Si empieza sumando 2 + 1 y 3 + 6, ahí está la oportunidad.</p>
+                <p style={{ fontSize: "13px", lineHeight: 1.55, color: "var(--ec-ink)", margin: 0 }}>Pregúntale a Camila cómo sumar 2/3 + 1/6. Si empieza sumando 2 + 1 y 3 + 6, ahí está la oportunidad.</p>
               </div>
             </div>
           </div>
