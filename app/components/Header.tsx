@@ -87,7 +87,7 @@ export function Header() {
             flexShrink: 0,
           }}
         >
-          {/* App icon box — sand/glass background */}
+          {/* App icon box, sand/glass background */}
           <div
             style={{
               width: "42px",

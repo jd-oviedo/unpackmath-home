@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Header, Footer } from "./components/Header";
 import { DemoSection } from "./components/DemoSection";
 import { HeroSection } from "./components/HeroSection";
@@ -27,26 +28,28 @@ export default function Home() {
         <DemoSection />
 
         {/* TEACHER DASHBOARD TEASER */}
-        <section id="teachers" style={{ maxWidth: "980px", margin: "0 auto", padding: "40px 24px 56px" }}>
-          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 28px" }}>
-            <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "14px" }}>coming next for teachers</p>
+        <section id="teachers" style={{ maxWidth: "980px", margin: "0 auto", padding: "30px 24px 44px" }}>
+          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 22px" }}>
+            <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "14px" }}>for teachers</p>
             <h2 style={{ fontSize: "clamp(26px, 3.4vw, 40px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
-              See what your students are misunderstanding before the next lesson.
+              <span style={{ display: "block" }}>See what your students are</span>
+              <span style={{ display: "block" }}>misunderstanding, before</span>
+              <span style={{ display: "block" }}>your next lesson.</span>
             </h2>
             <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: 0 }}>
-              A new teacher dashboard is on the way to help you spot class-wide misconceptions, group students by need, and plan your next instructional move faster.
+              The Misconception Dashboard is live. See class-wide patterns, group students by need, and get next-step suggestions in seconds.
             </p>
           </div>
 
-          <div className="um-glass-card--strong um-teacher-grid" style={{ borderRadius: "20px", padding: "36px 32px", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "40px", alignItems: "center" }}>
+          <div className="um-glass-card--strong um-teacher-grid" style={{ borderRadius: "20px", padding: "30px 32px", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "40px", alignItems: "center" }}>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "12px", background: "var(--ec-surface2)", borderRadius: "14px", padding: "16px 20px", marginBottom: "28px" }}>
-                <div style={{ flexShrink: 0, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "3px 10px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)", whiteSpace: "nowrap" }}>
-                  up next
+                <div style={{ flexShrink: 0, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "3px 10px", borderRadius: "999px", background: "var(--ec-green-bg)", color: "var(--ec-green)", border: "1px solid var(--ec-green-border)", whiteSpace: "nowrap" }}>
+                  live
                 </div>
                 <div>
                   <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--ec-ink)", margin: "0 0 2px" }}>Teacher Misconception Dashboard</p>
-                  <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.5, margin: 0 }}>Built to turn student reasoning into grouped insights and clear next steps.</p>
+                  <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.5, margin: 0 }}>Turns student reasoning into grouped insights and clear next steps.</p>
                 </div>
               </div>
 
@@ -57,20 +60,20 @@ export default function Home() {
                   "Get small-group-ready next steps and follow-up prompts",
                 ].map((item) => (
                   <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.6 }}>
-                    <span style={{ color: "var(--ec-orange)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>—</span>
+                    <span style={{ color: "var(--ec-accent)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>•</span>
                     {item}
                   </li>
                 ))}
               </ul>
 
-              <a href="#waitlist" style={{ display: "block", padding: "13px 32px", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", borderRadius: "12px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: "var(--ec-shadow-btn)", textAlign: "center" }}>
-                Join the teacher waitlist
+              <a href="/pricing" style={{ display: "block", padding: "13px 32px", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", borderRadius: "12px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: "var(--ec-shadow-btn)", textAlign: "center" }}>
+                Reserve your founding spot
               </a>
             </div>
 
             <div style={{ position: "relative", borderRadius: "16px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", padding: "18px" }}>
-              <div style={{ position: "absolute", top: "14px", right: "14px", zIndex: 2, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "4px 11px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)" }}>
-                coming soon
+              <div style={{ position: "absolute", top: "14px", right: "14px", zIndex: 2, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "4px 11px", borderRadius: "999px", background: "var(--ec-green-bg)", color: "var(--ec-green)", border: "1px solid var(--ec-green-border)" }}>
+                live
               </div>
               <div style={{ display: "flex", gap: "8px", marginBottom: "16px", flexWrap: "wrap" }}>
                 {[["QR","#E6F1FB","#185FA5","#B5D4F4"],["AR","#E1F5EE","#0F6E56","#9FE1CB"],["GR","#FAEEDA","#854F0B","#FAC775"],["PR","#EEEDFE","#534AB7","#CECBF6"]].map(([code,bg,text,border]) => (
@@ -116,8 +119,99 @@ export default function Home() {
           </div>
         </section>
 
+        {/* PARENT DIGEST TEASER */}
+        <section id="parents" style={{ maxWidth: "980px", margin: "0 auto", padding: "0 24px 44px" }}>
+          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 22px" }}>
+            <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "14px" }}>coming next for families</p>
+            <h2 style={{ fontSize: "clamp(26px, 3.4vw, 40px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
+              <span style={{ display: "block" }}>Parents get the story too,</span>
+              <span style={{ display: "block" }}>not just the score.</span>
+            </h2>
+            <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: "0 0 8px" }}>
+              A weekly report in plain language, Spanish-first, no jargon and no raw scores.
+            </p>
+            <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: 0 }}>
+              Just what to ask your kid tonight.
+            </p>
+          </div>
+
+          <div className="um-glass-card--strong um-teacher-grid" style={{ borderRadius: "20px", padding: "30px 32px", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "40px", alignItems: "center" }}>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", background: "var(--ec-surface2)", borderRadius: "14px", padding: "16px 20px", marginBottom: "28px" }}>
+                <div style={{ flexShrink: 0, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "3px 10px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)", whiteSpace: "nowrap" }}>
+                  coming soon
+                </div>
+                <div>
+                  <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--ec-ink)", margin: "0 0 2px" }}>Weekly Parent Digest</p>
+                  <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.5, margin: 0 }}>Spanish-first, so families read it in the language they speak at home.</p>
+                </div>
+              </div>
+
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                {[
+                  "A weekly update in plain language, no scores, no jargon",
+                  "One thing your child is doing well, one to work on",
+                  "A specific question to ask at home tonight",
+                ].map((item) => (
+                  <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.6 }}>
+                    <span style={{ color: "var(--ec-orange)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>•</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <a href="https://app.unpackmath.com/reporte" style={{ display: "block", padding: "13px 32px", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", borderRadius: "12px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: "var(--ec-shadow-btn)", textAlign: "center" }}>
+                Preview a parent report
+              </a>
+            </div>
+
+            <div style={{ position: "relative", borderRadius: "16px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", padding: "18px" }}>
+              <div style={{ position: "absolute", top: "14px", right: "14px", zIndex: 2, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "4px 11px", borderRadius: "999px", background: "var(--ec-orange-bg)", color: "var(--ec-orange)", border: "1px solid var(--ec-orange-border)" }}>
+                coming soon
+              </div>
+
+              {/* trusted-sender header */}
+              <div style={{ display: "flex", alignItems: "center", gap: "10px", background: "var(--ec-surface)", borderRadius: "10px", padding: "11px 13px", border: "1px solid var(--ec-line)", marginBottom: "10px", marginTop: "6px" }}>
+                <Image src="/unpackmath-logo.png" alt="UnpackMath" width={34} height={34} style={{ borderRadius: "9px", flexShrink: 0, objectFit: "contain" }} />
+                <div style={{ minWidth: 0 }}>
+                  <p style={{ fontSize: "13px", fontWeight: 700, color: "var(--ec-ink)", margin: 0, display: "flex", alignItems: "center", gap: "5px" }}>
+                    UnpackMath
+                    <span style={{ width: "14px", height: "14px", borderRadius: "50%", background: "var(--ec-accent)", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "9px", fontWeight: 700, flexShrink: 0 }}>✓</span>
+                  </p>
+                  <p style={{ fontSize: "11px", color: "var(--ec-ink-muted)", margin: 0 }}>para Sra. García · sobre Camila A.</p>
+                </div>
+              </div>
+
+              {/* one-line status */}
+              <div style={{ display: "flex", alignItems: "center", gap: "9px", background: "var(--ec-green-bg)", border: "1px solid var(--ec-green-border)", borderRadius: "10px", padding: "11px 13px", marginBottom: "10px" }}>
+                <span style={{ width: "20px", height: "20px", borderRadius: "50%", background: "var(--ec-green)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "11px", fontWeight: 700, flexShrink: 0 }}>✓</span>
+                <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--ec-ink)" }}>Esta semana Camila va por buen camino.</span>
+              </div>
+
+              {/* one focus area */}
+              <div style={{ background: "var(--ec-surface)", borderRadius: "10px", padding: "11px 13px", border: "1px solid var(--ec-line)", marginBottom: "10px" }}>
+                <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ec-ink-faint)", margin: "0 0 6px" }}>En qué enfocarse</p>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ fontSize: "11px", fontWeight: 600, padding: "3px 9px", borderRadius: "999px", background: "#E1F5EE", color: "#0F6E56", border: "1px solid #9FE1CB" }}>AR</span>
+                  <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--ec-ink)" }}>Fracciones equivalentes</span>
+                </div>
+              </div>
+
+              {/* tonight's action */}
+              <div style={{ background: "var(--ec-accent-soft)", borderRadius: "10px", padding: "11px 13px", border: "1px solid var(--ec-accent)" }}>
+                <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ec-accent)", margin: "0 0 6px" }}>Para esta noche</p>
+                <p style={{ fontSize: "13px", lineHeight: 1.55, color: "var(--ec-ink)", margin: 0 }}>Pregúntale a Camila cómo sumar 2/3 + 1/6. Si empieza sumando 2 + 1 y 3 + 6, ahí está la oportunidad.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <style>{`
           @media (max-width: 760px) {
+            #parents {
+              padding-top: 8px !important;
+              padding-bottom: 40px !important;
+            }
             .um-teacher-grid {
               grid-template-columns: 1fr !important;
               padding: 20px 16px !important;
@@ -137,8 +231,8 @@ export default function Home() {
         `}</style>
 
         {/* WAITLIST */}
-        <section id="waitlist" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 56px" }}>
-          <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "36px 32px" }}>
+        <section id="waitlist" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 44px" }}>
+          <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "30px 32px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "12px", textAlign: "center" }}>early access</p>
             <h2 style={{ fontSize: "clamp(24px, 3vw, 32px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "8px", textAlign: "center" }}>get your spot.</h2>
             <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.65, textAlign: "center", marginBottom: "28px" }}>Sign up to receive early access and updates straight to your inbox.</p>
@@ -147,7 +241,7 @@ export default function Home() {
         </section>
 
         {/* FAQ */}
-        <section id="faq" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 56px" }}>
+        <section id="faq" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 44px" }}>
           <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "12px", textAlign: "center" }}>good questions</p>
           <h2 style={{ fontSize: "clamp(28px, 4vw, 38px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "32px", textAlign: "center" }}>what people are asking.</h2>
           <FAQ />

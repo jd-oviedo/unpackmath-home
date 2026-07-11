@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     { rel: "shortcut icon", url: "/favicon.ico?v=3" },
   ],
   title: "UnpackMath",
-  description: "Adaptive TSIA2 math prep that shows students exactly where their thinking breaks down — and gives teachers the data to do something about it.",
+  description: "Adaptive TSIA2 math prep that shows students exactly where their thinking breaks down, and gives teachers the data to do something about it.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

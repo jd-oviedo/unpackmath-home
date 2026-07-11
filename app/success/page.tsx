@@ -83,7 +83,7 @@ export default function Success() {
             }}
           >
             Your founding spot is locked in. You won&apos;t be charged until
-            the Misconception Dashboard launches — and your rate stays the same
+            the Misconception Dashboard launches, and your rate stays the same
             forever.
           </p>
 
