@@ -454,7 +454,6 @@ function FoundingSpotButton({ annual, count }: { annual: boolean; count: number 
   );
 }
 function FoundingTeacherCard({ annual, count }: { annual: boolean; count: number }) {
-  const spotsLeft = Math.max(0, 50 - count);
   const big = annual ? "$100" : "$10";
   const unit = annual ? "per teacher, per year" : "per teacher, per month";
   const note = annual ? "About $8.33/mo. Two months free." : "Or go annual for two months free.";
@@ -482,11 +481,6 @@ function FoundingTeacherCard({ annual, count }: { annual: boolean; count: number
         </div>
         <CardPrice big={big} unit={unit} note={note} strike={strike} />
         <FoundingSpotButton annual={annual} count={count} />
-<div style={{ marginTop: 10, textAlign: "center" }}>
-  <span style={{ fontSize: 12, fontWeight: 700, color: spotsLeft <= 10 ? "var(--ec-orange)" : "var(--ec-ink-muted)" }}>
-    {spotsLeft} of 50 founding spots remaining
-  </span>
-</div>
 <div style={{ textAlign: 'center', marginTop: 12 }}>
   
    <a href="https://app.unpackmath.com/demo"

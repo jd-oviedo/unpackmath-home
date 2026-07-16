@@ -1,9 +1,15 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { Header, Footer } from "./components/Header";
 import { DemoSection } from "./components/DemoSection";
 import { HeroSection } from "./components/HeroSection";
 import { FAQ } from "./components/FAQ";
 import { WaitlistForm } from "./components/WaitlistForm";
+
+export const metadata: Metadata = {
+  title: "UnpackMath | Adaptive TSIA2 Math Prep",
+  description: "Adaptive TSIA2 math prep that shows students exactly where their thinking breaks down, and gives teachers the data to do something about it.",
+};
 
 function Blobs() {
   return (
@@ -230,12 +236,38 @@ export default function Home() {
           }
         `}</style>
 
+        {/* FOUNDER */}
+        <section id="founder" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 44px" }}>
+          <div className="um-glass-card" style={{ borderRadius: "20px", padding: "30px 32px" }}>
+            <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "20px" }}>built by a teacher.</p>
+            <div className="um-founder-row" style={{ display: "flex", gap: "22px", alignItems: "flex-start" }}>
+              {/* founder photo */}
+              <Image
+                src="/teacher.png"
+                alt="Juan (Mr. O), founder of UnpackMath"
+                width={72}
+                height={72}
+                style={{ flexShrink: 0, width: "72px", height: "72px", borderRadius: "16px", objectFit: "cover", border: "1px solid var(--ec-line)" }}
+              />
+              <div>
+                <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: "0 0 14px" }}>
+                  I&apos;m Juan (Mr. O), a 5th-year high school math teacher in East Houston. I built UnpackMath because I kept watching capable students fail the TSIA2 for reasons a score report never explained. This is the tool I wished my own campus had.
+                </p>
+                <p style={{ fontSize: "13px", fontWeight: 700, color: "var(--ec-ink)", margin: 0 }}>Juan (Mr. O), Founder - UnpackMath / JDOM LLC</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* WAITLIST */}
         <section id="waitlist" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 44px" }}>
           <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "30px 32px" }}>
             <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "12px", textAlign: "center" }}>early access</p>
-            <h2 style={{ fontSize: "clamp(24px, 3vw, 32px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "8px", textAlign: "center" }}>get your spot.</h2>
-            <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.65, textAlign: "center", marginBottom: "28px" }}>Sign up to receive early access and updates straight to your inbox.</p>
+            <h2 style={{ fontSize: "clamp(24px, 3vw, 32px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: "8px", textAlign: "center" }}>stay in the loop.</h2>
+            <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.65, textAlign: "center", marginBottom: "20px" }}>Not a teacher, or not ready yet? Get early access updates straight to your inbox.</p>
+            <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.6, textAlign: "center", marginBottom: "24px" }}>
+              Teachers: your founding spot is available now on the <a href="/pricing" style={{ color: "var(--ec-accent)", fontWeight: 700, textDecoration: "none" }}>pricing page</a>.
+            </p>
             <WaitlistForm />
           </div>
         </section>
