@@ -222,7 +222,9 @@ export function Footer() {
       }}
     >
       <p style={{ margin: 0 }}>
-        &copy; {new Date().getFullYear()} UnpackMath &middot;{" "}
+        &copy; 2026 UnpackMath, a JDOM LLC product &middot;{" "}
+        <a href="mailto:hello@unpackmath.com" style={{ color: "inherit", textDecoration: "underline" }}>hello@unpackmath.com</a>
+        {" "}&middot;{" "}
         <a href="/privacy" style={{ color: "inherit", textDecoration: "underline" }}>privacy</a>
         {" "}&middot;{" "}
         <a href="/terms" style={{ color: "inherit", textDecoration: "underline" }}>terms</a>
