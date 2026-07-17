@@ -239,22 +239,26 @@ export default function Home() {
         {/* FOUNDER */}
         <section id="founder" style={{ maxWidth: "720px", margin: "0 auto", padding: "0 24px 44px" }}>
           <div className="um-glass-card" style={{ borderRadius: "20px", padding: "30px 32px" }}>
-            <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "20px" }}>built by a teacher.</p>
-            <div className="um-founder-row" style={{ display: "flex", gap: "22px", alignItems: "flex-start" }}>
+            <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "20px", textAlign: "center" }}>built by a teacher.</p>
+            <div className="um-founder-row">
               {/* founder photo */}
               <Image
                 src="/teacher.png"
                 alt="Juan (Mr. O), founder of UnpackMath"
-                width={72}
-                height={72}
-                style={{ flexShrink: 0, width: "72px", height: "72px", borderRadius: "16px", objectFit: "cover", border: "1px solid var(--ec-line)" }}
+                width={120}
+                height={120}
+                style={{ float: "left", marginRight: "22px", marginBottom: "10px", width: "120px", height: "120px", borderRadius: "16px", objectFit: "cover", border: "1px solid var(--ec-line)" }}
               />
-              <div>
-                <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: "0 0 14px" }}>
-                  I&apos;m Juan (Mr. O), a 5th-year high school math teacher in East Houston. I built UnpackMath because I kept watching capable students fail the TSIA2 for reasons a score report never explained. This is the tool I wished my own campus had.
-                </p>
-                <p style={{ fontSize: "13px", fontWeight: 700, color: "var(--ec-ink)", margin: 0 }}>Juan, Founder - UnpackMath</p>
-              </div>
+              <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: "0 0 14px" }}>
+                I&apos;m Juan (Mr. O), a high school math teacher in East Houston. Every year, I watch capable students fail the TSIA2 for reasons a score report never explains. So I built something that does.
+              </p>
+              <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: "0 0 14px" }}>
+                Most math prep is just more math. I built UnpackMath to do something different: surface the thinking, not just the answers. Because here&apos;s what I learned in the classroom, you don&apos;t need to know the math to help your student understand it. You need to know where their thinking broke down.
+              </p>
+              <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: "0 0 14px" }}>
+                That&apos;s the whole thing.
+              </p>
+              <p style={{ fontSize: "13px", fontWeight: 700, color: "var(--ec-ink)", margin: 0, clear: "both" }}>Juan, Founder - UnpackMath</p>
             </div>
           </div>
         </section>
