@@ -253,7 +253,7 @@ export default function Home() {
                 <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: "0 0 14px" }}>
                   I&apos;m Juan (Mr. O), a 5th-year high school math teacher in East Houston. I built UnpackMath because I kept watching capable students fail the TSIA2 for reasons a score report never explained. This is the tool I wished my own campus had.
                 </p>
-                <p style={{ fontSize: "13px", fontWeight: 700, color: "var(--ec-ink)", margin: 0 }}>Juan (Mr. O), Founder - UnpackMath / JDOM LLC</p>
+                <p style={{ fontSize: "13px", fontWeight: 700, color: "var(--ec-ink)", margin: 0 }}>Juan, Founder - UnpackMath</p>
               </div>
             </div>
           </div>
