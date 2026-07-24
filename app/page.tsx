@@ -178,7 +178,7 @@ export default function Home() {
 
               {/* trusted-sender header */}
               <div style={{ display: "flex", alignItems: "center", gap: "10px", background: "var(--ec-surface)", borderRadius: "10px", padding: "11px 13px", border: "1px solid var(--ec-line)", marginBottom: "10px", marginTop: "6px" }}>
-                <Image src="/unpackmath-logo.png" alt="UnpackMath" width={34} height={34} style={{ borderRadius: "9px", flexShrink: 0, objectFit: "contain" }} />
+                <Image src="/images/brand/mu-mark.png" alt="UnpackMath" width={34} height={34} style={{ borderRadius: "9px", flexShrink: 0, objectFit: "contain" }} />
                 <div style={{ minWidth: 0 }}>
                   <p style={{ fontSize: "13px", fontWeight: 700, color: "var(--ec-ink)", margin: 0, display: "flex", alignItems: "center", gap: "5px" }}>
                     UnpackMath
