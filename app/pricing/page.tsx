@@ -19,7 +19,7 @@
  *     Kodchasan is reserved for the hero-scale headline, the nav
  *     wordmark, and the footer.
  *   - Hover states are imperative onMouseEnter/onMouseLeave opacity dims
- *     (to 0.85), matching the nav links and the Open App CTA. Dropped
+ *     (to 0.85), matching the nav links and the Practice Test CTA. Dropped
  *     the scale-transform/useHover hook from v2.
  *   - Card radius is 20px (matches the teacher-dashboard and waitlist
  *     cards), not 24px.
