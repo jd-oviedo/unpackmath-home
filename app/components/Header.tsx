@@ -6,6 +6,18 @@ import Image from "next/image";
 
 const MOBILE_BREAKPOINT = 780;
 
+const HEADER_HEIGHT = 76;
+
+const LOGIN_HREF = "https://app.unpackmath.com/login";
+const PRACTICE_TEST_HREF = "https://app.unpackmath.com/adaptive-test";
+
+// 2000x485 source, so ~4.12:1. Height is pinned in CSS and width follows.
+// The art sits inset in its canvas with roughly 15% clear above and below, so
+// the rendered box runs larger than a tight-cropped wordmark would to land the
+// right optical size.
+const WORDMARK_HEIGHT = 40;
+const WORDMARK_WIDTH = Math.round(WORDMARK_HEIGHT * (2000 / 485));
+
 const NAV_LINKS = [
   { label: "how it works", href: "#demo" },
   { label: "for teachers", href: "#teachers" },
@@ -13,13 +25,18 @@ const NAV_LINKS = [
   { label: "faq", href: "#faq" },
 ];
 
-// Only absolute destinations here. The in-page anchors from NAV_LINKS are
-// deliberately left out: this Header also renders on /pricing, where #demo
-// and #faq resolve to nothing.
+// The anchors are rooted at "/" here rather than reused bare from NAV_LINKS:
+// this Header also renders on /pricing, where a bare #demo or #faq resolves to
+// nothing. Rooting them sends you home first, then to the section.
+// Log In leads, since surfacing the login path is the point of this menu.
+// LOGIN_HREF is the general login and is deliberately not the role-scoped
+// teacher URL the hero pill uses. Those are two different destinations.
 const MOBILE_MENU_ITEMS = [
-  { label: "Teacher Dashboard", href: "https://app.unpackmath.com/teacher", external: true },
-  { label: "Practice Test", href: "https://app.unpackmath.com/adaptive-test", external: true },
-  { label: "Pricing", href: "/pricing", external: false },
+  { label: "Log In", href: LOGIN_HREF, external: true },
+  { label: "how it works", href: "/#demo", external: false },
+  { label: "for teachers", href: "/#teachers", external: false },
+  { label: "pricing", href: "/pricing", external: false },
+  { label: "faq", href: "/#faq", external: false },
 ];
 
 export function Header() {
@@ -57,94 +74,57 @@ export function Header() {
   }, [menuOpen]);
 
   return (
-    <div
+    <header
       style={{
         position: "fixed",
         top: 0,
         left: 0,
         right: 0,
         zIndex: 100,
-        display: "flex",
-        justifyContent: "center",
-        padding: "12px 16px",
-        pointerEvents: "none",
+        // Full bleed: the bar background spans the viewport, only its contents
+        // are inset. Glass treatment carried over from the old floating pill.
+        background: "var(--ec-header-bg)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        borderBottom: "1px solid var(--ec-header-border)",
+        boxShadow: scrolled
+          ? "0 4px 24px rgba(26, 31, 46, 0.10)"
+          : "0 1px 3px rgba(26, 31, 46, 0.04)",
+        transition: "box-shadow 0.25s ease",
       }}
     >
       <nav
         ref={navRef}
+        className="um-nav-bar"
         style={{
-          pointerEvents: "all",
           position: "relative",
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
-          gap: "16px",
-          padding: "8px 12px 8px 8px",
-          borderRadius: "999px",
-          maxWidth: "860px",
-          width: "100%",
-          background: scrolled
-            ? "var(--ec-header-bg)"
-            : "var(--ec-header-bg)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          border: "1px solid rgba(26, 31, 46, 0.10)",
-          boxShadow: scrolled
-            ? "0 8px 32px rgba(26, 31, 46, 0.14), 0 2px 8px rgba(26, 31, 46, 0.08)"
-            : "0 4px 20px rgba(26, 31, 46, 0.10), 0 1px 4px rgba(26, 31, 46, 0.06)",
-          transition: "box-shadow 0.25s ease, background 0.25s ease",
+          gap: "20px",
+          height: `${HEADER_HEIGHT}px`,
+          padding: "0 28px",
         }}
       >
-        {/* Logo + wordmark */}
+        {/* Wordmark */}
         <Link
           href="/"
+          className="um-wordmark-link"
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "10px",
             textDecoration: "none",
             flexShrink: 0,
           }}
         >
-          {/* App icon box, sand/glass background */}
-          <div
-            style={{
-              width: "42px",
-              height: "42px",
-              borderRadius: "10px",
-              background: "var(--ec-glass-bg)",
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
-              border: "1px solid rgba(26, 31, 46, 0.12)",
-              boxShadow: "0 2px 8px rgba(26, 31, 46, 0.10)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-              overflow: "hidden",
-            }}
-          >
-            <Image
-              src="/images/brand/mu-mark.png"
-              alt="UnpackMath logo"
-              width={42}
-              height={42}
-              style={{ objectFit: "contain" }}
-            />
-          </div>
-
-          <span
+          <Image
             className="um-wordmark"
-            style={{
-              fontFamily: "var(--font-kodchasan, 'Kodchasan', sans-serif)",
-              fontWeight: 600,
-              fontSize: "15px",
-              color: "var(--ec-ink)",
-              letterSpacing: "0.04em",
-            }}
-          >
-            UnpackMath
-          </span>
+            src="/images/brand/unpackmath_wordmark.png"
+            alt="UnpackMath"
+            width={WORDMARK_WIDTH}
+            height={WORDMARK_HEIGHT}
+            loading="eager"
+            style={{ height: `${WORDMARK_HEIGHT}px`, width: "auto" }}
+          />
         </Link>
 
         {/* Nav links */}
@@ -153,8 +133,6 @@ export function Header() {
             display: "flex",
             alignItems: "center",
             gap: "2px",
-            flex: 1,
-            justifyContent: "center",
           }}
           className="um-nav-links"
         >
@@ -164,12 +142,12 @@ export function Header() {
               href={link.href}
               style={{
                 fontFamily: "var(--font-kodchasan, 'Kodchasan', sans-serif)",
-                fontSize: "13px",
+                fontSize: "15px",
                 fontWeight: 500,
                 color: "var(--ec-ink)",
                 opacity: 0.65,
                 textDecoration: "none",
-                padding: "6px 14px",
+                padding: "8px 16px",
                 borderRadius: "999px",
                 transition: "opacity 0.15s ease, background 0.15s ease",
                 whiteSpace: "nowrap",
@@ -188,24 +166,25 @@ export function Header() {
           ))}
         </div>
 
-        {/* Right side: CTAs (desktop) */}
+        {/* Right side: CTAs. marginLeft:auto pins them to the far edge and
+            leaves the nav links sitting left of center, next to the wordmark. */}
         <div
           className="um-nav-cta"
-          style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}
+          style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0, marginLeft: "auto" }}
         >
           <a
-            href="https://app.unpackmath.com/teacher"
+            href={LOGIN_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className="um-nav-teacher"
+            className="um-nav-login"
             style={{
               fontFamily: "var(--font-kodchasan, 'Kodchasan', sans-serif)",
-              fontSize: "13px",
+              fontSize: "15px",
               fontWeight: 600,
               color: "var(--ec-ink)",
               background: "var(--ec-glass-bg)",
               border: "1px solid var(--ec-line)",
-              padding: "6px 17px",
+              padding: "9px 22px",
               borderRadius: "999px",
               textDecoration: "none",
               whiteSpace: "nowrap",
@@ -216,19 +195,20 @@ export function Header() {
             onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.85"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; }}
           >
-            Teacher Dashboard
+            Log In
           </a>
           <a
-            href="https://app.unpackmath.com/adaptive-test"
+            href={PRACTICE_TEST_HREF}
             target="_blank"
             rel="noopener noreferrer"
+            className="um-nav-practice"
             style={{
               fontFamily: "var(--font-kodchasan, 'Kodchasan', sans-serif)",
-              fontSize: "13px",
+              fontSize: "15px",
               fontWeight: 600,
               color: "var(--ec-btn-text)",
               background: "var(--ec-btn-bg)",
-              padding: "7px 18px",
+              padding: "10px 24px",
               borderRadius: "999px",
               textDecoration: "none",
               whiteSpace: "nowrap",
@@ -288,7 +268,9 @@ export function Header() {
             style={{
               position: "absolute",
               top: "calc(100% + 8px)",
-              right: 0,
+              // Matches the bar's mobile inline padding, since this only ever
+              // renders below the breakpoint.
+              right: "18px",
               minWidth: "210px",
               display: "flex",
               flexDirection: "column",
@@ -336,20 +318,42 @@ export function Header() {
       </nav>
 
       <style>{`
-        /* Keep the primary CTA visible on mobile; everything else folds
-           into the hamburger menu. */
+        /* Keep the wordmark and the primary CTA visible on mobile; the nav
+           links and Log In fold into the hamburger menu. */
         @media (max-width: 780px) {
+          /* Tighter gap so the CTA and hamburger read as one cluster at the
+             right edge instead of the hamburger looking stranded. */
+          .um-nav-bar { padding: 0 18px !important; gap: 10px !important; }
           .um-nav-links,
-          .um-nav-teacher { display: none !important; }
+          .um-nav-login { display: none !important; }
           .um-nav-hamburger { display: flex !important; }
+          /* Let the wordmark be the flexible item. Switching to auto height
+             plus a max-height keeps the aspect ratio intact while it scales. */
+          .um-wordmark-link { flex-shrink: 1 !important; min-width: 0 !important; }
+          .um-wordmark {
+            height: auto !important;
+            max-height: 40px;
+            max-width: 100%;
+          }
         }
-        /* Below ~400px the wordmark, CTA and hamburger stop fitting on one
-           line, so drop back to the icon-only logo. */
-        @media (max-width: 400px) {
-          .um-wordmark { display: none !important; }
+        /* Below ~420px the wordmark, CTA and hamburger stop fitting on one line
+           at full size, and every one of them defaults to flex-shrink: 0, so
+           the overrun used to push the hamburger past the bar's right padding
+           and off screen. Two things prevent that now: the type steps down,
+           and the wordmark is the one item allowed to shrink, so any remaining
+           overrun is absorbed by the logo rather than by the hamburger. */
+        @media (max-width: 420px) {
+          .um-nav-bar { gap: 9px !important; }
+          .um-wordmark { max-height: 38px; }
+          .um-nav-practice { font-size: 14px !important; padding: 8px 14px !important; }
+        }
+        @media (max-width: 360px) {
+          .um-nav-bar { gap: 8px !important; }
+          .um-wordmark { max-height: 34px; }
+          .um-nav-practice { font-size: 13px !important; padding: 8px 12px !important; }
         }
       `}</style>
-    </div>
+    </header>
   );
 }
 
