@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Kodchasan, Hanken_Grotesk } from "next/font/google";
+import { Kodchasan, Hanken_Grotesk, Nunito } from "next/font/google";
 import "./globals.css";
 
 const hanken = Hanken_Grotesk({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-hanken",
+  display: "swap",
+});
+
+const nunito = Nunito({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-nunito",
   display: "swap",
 });
 
@@ -27,7 +34,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${kodchasan.variable} ${hanken.variable}`}>
+    <html lang="en" className={`${kodchasan.variable} ${hanken.variable} ${nunito.variable}`}>
       <body>{children}</body>
     </html>
   );
