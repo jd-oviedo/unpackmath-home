@@ -20,7 +20,7 @@ const WORDMARK_WIDTH = Math.round(WORDMARK_HEIGHT * (2000 / 485));
 
 const NAV_LINKS = [
   { label: "how it works", href: "#demo" },
-  { label: "for teachers", href: "#teachers" },
+  { label: "for teachers", href: "/for-teachers" },
   { label: "pricing", href: "/pricing" },
   { label: "faq", href: "#faq" },
 ];
@@ -34,7 +34,7 @@ const NAV_LINKS = [
 const MOBILE_MENU_ITEMS = [
   { label: "Log In", href: LOGIN_HREF, external: true },
   { label: "how it works", href: "/#demo", external: false },
-  { label: "for teachers", href: "/#teachers", external: false },
+  { label: "for teachers", href: "/for-teachers", external: false },
   { label: "pricing", href: "/pricing", external: false },
   { label: "faq", href: "/#faq", external: false },
 ];

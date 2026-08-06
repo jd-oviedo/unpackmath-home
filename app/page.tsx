@@ -33,95 +33,27 @@ export default function Home() {
 
         <DemoSection />
 
-        {/* TEACHER DASHBOARD TEASER */}
-        <section id="teachers" style={{ maxWidth: "980px", margin: "0 auto", padding: "30px 24px 44px" }}>
-          <div style={{ textAlign: "center", maxWidth: "640px", margin: "0 auto 22px" }}>
-            <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "14px" }}>for teachers</p>
-            <h2 style={{ fontSize: "clamp(26px, 3.4vw, 40px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
+        {/* TEACHER DASHBOARD TEASER
+            Deliberately short. The nav's "for teachers" entry and this link both
+            land on /for-teachers, which carries the full pitch. This section's
+            job is to hook interest and hand off, not to close. */}
+        <section id="teachers" style={{ maxWidth: "720px", margin: "0 auto", padding: "30px 24px 44px" }}>
+          <div className="um-glass-card--strong" style={{ borderRadius: "20px", padding: "30px 32px", textAlign: "center" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "9px", marginBottom: "16px", padding: "5px 14px", borderRadius: "999px", background: "var(--ec-green-bg)", border: "1px solid var(--ec-green-border)" }}>
+              <span style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--ec-green)" }}>live</span>
+              <span style={{ fontSize: "13px", fontWeight: 600, color: "var(--ec-ink)" }}>Teacher Misconception Dashboard</span>
+            </div>
+            <h2 style={{ fontSize: "clamp(26px, 3.4vw, 38px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
               <span style={{ display: "block" }}>See what your students are</span>
               <span style={{ display: "block" }}>misunderstanding, before</span>
               <span style={{ display: "block" }}>your next lesson.</span>
             </h2>
-            <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: 0 }}>
-              The Misconception Dashboard is live. See class-wide patterns, group students by need, and get next-step suggestions in seconds.
+            <p style={{ fontSize: "16px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: "0 auto 24px", maxWidth: "540px" }}>
+              Every wrong answer gets tagged with the misconception behind it, then ranked across your whole class. So you know what to reteach before the next unit, not after the next test.
             </p>
-          </div>
-
-          <div className="um-glass-card--strong um-teacher-grid" style={{ borderRadius: "20px", padding: "30px 32px", display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "40px", alignItems: "center" }}>
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: "12px", background: "var(--ec-surface2)", borderRadius: "14px", padding: "16px 20px", marginBottom: "28px" }}>
-                <div style={{ flexShrink: 0, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "3px 10px", borderRadius: "999px", background: "var(--ec-green-bg)", color: "var(--ec-green)", border: "1px solid var(--ec-green-border)", whiteSpace: "nowrap" }}>
-                  live
-                </div>
-                <div>
-                  <p style={{ fontSize: "14px", fontWeight: 700, color: "var(--ec-ink)", margin: "0 0 2px" }}>Teacher Misconception Dashboard</p>
-                  <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.5, margin: 0 }}>Turns student reasoning into grouped insights and clear next steps.</p>
-                </div>
-              </div>
-
-              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: "10px" }}>
-                {[
-                  "See the most common misconceptions in your class",
-                  "Identify which students are stuck on the same concept",
-                  "Get small-group-ready next steps and follow-up prompts",
-                ].map((item) => (
-                  <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.6 }}>
-                    <span style={{ color: "var(--ec-accent)", fontWeight: 700, flexShrink: 0, marginTop: "1px" }}>•</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
-              <a href="/pricing" style={{ display: "block", padding: "13px 32px", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", borderRadius: "12px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: "var(--ec-shadow-btn)", textAlign: "center" }}>
-                Reserve your founding spot
-              </a>
-            </div>
-
-            <div style={{ position: "relative", borderRadius: "16px", border: "1px solid var(--ec-line)", background: "var(--ec-surface2)", padding: "18px" }}>
-              <div style={{ position: "absolute", top: "14px", right: "14px", zIndex: 2, fontSize: "10px", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", padding: "4px 11px", borderRadius: "999px", background: "var(--ec-green-bg)", color: "var(--ec-green)", border: "1px solid var(--ec-green-border)" }}>
-                live
-              </div>
-              <div style={{ display: "flex", gap: "8px", marginBottom: "16px", flexWrap: "wrap" }}>
-                {[["QR","#E6F1FB","#185FA5","#B5D4F4"],["AR","#E1F5EE","#0F6E56","#9FE1CB"],["GR","#FAEEDA","#854F0B","#FAC775"],["PR","#EEEDFE","#534AB7","#CECBF6"]].map(([code,bg,text,border]) => (
-                  <span key={code} style={{ fontSize: "12px", fontWeight: 600, padding: "5px 12px", borderRadius: "999px", background: bg, color: text, border: `1px solid ${border}` }}>{code}</span>
-                ))}
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "14px" }}>
-                {[
-                  { rank: 1, strand: "AR", topic: "AR.2.3", color: "#9FE1CB", textColor: "#0F6E56", bg: "#E1F5EE", border: "#9FE1CB", bars: [40,60,70,85,75,100], count: "18×" },
-                  { rank: 2, strand: "QR", topic: "QR.1.4", color: "#B5D4F4", textColor: "#185FA5", bg: "#E6F1FB", border: "#B5D4F4", bars: [50,50,30,60,55,50], count: "11×" },
-                ].map(m => (
-                  <div key={m.rank} style={{ background: "var(--ec-surface)", borderRadius: "10px", padding: "11px", border: "1px solid var(--ec-line)" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "10px" }}>
-                      <div style={{ width: "22px", height: "22px", borderRadius: "6px", background: "#0F1E35", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                        <span style={{ fontSize: "10px", fontWeight: 700, color: "#E7BE7B" }}>{m.rank}</span>
-                      </div>
-                      <span style={{ fontSize: "11px", fontWeight: 600, padding: "2px 8px", borderRadius: "999px", background: m.bg, color: m.textColor, border: `1px solid ${m.border}` }}>{m.strand}</span>
-                      <span style={{ fontSize: "10px", fontFamily: "monospace", color: "var(--ec-ink-muted)", background: "var(--ec-surface2)", padding: "2px 5px", borderRadius: "4px" }}>{m.topic}</span>
-                    </div>
-                    <div style={{ height: "6px", width: "100%", background: "var(--ec-line)", borderRadius: "3px", marginBottom: "4px" }} />
-                    <div style={{ height: "6px", width: "80%", background: "var(--ec-line)", borderRadius: "3px", marginBottom: "4px", opacity: 0.6 }} />
-                    <div style={{ height: "6px", width: "55%", background: "var(--ec-line)", borderRadius: "3px", opacity: 0.4 }} />
-                    <div style={{ marginTop: "10px", display: "flex", gap: "3px", alignItems: "flex-end", height: "20px" }}>
-                      {m.bars.map((h, i) => (
-                        <div key={i} style={{ width: "5px", background: m.color, borderRadius: "2px 2px 0 0", height: `${h}%`, opacity: 0.8 }} />
-                      ))}
-                      <span style={{ fontSize: "9px", color: "var(--ec-ink-muted)", marginLeft: "4px", alignSelf: "flex-end" }}>{m.count}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div style={{ display: "flex", gap: "4px" }}>
-                {[["#B5D4F4","30%"],["#9FE1CB","25%"],["#FAC775","26%"],["#CECBF6","19%"]].map(([color, width]) => (
-                  <div key={color} style={{ height: "8px", borderRadius: "999px", background: color, width }} />
-                ))}
-              </div>
-              <div style={{ marginTop: "16px", textAlign: "center" }}>
-                <a href="https://app.unpackmath.com/demo" style={{ fontSize: "13px", fontWeight: 700, color: "var(--ec-accent)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "5px" }}>
-                  Preview the dashboard →
-                </a>
-              </div>
-            </div>
+            <a href="/for-teachers" style={{ display: "inline-flex", alignItems: "center", padding: "13px 32px", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", borderRadius: "12px", fontWeight: 700, fontSize: "15px", textDecoration: "none", boxShadow: "var(--ec-shadow-btn)" }}>
+              See how it works for teachers →
+            </a>
           </div>
         </section>
 
@@ -250,7 +182,7 @@ export default function Home() {
                 style={{ float: "left", marginRight: "22px", marginBottom: "10px", width: "120px", height: "120px", borderRadius: "16px", objectFit: "cover", border: "1px solid var(--ec-line)" }}
               />
               <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: "0 0 14px" }}>
-                I&apos;m Juan (Mr. O), a high school math teacher in East Houston. Every year, I watch capable students fail the TSIA2 for reasons a score report never explains. So I built something that does.
+                I&apos;m Juan (Mr. O). I taught high school math in East Houston for five years before I built this. Every year, I watched capable students fail the TSIA2 for reasons a score report never explains. So I built something that does.
               </p>
               <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.7, margin: "0 0 14px" }}>
                 Most math prep is just more math. I built UnpackMath to do something different: surface the thinking, not just the answers. Because here&apos;s what I learned in the classroom, you don&apos;t need to know the math to help your student understand it. You need to know where their thinking broke down.
