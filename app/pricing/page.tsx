@@ -232,7 +232,7 @@ function PricingCards({ annual }: { annual: boolean }) {
         <div style={{ maxWidth: 720, margin: "28px auto 0", textAlign: "center" }}>
           <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "var(--ec-ink-muted)" }}>
             <span style={{ fontWeight: 700, color: "var(--ec-ink)" }}>More for teachers is on the way.</span>{" "}
-            Insights and Insights + Curriculum plans launch after the Misconception Dashboard ships. Founding
+            The Misconception Dashboard is live. Insights and Insights + Curriculum plans are next. Founding
             teachers keep their rate the whole way.
           </p>
         </div>
@@ -287,11 +287,25 @@ function CardEyebrow({ children }: { children: React.ReactNode }) {
   return <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: ".04em", color: "var(--ec-accent)" }}>{children}</div>;
 }
 
-function CardPrice({ big, unit, note, strike }: { big: string; unit: string; note?: string; strike?: string }) {
+// `unit` is optional and `bigSize` shrinks the headline for tiers that show a
+// phrase instead of a number (Schools & Districts), where 46px would wrap.
+function CardPrice({
+  big,
+  unit,
+  note,
+  strike,
+  bigSize = 46,
+}: {
+  big: string;
+  unit?: string;
+  note?: string;
+  strike?: string;
+  bigSize?: number;
+}) {
   return (
     <>
       <div style={{ marginTop: 14, display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
-        <span style={{ fontSize: 46, fontWeight: 800, letterSpacing: "-.02em", lineHeight: 1, color: "var(--ec-ink)" }}>
+        <span style={{ fontSize: bigSize, fontWeight: 800, letterSpacing: "-.02em", lineHeight: 1.1, color: "var(--ec-ink)" }}>
           {big}
         </span>
         {strike && (
@@ -300,7 +314,7 @@ function CardPrice({ big, unit, note, strike }: { big: string; unit: string; not
           </span>
         )}
       </div>
-      <div style={{ marginTop: 6, fontSize: 14, color: "var(--ec-ink-muted)", fontWeight: 600 }}>{unit}</div>
+      {unit && <div style={{ marginTop: 6, fontSize: 14, color: "var(--ec-ink-muted)", fontWeight: 600 }}>{unit}</div>}
       {note && <div style={{ marginTop: 6, fontSize: 13, color: "var(--ec-accent)", fontWeight: 700 }}>{note}</div>}
     </>
   );
@@ -511,8 +525,8 @@ function DistrictsCard() {
     <CardShell>
       <CardHead>
         <CardEyebrow>Schools &amp; Districts</CardEyebrow>
-        <CardPrice big="$6–10" unit="per student, per year" note="Custom quote by campus size" />
-        <SecondaryButton href="mailto:hello@unpackmath.com?subject=UnpackMath%20for%20our%20campus">
+        <CardPrice big="Get a custom quote" bigSize={30} note="Custom quote by campus size" />
+        <SecondaryButton href="mailto:schools@unpackmath.com?subject=UnpackMath%20for%20our%20campus">
           Talk to us
         </SecondaryButton>
         <FinePrint>Founding-campus discounts for early partners.</FinePrint>
@@ -537,11 +551,11 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What's live right now versus coming soon?",
-    a: 'The adaptive practice engine, student scores, and strand breakdowns are live today. The full Misconception Dashboard and parent-friendly reports are still being built. Anything marked "coming with v1" on the plans above is not available yet.',
+    a: 'The adaptive practice engine, student scores, strand breakdowns, and the full Teacher Dashboard, including the Misconception Dashboard, are live today. Parent-friendly reports are still being built. Anything marked "coming soon" on the plans above is not available yet.',
   },
   {
     q: 'Why is the Founding Teacher rate "locked in for life"?',
-    a: "Founding teachers take a chance on us before the dashboard ships, so the rate you join at never goes up. Even as we add features and later plans are priced higher.",
+    a: "Founding teachers took a chance on us early, so the rate you join at never goes up. Even as we add features and later plans are priced higher.",
   },
   {
     q: "Is the annual plan really two months free?",
