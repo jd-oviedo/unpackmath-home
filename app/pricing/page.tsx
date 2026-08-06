@@ -431,8 +431,10 @@ function StudentsCard() {
     </CardShell>
   );
 }
-const STRIPE_MONTHLY = "https://buy.stripe.com/9B614ndby1je9210YT7AI02";
-const STRIPE_ANNUAL = "https://buy.stripe.com/fZu6oH8Vi3rm921cHB7AI03";
+// Route through the app instead of a static Stripe Payment Link so checkout can be
+// attributed to the logged-in user rather than guessed from the email they pay with.
+const UPGRADE_MONTHLY = "https://app.unpackmath.com/upgrade?plan=monthly";
+const UPGRADE_ANNUAL = "https://app.unpackmath.com/upgrade?plan=annual";
 
 function FoundingSpotButton({ annual, count }: { annual: boolean; count: number }) {
   const isFull = count >= 50;
@@ -446,7 +448,7 @@ function FoundingSpotButton({ annual, count }: { annual: boolean; count: number 
   }
 
   return (
-    <a href={annual ? STRIPE_ANNUAL : STRIPE_MONTHLY}
+    <a href={annual ? UPGRADE_ANNUAL : UPGRADE_MONTHLY}
       onMouseEnter={e => dim(e, "0.85")} onMouseLeave={e => dim(e, "1")}
       style={{ marginTop: 22, display: "block", width: "100%", boxSizing: "border-box", textAlign: "center", background: "var(--ec-btn-bg)", color: "var(--ec-btn-text)", textDecoration: "none", fontFamily: "inherit", fontWeight: 700, fontSize: 15, padding: 14, borderRadius: 12, boxShadow: "var(--ec-shadow-btn)", border: "none", cursor: "pointer", transition: "opacity .15s ease" }}>
       Reserve your founding spot
