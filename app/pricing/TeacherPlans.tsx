@@ -63,12 +63,12 @@ export function TeacherPlans() {
 
   const tiers: Tier[] = [
     {
-      name: "Teacher",
+      name: "Teacher Core",
       price: annual ? "$200" : "$20",
       unit: annual ? "per year" : "per month",
       subLine: "For one teacher and up to three classes.",
       features: TEACHER_FEATURES,
-      cta: { label: "Get the Teacher plan", href: upgradeHref(annual ? "teacherAnnual" : "teacherMonthly"), external: true },
+      cta: { label: "Get the Teacher Core plan", href: upgradeHref(annual ? "teacherAnnual" : "teacherMonthly"), external: true },
     },
     {
       name: "Teacher Pro",
@@ -76,7 +76,7 @@ export function TeacherPlans() {
       unit: annual ? "per year" : "per month",
       subLine: "For teachers running more classes, or a department of one.",
       badge: "Most complete",
-      groupLabel: "Everything in Teacher, plus",
+      groupLabel: "Everything in Teacher Core, plus",
       features: TEACHER_PRO_FEATURES,
       cta: { label: "Get Teacher Pro", href: upgradeHref(annual ? "teacherProAnnual" : "teacherProMonthly"), external: true },
     },
@@ -114,6 +114,9 @@ export function TeacherPlans() {
       </div>
 
       <CardRow className="um-pr-teachers">
+        {/* featured compares against the DISPLAY string tier.name, so renaming
+            "Teacher Pro" would silently drop the featured styling: no type
+            error, no lint warning, just a card that stops being highlighted. */}
         {tiers.map((tier) => (
           <PriceCard key={tier.name} tier={tier} featured={tier.name === "Teacher Pro"} />
         ))}
