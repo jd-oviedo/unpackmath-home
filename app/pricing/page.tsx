@@ -51,7 +51,6 @@ const STUDENT_TIERS: Tier[] = [
       { label: `Full practice bank across all ${stats.curriculumTopics} topics`, status: "shipped" },
       { label: "A worked solution on every problem, not just the answer", status: "shipped" },
       { label: "The named misconception behind every wrong answer", status: "shipped" },
-      { label: "GUMU Socratic tutor on practice items", status: "shipped" },
       { label: "Progress tracking by topic", status: "shipped" },
       { label: "Printable worksheets you can pull yourself", status: "coming" },
     ],
@@ -68,6 +67,7 @@ const STUDENT_TIERS: Tier[] = [
       { label: `Lessons for all ${stats.curriculumTopics} topics, Units 0 through 5`, status: "shipped" },
       { label: "Worked examples in every topic", status: "shipped" },
       { label: "A structured sequence with completion gates, so you always know what is next", status: "shipped" },
+      { label: "GUMU, an AI tutor that asks you questions when you get a lesson problem wrong", status: "shipped" },
       { label: "Twelve months of access", status: "shipped" },
       { label: "Short video walkthroughs on the topics students fail most", status: "coming" },
     ],
@@ -88,7 +88,7 @@ const FAQS: AccordionItem[] = [
   },
   {
     q: "What do the paid student passes add?",
-    a: `The named misconception behind every wrong answer, a worked solution on every problem, the full practice bank across all ${stats.curriculumTopics} topics, and the GUMU tutor. Full Course adds the lessons and a structured sequence on top of that.`,
+    a: `The named misconception behind every wrong answer, a worked solution on every problem, and the full practice bank across all ${stats.curriculumTopics} topics. Full Course adds the lessons, a structured sequence, and GUMU, an AI tutor that works through the lesson problems with you.`,
   },
   {
     q: "What is the difference between the two student passes?",
