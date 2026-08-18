@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { answerState, color, ink, inkMuted, rule, type, space, mq } from "../../lib/tokens";
 import { stats } from "../../lib/stats";
 import { Nav } from "../components/Nav";
@@ -11,6 +10,7 @@ import {
   Eyebrow,
   BulletList,
   Frame,
+  Fraction,
   NumberedFeatureRow,
 } from "../components/ui";
 
@@ -44,6 +44,11 @@ export const metadata: Metadata = {
 const DEMO_HREF = "https://app.unpackmath.com/demo";
 const LOGIN_HREF = "https://app.unpackmath.com/login";
 
+// Intrinsic size of the encoded file, used only to reserve the aspect ratio.
+const DASHBOARD_VIDEO_W = 1600;
+const DASHBOARD_VIDEO_H = 760;
+const DASHBOARD_POSTER = "/images/teacher-dashboard-poster.jpg";
+
 const STEPS = [
   {
     title: "Your students test free",
@@ -59,12 +64,20 @@ const STEPS = [
   },
 ];
 
-const LIVE_FEATURES = [
-  "Full class roster with real-time scores and placement bands",
-  "Strand-by-strand breakdown (QR, AR, GR, PR) for every student",
-  "Top Misconceptions grid, ranked by frequency, class-wide",
-  "Individual student drill-down with test history",
-  "Join codes and roster management, no IT ticket required",
+/**
+ * Each capability renders as a Frame, the same primitive as the video
+ * container directly above it, so the section is internally consistent by
+ * construction rather than by resemblance.
+ *
+ * The label carries the noun, which lets the sentence lose it and stay short
+ * enough for a compact box. Claims are unchanged from the previous bullets.
+ */
+const LIVE_FEATURES: { label: string; body: string }[] = [
+  { label: "Roster", body: "Real-time scores and placement bands for every student." },
+  { label: "Strands", body: "A breakdown across QR, AR, GR and PR, student by student." },
+  { label: "Misconceptions", body: "Ranked by frequency across the whole class." },
+  { label: "Student view", body: "Drill into one student and their full test history." },
+  { label: "Setup", body: "Join codes and roster management, no IT ticket required." },
 ];
 
 /* ---------------------------------- hero ---------------------------------- */
@@ -86,8 +99,10 @@ function MisconceptionCard() {
           Quantitative reasoning
         </p>
 
-        <div style={{ fontSize: "26px", color: color.deepMidnight, marginBottom: space.xl }}>
-          Simplify 2/3 + 1/6.
+        {/* Line height set explicitly so the stacked fractions sit inside the
+            existing line box rather than growing it. */}
+        <div style={{ fontSize: "26px", lineHeight: 1.5, color: color.deepMidnight, marginBottom: space.xl }}>
+          Simplify <Fraction over="2" under="3" /> + <Fraction over="1" under="6" />.
         </div>
 
         <div style={{ display: "grid", gap: "10px" }}>
@@ -98,18 +113,29 @@ function MisconceptionCard() {
               color: answerState.incorrect.text,
               padding: "13px 14px",
               fontSize: "15px",
+              lineHeight: 1.5,
               display: "flex",
               alignItems: "center",
               gap: space.sm,
             }}
           >
-            <span style={{ flex: 1 }}>A. 3/9</span>
+            <span style={{ flex: 1 }}>
+              A. <Fraction over="3" under="9" />
+            </span>
             <span style={{ ...type.monoLabel, letterSpacing: "0.04em", textTransform: "uppercase", flexShrink: 0 }}>
               <span aria-hidden="true">✕</span> Chosen
             </span>
           </div>
-          <div style={{ border: `1px solid ${ink(0.2)}`, padding: "13px 14px", fontSize: "15px", color: ink(0.55) }}>
-            B. 5/6
+          <div
+            style={{
+              border: `1px solid ${ink(0.2)}`,
+              padding: "13px 14px",
+              fontSize: "15px",
+              lineHeight: 1.5,
+              color: ink(inkMuted),
+            }}
+          >
+            B. <Fraction over="5" under="6" />
           </div>
         </div>
       </div>
@@ -131,14 +157,14 @@ function Hero() {
     <SectionShell surface="white" paddingY="74px">
       <div
         className="um-ft-hero"
-        style={{ display: "grid", gridTemplateColumns: "1fr 420px", gap: "60px", alignItems: "center" }}
+        style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: "48px", alignItems: "center" }}
       >
         <div>
         <Eyebrow>For teachers</Eyebrow>
 
         {/* A plain h1 rather than SectionHeading, so the mobile step-down below
             targets this headline alone and not every h2 on the page. */}
-        <h1 className="um-ft-h1" style={{ ...type.h1, color: color.deepMidnight, margin: `0 0 ${space.lg}`, textWrap: "pretty" }}>
+        <h1 className="um-ft-h1" style={{ ...type.h1Compact, color: color.deepMidnight, margin: `0 0 ${space.lg}`, textWrap: "pretty" }}>
           <span style={{ display: "block" }}>You already know which students are stuck.</span>
           <span style={{ display: "block", color: color.sunsetOrange }}>Now you can see why.</span>
         </h1>
@@ -175,7 +201,7 @@ function Hero() {
       <style href="um-ft-hero" precedence="medium">{`
         ${mq.lg} {
           .um-ft-hero { grid-template-columns: 1fr !important; gap: 40px !important; }
-          .um-ft-card { max-width: 420px; }
+          .um-ft-card { max-width: 400px; }
         }
         ${mq.md} { .um-ft-h1 { font-size: 38px !important; } }
         ${mq.sm} { .um-ft-h1 { font-size: 30px !important; } }
@@ -225,44 +251,89 @@ function HowItWorks() {
 
 /* ------------------------------ what is live ------------------------------ */
 
+/**
+ * The video is the section, so it runs the full content column with the
+ * capability list underneath rather than beside it.
+ *
+ * Plain <video>, no client component: with controls and no autoplay there is
+ * nothing to negotiate at runtime. A paused video with a poster produces no
+ * motion, so prefers-reduced-motion needs no special case, and a visitor
+ * without JS gets exactly the same thing everyone else does.
+ *
+ * No CSP change: the file is same-origin and media-src falls back to
+ * default-src 'self'.
+ */
 function WhatsLive() {
   return (
     <SectionShell surface="sand">
       <div style={{ maxWidth: "640px", marginBottom: space.xxl }}>
         <Eyebrow>Live right now</Eyebrow>
-        <SectionHeading>Not a roadmap. A dashboard you can open today.</SectionHeading>
+        <SectionHeading>A dashboard you can open today.</SectionHeading>
       </div>
 
-      <div
-        className="um-ft-live"
-        style={{ display: "grid", gridTemplateColumns: "1.25fr 1fr", gap: "48px", alignItems: "center" }}
+      <Frame label="TEACHER DASHBOARD" footer="Same dashboard, sample data." style={{ marginBottom: space.xxl }}>
+        <video
+          controls
+          playsInline
+          preload="metadata"
+          poster={DASHBOARD_POSTER}
+          aria-label="A walkthrough of the UnpackMath Teacher Dashboard: summary cards for students enrolled, college ready and average score, a class strand mastery chart, and a class roster sorted by need help."
+          style={{
+            display: "block",
+            width: "100%",
+            // Reserved from the file's real dimensions, so the box is correct
+            // before any of it downloads and nothing shifts.
+            aspectRatio: `${DASHBOARD_VIDEO_W} / ${DASHBOARD_VIDEO_H}`,
+            background: color.warmSand,
+          }}
+        >
+          <source src="/videos/teacher-dashboard-demo.mp4" type="video/mp4" />
+        </video>
+      </Frame>
+
+      {/*
+        Five items across a 6-column grid: three spanning 2 on the first row,
+        two spanning 3 on the second. Every cell is filled, so there is no
+        orphan and no hole, which a plain 3-up or 2-up would both leave.
+      */}
+      <ul
+        className="um-ft-caps"
+        style={{
+          listStyle: "none",
+          display: "grid",
+          gridTemplateColumns: "repeat(6, 1fr)",
+          gap: space.md,
+          margin: 0,
+          padding: 0,
+        }}
       >
-        {/*
-          The screenshot's own subheader says it is a sample class, and the
-          frame footer repeats it, so no extra caption is needed below.
-        */}
-        <Frame label="TEACHER DASHBOARD" footer="Same dashboard, sample data, no sign-up needed.">
-          <Image
-            src="/images/teacher-dashboard-screenshot.png"
-            alt="The UnpackMath Teacher Dashboard, showing summary cards for students enrolled, college ready and average score, a class strand mastery chart, and a class roster sorted by need help."
-            width={1253}
-            height={767}
-            sizes="(max-width: 980px) 100vw, 620px"
-            style={{ width: "100%", height: "auto", display: "block" }}
-          />
-        </Frame>
+        {LIVE_FEATURES.map((feature, i) => (
+          <li key={feature.label} style={{ gridColumn: i < 3 ? "span 2" : "span 3", display: "flex" }}>
+            <Frame
+              label={feature.label.toUpperCase()}
+              headerBackground={color.mercuryCream}
+              style={{ display: "flex", flexDirection: "column", width: "100%" }}
+            >
+              {/* flex:1 so a one-line and a two-line box match height in a row */}
+              <p style={{ ...type.bodySm, flex: 1, color: ink(0.85), margin: 0, padding: "16px 16px 18px" }}>
+                {feature.body}
+              </p>
+            </Frame>
+          </li>
+        ))}
+      </ul>
 
-        <div>
-          <BulletList items={LIVE_FEATURES} style={{ marginBottom: "28px" }} />
-          <Button href={DEMO_HREF} variant="outline" size="md" external>
-            Try the live demo
-          </Button>
-        </div>
-      </div>
-
-      <style href="um-ft-live" precedence="medium">{`
-        ${mq.lg} {
-          .um-ft-live { grid-template-columns: 1fr !important; gap: 32px !important; }
+      <style href="um-ft-caps" precedence="medium">{`
+        ${mq.md} {
+          .um-ft-caps { grid-template-columns: 1fr 1fr !important; }
+          .um-ft-caps > li { grid-column: span 1 !important; }
+          /* Five into two columns leaves a gap on the last row, so the fifth
+             takes the full width rather than sitting next to a hole. */
+          .um-ft-caps > li:nth-child(5) { grid-column: span 2 !important; }
+        }
+        ${mq.sm} {
+          .um-ft-caps { grid-template-columns: 1fr !important; }
+          .um-ft-caps > li:nth-child(5) { grid-column: span 1 !important; }
         }
       `}</style>
     </SectionShell>

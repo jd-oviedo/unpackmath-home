@@ -262,6 +262,90 @@ export function Button({
 }
 
 /* -------------------------------------------------------------------------- */
+/*                                  fraction                                  */
+/* -------------------------------------------------------------------------- */
+
+const ONES: Record<string, string> = {
+  "1": "one", "2": "two", "3": "three", "4": "four", "5": "five", "6": "six",
+  "7": "seven", "8": "eight", "9": "nine", "10": "ten", "11": "eleven", "12": "twelve",
+};
+
+const DENOMS: Record<string, string> = {
+  "2": "half", "3": "third", "4": "quarter", "5": "fifth", "6": "sixth",
+  "7": "seventh", "8": "eighth", "9": "ninth", "10": "tenth", "11": "eleventh", "12": "twelfth",
+};
+
+/**
+ * How a fraction should be read aloud.
+ *
+ * "two thirds", not "two three" and not "two slash three". Falls back to the
+ * unambiguous "over" form for anything non-numeric, which is what algebraic
+ * fractions like (3x - 4)/2 need anyway.
+ */
+export function spokenFraction(over: string, under: string): string {
+  const n = ONES[over];
+  const d = DENOMS[under];
+  if (!n || !d) return `${over} over ${under}`;
+  return `${n} ${d}${over === "1" ? "" : "s"}`;
+}
+
+/**
+ * Numerator stacked over a denominator with a hairline vinculum.
+ *
+ * A four-fraction problem does not justify pulling in KaTeX, a CDN stylesheet
+ * and two CSP directives, so this is plain inline styles.
+ *
+ * Sizing: numerals run at 0.58em with a 1.05 line height, so the whole stack is
+ * about 1.22em tall. Any line it sits in needs a line height of at least ~1.35
+ * to absorb that without growing, which is why callers set one explicitly.
+ *
+ * The rule is `currentColor` rather than a value from the tokens rule scale.
+ * That scale is for structural hairlines drawn on a background; a vinculum is
+ * part of the glyph run and has to match the digits around it. Inside the
+ * incorrect answer state, where text is a warm brown, an ink-based rule would
+ * read as a foreign mark sitting on top of the number.
+ *
+ * Accessibility: the whole thing is one atomic labelled node, so a screen
+ * reader says "two thirds" and never spells out the parts.
+ */
+export function Fraction({
+  over,
+  under,
+  label,
+  style,
+}: {
+  over: string;
+  under: string;
+  /** Override the spoken form, e.g. for an algebraic numerator. */
+  label?: string;
+  style?: CSSProperties;
+}) {
+  return (
+    <span
+      role="img"
+      aria-label={label ?? spokenFraction(over, under)}
+      style={{
+        display: "inline-flex",
+        flexDirection: "column",
+        alignItems: "center",
+        verticalAlign: "middle",
+        fontSize: "0.58em",
+        lineHeight: 1.05,
+        margin: "0 0.14em",
+        ...style,
+      }}
+    >
+      <span aria-hidden="true">{over}</span>
+      <span
+        aria-hidden="true"
+        style={{ display: "block", width: "100%", borderTop: "1px solid currentColor", margin: "0.1em 0" }}
+      />
+      <span aria-hidden="true">{under}</span>
+    </span>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
 /*                                   eyebrow                                  */
 /* -------------------------------------------------------------------------- */
 

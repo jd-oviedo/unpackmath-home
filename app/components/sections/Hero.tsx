@@ -1,6 +1,6 @@
 import { color, ink, inkMuted, rule, type, space, mq } from "../../../lib/tokens";
 import { stats } from "../../../lib/stats";
-import { SectionShell, Button, Eyebrow, Frame } from "../ui";
+import { SectionShell, Button, Eyebrow, Frame, Fraction } from "../ui";
 
 /**
  * Section 02. Left-aligned, Coursera-style, not centered.
@@ -11,25 +11,6 @@ import { SectionShell, Button, Eyebrow, Frame } from "../ui";
  */
 
 const PRACTICE_TEST_HREF = "https://app.unpackmath.com/adaptive-test";
-
-/** Stacked numerator over denominator with a hairline vinculum. */
-function Fraction({ over, under, size = 20 }: { over: string; under: string; size?: number }) {
-  return (
-    <span
-      style={{
-        display: "inline-flex",
-        flexDirection: "column",
-        alignItems: "center",
-        lineHeight: 1.1,
-        fontSize: `${size}px`,
-      }}
-    >
-      <span>{over}</span>
-      <span style={{ width: "100%", height: "1px", background: color.deepMidnight, margin: "3px 0" }} />
-      <span>{under}</span>
-    </span>
-  );
-}
 
 function EngineCard() {
   const choices = [
@@ -72,7 +53,7 @@ function EngineCard() {
           <span>Solve for</span>
           <span style={{ fontFamily: type.h1.fontFamily, fontStyle: "italic" }}>x</span>
           <span>:</span>
-          <Fraction over="3x - 4" under="2" />
+          <Fraction over="3x - 4" under="2" label="the quantity 3x minus 4, over 2" />
           <span>= 7</span>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>

@@ -110,6 +110,19 @@ export const type = {
     lineHeight: 1.14,
     letterSpacing: "-0.01em",
   },
+  /**
+   * Hero h1 for a page whose headline shares its row with a figure, so the
+   * text column is narrower than the homepage's. Smaller and tighter than h1:
+   * at 50px a two-sentence headline wraps to five short lines of near-identical
+   * width, which reads as a slab rather than a statement.
+   */
+  h1Compact: {
+    fontFamily: font.heading,
+    fontWeight: 600,
+    fontSize: "44px",
+    lineHeight: 1.06,
+    letterSpacing: "-0.015em",
+  },
   /** Section h2, the default. */
   h2: {
     fontFamily: font.heading,

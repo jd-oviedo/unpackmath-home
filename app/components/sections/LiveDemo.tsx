@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { color, ink, inkMuted, rule, type, space, radius, motion, mq, answerState } from "../../../lib/tokens";
 import { stats } from "../../../lib/stats";
-import { SectionShell, SectionHeading, Button, NumberedFeatureRow, Frame } from "../ui";
+import { SectionShell, SectionHeading, Button, NumberedFeatureRow, Frame, Fraction } from "../ui";
 import { Reveal } from "../Reveal";
 
 /**
@@ -30,7 +30,7 @@ const LEVELS = ["Basic", "Proficient", "Advanced"];
 const TOP_LEVEL = LEVELS.length - 1;
 const LETTERS = ["A", "B", "C", "D"];
 
-type Segment = { t: string } | { v: string };
+type Segment = { t: string } | { v: string } | { f: [string, string] };
 
 type Question = {
   topic: string;
@@ -56,8 +56,8 @@ const QUESTIONS: Question[] = [
   {
     topic: "Fractions",
     strand: "Quantitative reasoning",
-    prompt: [{ t: "Simplify " }, { v: "2/3" }, { t: " + " }, { v: "1/6" }, { t: "." }],
-    choices: [[{ t: "3/9" }], [{ t: "5/6" }], [{ t: "1/2" }], [{ t: "3/6" }]],
+    prompt: [{ t: "Simplify " }, { f: ["2", "3"] }, { t: " + " }, { f: ["1", "6"] }, { t: "." }],
+    choices: [[{ f: ["3", "9"] }], [{ f: ["5", "6"] }], [{ f: ["1", "2"] }], [{ f: ["3", "6"] }]],
     correct: 1,
     clean: "Use a common denominator of 6: 2/3 becomes 4/6, then 4/6 + 1/6 = 5/6.",
     broke: "Denominators can't be added straight across. Rewrite 2/3 as 4/6 first, then add only the numerators over the shared denominator of 6.",
@@ -84,7 +84,9 @@ function Seg({ parts }: { parts: Segment[] }) {
   return (
     <>
       {parts.map((part, i) =>
-        "v" in part ? (
+        "f" in part ? (
+          <Fraction key={i} over={part.f[0]} under={part.f[1]} />
+        ) : "v" in part ? (
           <em key={i} style={{ fontFamily: type.h1.fontFamily, fontStyle: "italic" }}>
             {part.v}
           </em>
@@ -255,6 +257,7 @@ export function LiveDemo() {
                         background: state ? state.fill : "transparent",
                         padding: "15px 16px",
                         fontSize: "16px",
+                        lineHeight: 1.5,
                         fontFamily: type.body.fontFamily,
                         fontWeight: 300,
                         color: state ? state.text : color.deepMidnight,
