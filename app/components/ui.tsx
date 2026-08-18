@@ -75,6 +75,14 @@ export function SectionShell({
     <section
       id={id}
       style={{
+        // width:100% is load-bearing, not decoration. A section is block-level
+        // and fills its parent normally, but as a flex ITEM it defaults to
+        // flex: 0 1 auto and shrinks to its content width instead. When that
+        // happens the absolutely-positioned grid backdrop faithfully fills the
+        // shrunken section, and everything beyond the capped content column
+        // renders as bare unpainted background. Pinning the width here means a
+        // page cannot reintroduce that by wrapping this in a flex row.
+        width: "100%",
         background: SURFACE_BG[surface],
         ...(gridSurface ? { position: "relative", isolation: "isolate" } : null),
       }}

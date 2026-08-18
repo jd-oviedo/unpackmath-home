@@ -316,6 +316,23 @@ Not drafted, per instruction. These do not exist and arguably should.
 
 ---
 
+## 11a. The "Last Updated" dates are deliberately stale
+
+**Both documents still carry their pre-existing dates, and this was a deliberate decision, not an oversight.**
+
+| Document | Effective | Last updated |
+|---|---|---|
+| Privacy Policy | May 26, 2026 | June 26, 2026 |
+| Terms of Use | May 25, 2026 | July 16, 2026 |
+
+Both pages were restyled on 2026-08-18. **The dates were not bumped to that date.**
+
+The reasoning, recorded here so the reviewer is not misled by it: a "Last Updated" date asserts that the document was reviewed and reflects current practice. Six factual defects listed in §2 are still present, and the AI disclosure and subprocessor sections in §11 do not exist yet. Stamping a current date would claim a currency these documents do not have, which is worse than leaving the date visibly behind.
+
+**These dates should move in the same edit that fixes the copy, after legal review.** They are the reviewer's to update alongside their changes, not engineering's to refresh on a restyle.
+
+---
+
 ## 12. Items explicitly NOT changed
 
 Per instruction, no legal text was edited. Specifically left alone:
@@ -337,7 +354,14 @@ No statutory citations were added to any page copy.
 
 Tracked here so they are not lost, but they are product work rather than legal review:
 
-1. **`/success` addresses a teacher only.** All four paid CTAs route to checkout and then to one `/success` page. A student or parent who buys a pass is told to add classes and share a join code. Needs either buyer-aware copy or separate destinations
+1. **`/success` said one-time student purchasers' "subscription is active." FIXED 2026-08-18, with one residual gap.**
+
+   The page previously read: *"Your subscription is active. Head to your dashboard to add your classes and share a join code with your students."* All four paid CTAs on `/pricing` route through checkout to this one page, including **Practice Pass ($49) and Full Course ($89), which are one-time purchases, not subscriptions.** A student or parent who had just bought a pass was told their subscription was active and asked to add classes and share a join code with their students: three separate inaccuracies for that buyer, from the same root cause as `terms:210`-`214`.
+
+   **Copy is now buyer-neutral** and mentions no subscription, class, join code or student. It is true for a teacher, a student, and a parent buying for a student.
+
+   **Residual gap for the record:** the page still receives nothing from checkout, so it cannot know who bought what. Buyer-*aware* copy would need the app to append a plan slug to the Stripe `success_url`; the six slugs already exist in `lib/plans.ts`. The CTA now points at `app.unpackmath.com/dashboard`, chosen because an unauthenticated GET answers `307 -> /login?next=%2Fdashboard` while `/teacher` answers `307 -> /login?role=teacher&next=%2Fteacher`. The absence of a role param is evidence it is the role-agnostic entry point, **but it does not prove the app routes a signed-in student onward to a student view.** That needs confirming in the app repo.
+
 2. **Strand naming disagrees across the site.** `terms:148` uses "Geometric Reasoning" and "Probabilistic Reasoning"; the homepage FAQ and `/pricing` use "Geometric and Spatial Reasoning" and "Probabilistic and Statistical Reasoning". One is wrong against the TSIA2 blueprint and the site should be internally consistent
 3. **Terms §02's feature list is materially behind the product.** Restyling will not fix it; it needs a content pass under legal review
 4. **The 45-day deletion commitment needs an engineering feasibility check** across Supabase, PostHog, Sentry, Upstash, Resend, Stripe and Anthropic

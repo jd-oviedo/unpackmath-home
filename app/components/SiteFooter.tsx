@@ -29,7 +29,7 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
   {
     heading: "Company",
     links: [
-      { label: "Contact", href: "mailto:juan@unpackmath.com" },
+      { label: "Contact", href: "mailto:hello@unpackmath.com" },
       { label: "About", href: "/about" },
     ],
   },
