@@ -2,7 +2,8 @@
 
 **Branch:** `feat/marketing-redesign`
 **Base:** `main`
-**Status:** all pages built and committed. Phase 5 verification and the PR are not started.
+**Status:** all pages built and committed. Phase 5 verification is complete, six
+of seven checklist items closed, only the PR remains.
 **Not merged. Do not self-merge.**
 
 ---
@@ -24,6 +25,13 @@
 | `e2fedff` | Add /about |
 | `618d796` | Add /for-schools |
 | `feefe97` | Add /for-students; swap nav to three audience pages |
+| `400e934` | This handoff document |
+| `04c9300` | Fix: `next/link` for the two `/#demo` links, the failed deploy |
+| `af8f6c4` | Docs: correct six stale facts in this handoff |
+| `27abbea` | Fix: `LegalDefinition` no longer wraps children in a bare `<p>` |
+| `7469ebd` | Fix: move GUMU from Practice Pass to Full Course on /pricing |
+| `3b2ddb3` | Populate the /for-students FAQ; flip `Closing` back to cream |
+| `6f9c65b` | Rename the base paid teacher tier to Teacher Core |
 
 ---
 
@@ -36,7 +44,7 @@
 | `/pricing` | Done. Seven tiers in three groups. |
 | `/about` | Done. |
 | `/for-schools` | Done. |
-| `/for-students` | Done except the FAQ band, see outstanding. |
+| `/for-students` | Done. FAQ landed in `3b2ddb3`; `Closing` flipped back to cream. |
 | `/privacy` | Restyled only. No legal text edited. |
 | `/terms` | Restyled only. No legal text edited. |
 | `/success` | Restyled, converted to a server component, buyer-neutral copy, `noindex`. |
@@ -66,24 +74,33 @@ than trusting this paragraph.
 
 ## Phase 5 verification checklist
 
-1. `npx tsc --noEmit && npx next build` clean. Run `npm run lint` too: it is the
-   step that actually gates the deploy, and it is not covered by the other two.
-2. Browser console clean on every route: no CSP violations, no invalid attribute
-   errors, no hydration warnings.
-3. All six security headers still present in `next.config.ts`, and the CSP still
-   correct for what the redesign actually loads.
-4. Waitlist submission lands in the Google Sheet. Submit once with devtools open
-   and confirm no CSP violation on the `script.googleusercontent.com` redirect.
-   If one appears, the agreed fix is exactly:
+**Six of seven closed. Only item 7 remains.**
+
+1. ✅ **Closed.** `npx tsc --noEmit && npx next build` clean. Run `npm run lint`
+   too: it is the step that actually gates the deploy, and it is not covered by
+   the other two.
+2. ✅ **Closed.** Browser console clean on all nine routes: no CSP violations, no
+   invalid attribute errors, no hydration warnings. `/privacy` failed this check
+   on the first pass with three errors and was fixed in `27abbea`; the other
+   eight were verified clean afterwards. This item caught what a visual check
+   could not, so re-run it rather than trusting a page that merely looks right.
+3. ✅ **Closed.** All six security headers present in `next.config.ts`. The CSP is
+   correct for what the redesign loads, confirmed in the browser with no
+   violations on any route.
+4. ✅ **Closed.** Waitlist POST confirmed, no preflight, row landed in the Google
+   Sheet. **No CSP change was needed and none was made.** The pre-approved line
+   below was never applied and should stay unapplied unless a violation actually
+   appears:
    `connect-src 'self' https://script.google.com https://script.googleusercontent.com`
    with a comment explaining that Apps Script 302-redirects POSTs and that CSP
    applies to the whole redirect chain. No other origin, no other directive.
-5. Mobile check at ~375px on every route.
-6. Homepage demo section visual check at 375, 780, 980, 1280. See the LiveDemo
-   PR note below. **Still open.** The hash-scroll verification recorded in the PR
-   notes covers scroll behavior at one viewport width, not layout across four, so
-   it does not close this item.
-7. Open the PR with a summary of every file changed and every page redesigned.
+5. ✅ **Closed.** Mobile checked at ~375px on all nine routes, clean.
+6. ✅ **Closed.** Homepage demo section verified at 375, 780, 980 and 1280 in a
+   browser; renders correctly at all four. An earlier revision of this line said
+   "Still open" on the grounds that the hash-scroll verification covered one
+   viewport width rather than four. That was correct at the time and is now
+   superseded by an actual four-width check.
+7. ⬜ Open the PR with a summary of every file changed and every page redesigned.
    Include both PR notes below. Do not merge.
 
 ---
@@ -98,6 +115,12 @@ than trusting this paragraph.
    item said line 149; that is unrelated section 01 boilerplate. The file-header
    comment at `app/terms/page.tsx:32` already flags this same founding-tier
    reference.
+
+   **The audit's proposed fix is now itself out of date.** `legal-audit:75`
+   proposes rewriting the line to "available on the Teacher and Teacher Pro
+   plans". After `6f9c65b` there is no tier called "Teacher". Whoever makes the
+   legal edit writes **"Teacher Core and Teacher Pro"**. Both files stay frozen
+   here.
 2. **The six plan slugs in `lib/plans.ts`** (`practice-pass`, `full-course`,
    `teacher-monthly`, `teacher-annual`, `teacher-pro-monthly`,
    `teacher-pro-annual`) are not yet resolvable by app.unpackmath.com. The four
@@ -130,6 +153,32 @@ than trusting this paragraph.
    `lib/plans.ts`. The alternative is to constrain it to a server-side allowlist
    of plan slugs.
 
+   **This is now urgent rather than theoretical.** Stripe is live, see the
+   TSIA2Math handoff below. The endpoint was harmless only while no live prices
+   existed, and that is no longer true.
+7. **Three shared legal primitives wrap `children` in a bare `<p>`.**
+   `LegalBody` (189), `LegalFine` (198) and `LegalNotice` (246) in
+   `app/components/legal.tsx`. `LegalDefinition` (232) did too, until `27abbea`
+   swapped it to a `<div>`: a `LegalList` renders a `<ul>`, `<ul>` inside `<p>`
+   is invalid, and the browser repaired it differently on the server and the
+   client, so React discarded the server HTML and re-rendered `/privacy` on the
+   client. Three nested lists, one call site at `privacy/page.tsx:87-91`
+   rendering three times.
+
+   The remaining three would fail identically the first time anyone passes a
+   list to them. Left alone deliberately, since nothing passes one today. The
+   label `<p>` at 228 is correct and stays: `label` is typed `string` and can
+   never receive an element.
+
+   Worth knowing how it presented: **invisible to a visual check.** Both pages
+   looked correct. The cost was that `/privacy` builds as a static prerender and
+   then threw it away on every load.
+8. **`TeacherPlans.tsx:118` decides `featured` by comparing a display string.**
+   `featured={tier.name === "Teacher Pro"}`. A future rename of "Teacher Pro"
+   would silently drop the featured styling with no type error and no lint
+   warning. The `6f9c65b` rename was safe because it changed the other tier. A
+   comment is in place at the call site; no refactor was made.
+
 ---
 
 ## PR notes already recorded
@@ -154,13 +203,29 @@ The likely reason it holds is that `#demo` is present in the initial HTML,
 because `LiveDemo` is a server component. That makes the `LiveDemo` extraction
 load-bearing for this behavior, not just a code-organization choice. **Anyone who
 re-adds `"use client"` to `LiveDemo` should know it may break these two links.**
-This does not close checklist item 6, which is a layout check at four widths; see
-the checklist.
+Checklist item 6 was closed separately by a four-width layout check; this note
+covers scroll behavior only.
 
-**`/for-students` FAQ.** The FAQ band is suppressed while `FAQS` is empty, and
-`Closing` is temporarily `surface="sand"` rather than `cream` so no two adjacent
-sections share a surface. When the FAQ lands as a sand band between `Placement`
-and `Closing`, flip `Closing` back to `cream`.
+**`/for-students` FAQ. Landed in `3b2ddb3`.** Five questions and five answers,
+all Juan's. `Closing` is back to `surface="cream"` and the run reads cream, sand,
+cream. One constraint worth knowing: `AccordionItem.a` is a `string` rendered
+into a single `<p>`, so the paragraph breaks in the source copy for answers 3 and
+4 are joined with a space. No wording was changed. Restoring them means teaching
+`Accordion` about multi-paragraph answers, and `Accordion` is shared with the
+homepage and `/pricing`.
+
+**GUMU sits on Full Course only, and reaches students by two paths.** `7469ebd`
+removed "GUMU Socratic tutor on practice items" from Practice Pass and added a
+lesson-tied bullet to Full Course, because GUMU runs on the curriculum and
+lessons, not on the practice bank, which is worksheet-generator output. The
+`/pricing` FAQ carried the same defect in prose and was fixed in the same commit.
+
+The two entitlement paths are **direct Full Course purchase** and
+**teacher-assigned curriculum access**, which is why `TeacherPlans.tsx:26` still
+offers GUMU on a teacher plan and is not a defect: a student buying Full Course
+has no teacher providing it, and a student in a class gets it through the
+teacher's subscription. Whatever gates GUMU server-side has to satisfy either
+path.
 
 ---
 
@@ -208,12 +273,49 @@ and `Closing`, flip `Closing` back to `cream`.
 
 ## Waiting on Juan
 
-**Five FAQ answers for `/for-students` section 05.** Questions proposed, answers
-not written. Once supplied, populate `FAQS` in `app/for-students/page.tsx` and
-flip `Closing` back to `surface="cream"`.
+Nothing. The five FAQ answers were the last open item and landed in `3b2ddb3`.
 
-1. Is the free test really free, or does it ask for a card at the end?
-2. Do I need an account to take the diagnostic?
-3. What is the difference between Practice Pass and Full Course?
-4. I already took the TSIA2 and did not pass. Is this still useful?
-5. I am under 18. Can I buy a pass myself?
+---
+
+## For the TSIA2Math session: money is live, entitlement is not
+
+**This is the most important section in this document.** None of it is work for
+this branch, and none of it changes anything here. It is the context the next
+session needs before it touches checkout.
+
+**Production predates this entire branch.** The live `/pricing` still shows a
+Founding Teacher tier at $10 with "Billing starts immediately" sitting next to a
+waitlist form that takes no payment. It has no student paid tiers and no Teacher
+Core or Teacher Pro. There is no date and no spot count on the founding offer
+anywhere on prod, so **removing it breaks no public promise.**
+
+**Stripe is LIVE, with six Payment Links:**
+
+| Plan | Price |
+|---|---|
+| Practice Pass | $49 |
+| Full Course | $89 |
+| Teacher Core | $20 / $200 |
+| Teacher Pro | $30 / $300 |
+
+These are Payment Links (`buy.stripe.com` URLs), not price IDs, and all six
+success URLs point at `/success`. **No Payment Link URL goes into this repo.**
+Invariant 7 stands unchanged.
+
+**Nothing connects a purchase to an account.** There is no webhook handler.
+`profiles` carries `role` and `subscription_status` but **no expiry column**,
+while Practice Pass and Full Course are one-time payments with 6 and 12 month
+durations that Stripe will not enforce. Payment Links collect the buyer's email,
+which for a student pass is usually a parent's email and will not match the
+student's `profiles` row.
+
+**A paid customer today receives no entitlement.** Checkout must not be wired
+from the marketing site until TSIA2Math handles entitlement.
+
+**The href contract is unchanged and is the seam to verify first.**
+`TeacherPlans.tsx:71` and `:81` call `upgradeHref()` with a plan slug and hand
+off to `app.unpackmath.com`. The first task in the TSIA2Math session is
+verifying what receives it: does that route exist, does it read the slug, and
+what happens to a signed-out visitor. See outstanding item 2, which records that
+the six slugs are not yet resolvable, and item 6, whose orphaned Stripe endpoint
+is now urgent rather than theoretical.
