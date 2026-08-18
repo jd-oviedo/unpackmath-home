@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { color, ink, inkMuted, onDark, type, space, mq } from "../../lib/tokens";
 import { stats } from "../../lib/stats";
 import { Nav } from "../components/Nav";
@@ -107,13 +108,13 @@ function Hero() {
         </Button>
         {/* Secondary entry point to the homepage demo section, which lost both
             its nav and footer links in the For students swap. */}
-        <a
+        <Link
           className="um-link"
           href="/#demo"
           style={{ ...type.bodySm, alignSelf: "center", color: color.deepMidnight, borderBottom: `1px solid ${ink(0.35)}` }}
         >
           How it works
-        </a>
+        </Link>
       </div>
 
       {/*
@@ -268,13 +269,13 @@ function Closing() {
         </Button>
         {/* Secondary entry point to the homepage demo section, which lost both
             its nav and footer links in the For students swap. */}
-        <a
+        <Link
           className="um-link"
           href="/#demo"
           style={{ ...type.bodySm, alignSelf: "center", color: color.deepMidnight, borderBottom: `1px solid ${ink(0.35)}` }}
         >
           How it works
-        </a>
+        </Link>
       </div>
     </SectionShell>
   );
