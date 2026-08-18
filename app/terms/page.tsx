@@ -1,128 +1,150 @@
-"use client";
+import {
+  LegalPage,
+  LegalToc,
+  LegalBody,
+  LegalFine,
+  LegalList,
+  LegalNotice,
+  LegalTable,
+  LegalLink,
+} from "../components/legal";
+import { color, ink, rule, type, space } from "../../lib/tokens";
 
-import { Header, Footer } from "../components/Header";
+/**
+ * /terms
+ *
+ * Restyle only. Every clause on this page is byte-identical to the previous
+ * version: no legal text was edited, reworded, reordered or removed, and no
+ * section title was altered. The local Blobs, Shell and card helpers, which ran
+ * on the old global variables, are replaced by the shared primitives in
+ * components/legal.tsx.
+ *
+ * The one structural addition is an `id` on each section plus a table of
+ * contents, which is what makes "see Section 5" in the text reachable. Ids are
+ * attributes, not copy.
+ *
+ * The sections are left as hand-written JSX rather than converged onto the array
+ * that /privacy uses. Transcribing twenty-one clauses of legal text by hand for
+ * tidiness in a file that is only ever edited under legal review is not worth
+ * the chance of dropping one.
+ *
+ * Factual defects in this text are recorded in legal-audit-2026-08.md and are
+ * deliberately NOT fixed here, including the founding-tier reference in section
+ * 02, the subscription-only payment clauses in section 05, the ADA Title II
+ * citation in section 13, and the en dash in the "17-20" label.
+ */
 
-function Blobs() {
-  return (
-    <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: "-180px", left: "-160px", width: "520px", height: "520px", borderRadius: "50%", background: "var(--ec-blob-a)", filter: "blur(90px)" }} />
-      <div style={{ position: "absolute", top: "-140px", right: "-140px", width: "460px", height: "460px", borderRadius: "50%", background: "var(--ec-blob-b)", filter: "blur(90px)" }} />
-      <div style={{ position: "absolute", bottom: "-200px", left: "30%", width: "540px", height: "540px", borderRadius: "50%", background: "var(--ec-blob-c)", filter: "blur(100px)" }} />
-    </div>
-  );
-}
+const CONTACT_EMAIL = "contact@unpackmath.com";
+const PRIVACY_URL = "www.unpackmath.com/privacy";
 
-function Shell({ children }: { children: React.ReactNode }) {
-  return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--ec-bg)", position: "relative" }}>
-      <Blobs />
-      <div style={{ position: "relative" }}>
-        <Header />
-      </div>
-      <main style={{ flex: 1, maxWidth: "800px", margin: "0 auto", width: "100%", padding: "24px 24px 80px" }}>
-        {children}
-      </main>
-      <Footer />
-    </div>
-  );
-}
+/** Section list for the table of contents. Titles match the headers exactly. */
+const TOC = [
+  { id: "s01", number: "01", title: "Acceptance of Terms" },
+  { id: "s02", number: "02", title: "Description of Service" },
+  { id: "s03", number: "03", title: "User Accounts and Registration" },
+  { id: "s04", number: "04", title: "Institutional Accounts" },
+  { id: "s05", number: "05", title: "Subscriptions, Payments, and Refunds" },
+  { id: "s06", number: "06", title: "Acceptable Use" },
+  { id: "s07", number: "07", title: "Intellectual Property" },
+  { id: "s08", number: "08", title: "Educational Disclaimer" },
+  { id: "s09", number: "09", title: "Disclaimer of Warranties" },
+  { id: "s10", number: "10", title: "Limitation of Liability" },
+  { id: "s11", number: "11", title: "Indemnification" },
+  { id: "s12", number: "12", title: "Third-Party Services and Links" },
+  { id: "s13", number: "13", title: "Accessibility" },
+  { id: "s14", number: "14", title: "Termination" },
+  { id: "s15", number: "15", title: "Governing Law and Dispute Resolution" },
+  { id: "s16", number: "16", title: "Privacy" },
+  { id: "s17", number: "17\u201320", title: "Modifications, Force Majeure, Severability, and Entire Agreement" },
+  { id: "s21", number: "21", title: "Contact Us" },
+];
+
+/* The local helpers keep their names and signatures so the clause JSX below is
+   untouched. Only their implementations moved onto the design tokens. */
 
 function SectionHeader({ number, title }: { number: string; title: string }) {
   return (
-    <div style={{ display: "flex", alignItems: "baseline", gap: "14px", marginBottom: "20px" }}>
-      <span style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.13em", color: "var(--ec-accent)", fontVariantNumeric: "tabular-nums" }}>{number}</span>
-      <h2 style={{ fontSize: "20px", fontWeight: 700, color: "var(--ec-ink)", letterSpacing: "-0.015em" }}>{title}</h2>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "baseline",
+        gap: space.md,
+        marginBottom: space.lg,
+        borderBottom: rule.medium,
+        paddingBottom: space.sm,
+      }}
+    >
+      <span style={{ ...type.monoLabel, letterSpacing: 0, color: color.sunsetOrange, fontVariantNumeric: "tabular-nums" }}>
+        {number}
+      </span>
+      <h2 style={{ ...type.h3, fontSize: "22px", color: color.deepMidnight, margin: 0 }}>{title}</h2>
     </div>
   );
 }
 
 function Card({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "14px", padding: "18px 20px", boxShadow: "var(--ec-shadow)" }}>
+    <div style={{ border: rule.hair, background: color.white, padding: "18px 20px", marginBottom: space.md }}>
       {children}
     </div>
   );
 }
 
 function BulletList({ items }: { items: string[] }) {
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-      {items.map((item, i) => (
-        <div key={i} style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
-          <div style={{ width: "5px", height: "5px", borderRadius: "50%", background: "var(--ec-accent)", marginTop: "8px", flexShrink: 0 }} />
-          <span style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65 }}>{item}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function SubSection({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div style={{ marginBottom: "16px" }}>
-      <p style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "10px" }}>{label}</p>
-      {children}
-    </div>
-  );
+  return <LegalList items={items} />;
 }
 
 function Body({ children }: { children: React.ReactNode }) {
-  return (
-    <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.75, marginBottom: "16px" }}>
-      {children}
-    </p>
-  );
+  return <LegalBody>{children}</LegalBody>;
 }
 
 function Notice({ label, children }: { label?: string; children: React.ReactNode }) {
+  return <LegalNotice label={label}>{children}</LegalNotice>;
+}
+
+/** Labelled clause block, replacing the repeated inline label/text pattern. */
+function Clause({ label, text }: { label: string; text: string }) {
   return (
-    <div style={{ background: "var(--ec-orange-bg)", border: "1px solid var(--ec-orange-border)", borderRadius: "14px", padding: "16px 20px", marginTop: "12px" }}>
-      {label && <p style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ec-orange)", marginBottom: "6px" }}>{label}</p>}
-      <p style={{ fontSize: "14px", color: "var(--ec-ink)", lineHeight: 1.65, margin: 0 }}>{children}</p>
+    <div style={{ borderLeft: `2px solid ${color.sunsetOrange}`, paddingLeft: space.md, marginBottom: space.lg }}>
+      <p style={{ ...type.monoLabel, letterSpacing: "0.1em", textTransform: "uppercase", color: color.deepMidnight, margin: `0 0 ${space.xs}` }}>
+        {label}
+      </p>
+      <p style={{ ...type.bodySm, fontSize: "14.5px", lineHeight: 1.7, color: ink(0.85), margin: 0 }}>{text}</p>
     </div>
   );
 }
 
-const CONTACT_EMAIL = "contact@unpackmath.com";
-const PRIVACY_URL = "www.unpackmath.com/privacy";
-
 export default function TermsOfUsePage() {
   return (
-    <Shell>
-      {/* Hero */}
-      <div style={{ maxWidth: "680px", margin: "0 auto", padding: "40px 0 48px", borderBottom: "1px solid var(--ec-line)", marginBottom: "48px" }}>
-        <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "12px" }}>
-          Legal · Terms
-        </p>
-        <h1 style={{ fontSize: "clamp(34px, 6vw, 54px)", fontWeight: 800, color: "var(--ec-ink)", letterSpacing: "-0.03em", lineHeight: 1.08, marginBottom: "20px" }}>
-          Terms of Use.
-        </h1>
-        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-          {["Effective: May 25, 2026", "Last Updated: July 16, 2026", "UnpackMath · Texas"].map((tag) => (
-            <span key={tag} style={{ fontSize: "12px", color: "var(--ec-ink-muted)", background: "var(--ec-surface)", border: "1px solid var(--ec-line)", borderRadius: "999px", padding: "4px 14px", boxShadow: "var(--ec-shadow)" }}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Intro */}
-      <div style={{ maxWidth: "680px", margin: "0 auto 48px" }}>
-        <Card>
-          <Body>
-            Please read these Terms of Use ("Terms") carefully before accessing or using unpackmath.com (the "Platform"). These Terms constitute a legally binding agreement between you and UnpackMath, operated by JDOM LLC ("we," "our," or "us"). By accessing or using the Platform, you agree to be bound by these Terms. If you do not agree, do not use the Platform.
-          </Body>
-          <p style={{ fontSize: "15px", color: "var(--ec-ink-muted)", lineHeight: 1.75, margin: 0 }}>
-            These Terms apply to all users of the Platform, including individual students, parents or guardians, and institutional users such as schools, districts, and administrators.
-          </p>
-        </Card>
-      </div>
-
-      {/* Sections */}
-      <div style={{ maxWidth: "680px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "40px" }}>
-
+    <LegalPage
+      eyebrow="Legal · Terms"
+      title="Terms of Use."
+      meta={["Effective: May 25, 2026", "Last Updated: July 16, 2026", "UnpackMath \u00b7 Texas"]}
+      intro={
+        <>
+          <LegalBody>
+            Please read these Terms of Use (&quot;Terms&quot;) carefully before accessing or using unpackmath.com (the
+            &quot;Platform&quot;). These Terms constitute a legally binding agreement between you and UnpackMath,
+            operated by JDOM LLC (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). By accessing or using the
+            Platform, you agree to be bound by these Terms. If you do not agree, do not use the Platform.
+          </LegalBody>
+          <LegalBody>
+            These Terms apply to all users of the Platform, including individual students, parents or guardians, and
+            institutional users such as schools, districts, and administrators.
+          </LegalBody>
+        </>
+      }
+      toc={<LegalToc items={TOC} />}
+      closing={
+        <LegalFine>
+          These Terms of Use were prepared in good faith to reflect current federal and Texas state legal standards as
+          of the effective date above. UnpackMath recommends periodic legal review as laws and regulations evolve. This
+          document does not constitute legal advice.
+        </LegalFine>
+      }
+    >
         {/* 01 */}
-        <div>
+        <div id="s01" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="01" title="Acceptance of Terms" />
           <Body>By creating an account, accessing any content, or using any feature of the Platform, you confirm that:</Body>
           <Card>
@@ -136,7 +158,7 @@ export default function TermsOfUsePage() {
         </div>
 
         {/* 02 */}
-        <div>
+        <div id="s02" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="02" title="Description of Service" />
           <Body>UnpackMath is an adaptive math learning platform designed to help students prepare for college placement assessments, including the TSIA2. The Platform currently provides:</Body>
           <Card>
@@ -151,13 +173,13 @@ export default function TermsOfUsePage() {
           <Notice label="Coming Soon">
             A weekly parent digest and expanded curriculum features are in active development and will be added in future releases. These Terms will be updated to reflect new features as they become available.
           </Notice>
-          <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.65, marginTop: "12px" }}>
+          <p style={{ ...type.bodyXs, color: ink(0.85), marginTop: space.md }}>
             We reserve the right to modify, suspend, or discontinue any feature of the Platform at any time with reasonable notice.
           </p>
         </div>
 
         {/* 03 */}
-        <div>
+        <div id="s03" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="03" title="User Accounts and Registration" />
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             {[
@@ -178,16 +200,13 @@ export default function TermsOfUsePage() {
                 text: "The Platform is not directed to children under the age of 13. Users between the ages of 13 and 17 must have parental or guardian consent to use the Platform. Schools enrolling students under 13 must ensure appropriate consent is obtained in accordance with COPPA and applicable Texas law.",
               },
             ].map(({ label, text }) => (
-              <Card key={label}>
-                <p style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "8px" }}>{label}</p>
-                <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, margin: 0 }}>{text}</p>
-              </Card>
+              <Clause key={label} label={label} text={text} />
             ))}
           </div>
         </div>
 
         {/* 04 */}
-        <div>
+        <div id="s04" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="04" title="Institutional Accounts" />
           <Body>Schools, school districts, community colleges, testing centers, and other educational organizations ("Institutions") may access the Platform under a separate institutional agreement or license. In such cases:</Body>
           <Card>
@@ -202,7 +221,7 @@ export default function TermsOfUsePage() {
         </div>
 
         {/* 05 */}
-        <div>
+        <div id="s05" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="05" title="Subscriptions, Payments, and Refunds" />
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             {[
@@ -213,16 +232,13 @@ export default function TermsOfUsePage() {
               { label: "Price Changes", text: "UnpackMath reserves the right to change subscription prices at any time. We will provide at least 30 days notice before any price change takes effect for existing subscribers." },
               { label: "Taxes", text: "You are responsible for any applicable taxes, levies, or duties imposed by taxing authorities in connection with your use of the Platform." },
             ].map(({ label, text }) => (
-              <Card key={label}>
-                <p style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "8px" }}>{label}</p>
-                <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, margin: 0 }}>{text}</p>
-              </Card>
+              <Clause key={label} label={label} text={text} />
             ))}
           </div>
         </div>
 
         {/* 06 */}
-        <div>
+        <div id="s06" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="06" title="Acceptable Use" />
           <Body>You agree to use the Platform only for lawful purposes and in accordance with these Terms. You agree not to:</Body>
           <Card>
@@ -243,7 +259,7 @@ export default function TermsOfUsePage() {
         </div>
 
         {/* 07 */}
-        <div>
+        <div id="s07" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="07" title="Intellectual Property" />
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             {[
@@ -252,52 +268,49 @@ export default function TermsOfUsePage() {
               { label: "Feedback", text: "If you submit feedback, suggestions, or ideas about the Platform, you grant UnpackMath the right to use that feedback without compensation or attribution. We are not obligated to act on any feedback received." },
               { label: "Trademarks", text: '"UnpackMath," the UnpackMath logo, and related marks are trademarks of JDOM LLC. You may not use these marks without our prior written consent. Nothing in these Terms grants you any right to use our trademarks, trade names, or branding.' },
             ].map(({ label, text }) => (
-              <Card key={label}>
-                <p style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "8px" }}>{label}</p>
-                <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, margin: 0 }}>{text}</p>
-              </Card>
+              <Clause key={label} label={label} text={text} />
             ))}
           </div>
         </div>
 
         {/* 08 */}
-        <div>
+        <div id="s08" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="08" title="Educational Disclaimer" />
           <Card>
-            <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, marginBottom: "12px" }}>
+            <p style={{ ...type.bodySm, fontSize: "14.5px", lineHeight: 1.7, color: ink(0.85), marginBottom: space.md }}>
               UnpackMath is designed as a preparation and practice tool. While we strive to provide high-quality, accurate, and test-aligned content, we make no guarantee that use of the Platform will result in a specific score on any placement assessment or that any student will pass any particular test.
             </p>
-            <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, margin: 0 }}>
+            <p style={{ ...type.bodySm, fontSize: "14.5px", lineHeight: 1.7, color: ink(0.85), margin: 0 }}>
               Score estimates generated by the Platform are approximations based on performance data and are not official scores. They are intended for informational and motivational purposes only. Actual test results may vary based on many factors outside of our control.
             </p>
           </Card>
         </div>
 
         {/* 09 */}
-        <div>
+        <div id="s09" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="09" title="Disclaimer of Warranties" />
           <Card>
-            <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.75, fontFamily: "monospace" }}>
+            <p style={{ ...type.monoLabel, fontSize: "12.5px", letterSpacing: 0, lineHeight: 1.75, color: ink(0.85) }}>
               THE PLATFORM IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, UNPACKMATH DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT; WARRANTIES THAT THE PLATFORM WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE; AND WARRANTIES REGARDING THE ACCURACY OR RELIABILITY OF ANY CONTENT ON THE PLATFORM. YOUR USE OF THE PLATFORM IS ENTIRELY AT YOUR OWN RISK.
             </p>
           </Card>
         </div>
 
         {/* 10 */}
-        <div>
+        <div id="s10" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="10" title="Limitation of Liability" />
           <Card>
-            <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.75, fontFamily: "monospace", marginBottom: "12px" }}>
+            <p style={{ ...type.monoLabel, fontSize: "12.5px", letterSpacing: 0, lineHeight: 1.75, color: ink(0.85), marginBottom: space.md }}>
               TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, JDOM LLC AND ITS OFFICERS, EMPLOYEES, AGENTS, AND PARTNERS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING OUT OF OR RELATED TO YOUR USE OF, OR INABILITY TO USE, THE PLATFORM.
             </p>
-            <p style={{ fontSize: "13px", color: "var(--ec-ink-muted)", lineHeight: 1.75, fontFamily: "monospace" }}>
+            <p style={{ ...type.monoLabel, fontSize: "12.5px", letterSpacing: 0, lineHeight: 1.75, color: ink(0.85) }}>
               IN NO EVENT SHALL UNPACKMATH'S TOTAL LIABILITY TO YOU FOR ALL CLAIMS EXCEED THE AMOUNT YOU PAID TO UNPACKMATH IN THE 12 MONTHS PRECEDING THE CLAIM, OR $100, WHICHEVER IS GREATER.
             </p>
           </Card>
         </div>
 
         {/* 11 */}
-        <div>
+        <div id="s11" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="11" title="Indemnification" />
           <Body>You agree to indemnify, defend, and hold harmless JDOM LLC and its officers, directors, employees, agents, and licensors from and against any claims, liabilities, damages, judgments, awards, losses, costs, or expenses (including reasonable attorneys' fees) arising out of or relating to:</Body>
           <Card>
@@ -311,28 +324,28 @@ export default function TermsOfUsePage() {
         </div>
 
         {/* 12 */}
-        <div>
+        <div id="s12" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="12" title="Third-Party Services and Links" />
           <Card>
-            <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, margin: 0 }}>
+            <p style={{ ...type.bodySm, fontSize: "14.5px", lineHeight: 1.7, color: ink(0.85), margin: 0 }}>
               The Platform may integrate with or contain links to third-party websites, services, or tools, including payment processors, analytics providers, authentication services (such as Google OAuth), and hosting services. UnpackMath is not responsible for the content, privacy practices, or terms of any third-party service. Your use of third-party services is governed by their own terms and policies. We encourage you to review those policies before use.
             </p>
           </Card>
         </div>
 
         {/* 13 */}
-        <div>
+        <div id="s13" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="13" title="Accessibility" />
           <Card>
-            <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, margin: 0 }}>
+            <p style={{ ...type.bodySm, fontSize: "14.5px", lineHeight: 1.7, color: ink(0.85), margin: 0 }}>
               UnpackMath is committed to making the Platform accessible to users with disabilities. We work to meet applicable accessibility standards, including Web Content Accessibility Guidelines (WCAG) 2.1 Level AA, in alignment with ADA Title II requirements applicable to digital educational tools. If you encounter an accessibility barrier, please contact us at{" "}
-              <a href={`mailto:${CONTACT_EMAIL}`} style={{ color: "var(--ec-accent)", textDecoration: "none" }}>{CONTACT_EMAIL}</a> and we will work to address it promptly.
+              <a href={`mailto:${CONTACT_EMAIL}`} className="um-link" style={{ color: color.deepMidnight, borderBottom: `1px solid ${ink(0.35)}` }}>{CONTACT_EMAIL}</a> and we will work to address it promptly.
             </p>
           </Card>
         </div>
 
         {/* 14 */}
-        <div>
+        <div id="s14" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="14" title="Termination" />
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             {[
@@ -340,16 +353,13 @@ export default function TermsOfUsePage() {
               { label: "By UnpackMath", text: "We reserve the right to suspend or terminate your account at any time, with or without notice, if we believe you have violated these Terms or if we determine that continued access poses a risk to the Platform, other users, or our business. In cases of serious violations, termination may be immediate and without refund." },
               { label: "Effect of Termination", text: "Upon termination, your right to access the Platform ceases immediately. Provisions of these Terms that by their nature should survive termination, including intellectual property rights, disclaimers, limitations of liability, and indemnification, will continue to apply." },
             ].map(({ label, text }) => (
-              <Card key={label}>
-                <p style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "8px" }}>{label}</p>
-                <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, margin: 0 }}>{text}</p>
-              </Card>
+              <Clause key={label} label={label} text={text} />
             ))}
           </div>
         </div>
 
         {/* 15 */}
-        <div>
+        <div id="s15" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="15" title="Governing Law and Dispute Resolution" />
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             {[
@@ -357,27 +367,24 @@ export default function TermsOfUsePage() {
               { label: "Informal Resolution", text: `Before initiating any legal action, you agree to contact UnpackMath at ${CONTACT_EMAIL} and attempt to resolve the dispute informally. We will make a good faith effort to resolve any issue within 30 days of receiving written notice.` },
               { label: "Waiver of Class Action", text: "You agree that any dispute resolution proceedings will be conducted on an individual basis and not as a class action, collective action, or representative proceeding. You waive any right to participate in a class action lawsuit or class-wide arbitration against UnpackMath." },
             ].map(({ label, text }) => (
-              <Card key={label}>
-                <p style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "8px" }}>{label}</p>
-                <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, margin: 0 }}>{text}</p>
-              </Card>
+              <Clause key={label} label={label} text={text} />
             ))}
           </div>
         </div>
 
         {/* 16 */}
-        <div>
+        <div id="s16" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="16" title="Privacy" />
           <Card>
-            <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, margin: 0 }}>
+            <p style={{ ...type.bodySm, fontSize: "14.5px", lineHeight: 1.7, color: ink(0.85), margin: 0 }}>
               Your use of the Platform is also governed by our Privacy Policy, which is incorporated into these Terms by reference. By using the Platform, you consent to the data practices described in the Privacy Policy. Our Privacy Policy is available at{" "}
-              <a href={`https://${PRIVACY_URL}`} style={{ color: "var(--ec-accent)", textDecoration: "none" }}>{PRIVACY_URL}</a>.
+              <a href={`https://${PRIVACY_URL}`} className="um-link" style={{ color: color.deepMidnight, borderBottom: `1px solid ${ink(0.35)}` }}>{PRIVACY_URL}</a>.
             </p>
           </Card>
         </div>
 
         {/* 17-20 condensed */}
-        <div>
+        <div id="s17" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="17–20" title="Modifications, Force Majeure, Severability, and Entire Agreement" />
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             {[
@@ -386,16 +393,13 @@ export default function TermsOfUsePage() {
               { label: "Severability", text: "If any provision of these Terms is found to be unenforceable or invalid under applicable law, that provision shall be modified to the minimum extent necessary to make it enforceable, and the remaining provisions shall continue in full force and effect." },
               { label: "Entire Agreement", text: "These Terms, together with our Privacy Policy and any institutional agreements, constitute the entire agreement between you and UnpackMath regarding your use of the Platform and supersede all prior agreements, representations, or understandings." },
             ].map(({ label, text }) => (
-              <Card key={label}>
-                <p style={{ fontSize: "12px", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ec-accent)", marginBottom: "8px" }}>{label}</p>
-                <p style={{ fontSize: "14px", color: "var(--ec-ink-muted)", lineHeight: 1.65, margin: 0 }}>{text}</p>
-              </Card>
+              <Clause key={label} label={label} text={text} />
             ))}
           </div>
         </div>
 
         {/* 21 */}
-        <div>
+        <div id="s21" style={{ scrollMarginTop: "88px" }}>
           <SectionHeader number="21" title="Contact Us" />
           <Card>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -404,13 +408,13 @@ export default function TermsOfUsePage() {
                 ["Email", CONTACT_EMAIL],
                 ["Website", "www.unpackmath.com"],
               ].map(([label, value]) => (
-                <div key={label} style={{ display: "flex", justifyContent: "space-between", fontSize: "14px", borderBottom: "1px solid var(--ec-line)", paddingBottom: "10px" }}>
-                  <span style={{ color: "var(--ec-ink-muted)" }}>{label}</span>
-                  <span style={{ color: "var(--ec-ink)", fontWeight: 500 }}>
+                <div key={label} style={{ display: "flex", justifyContent: "space-between", gap: space.lg, ...type.bodySm, fontSize: "14.5px", borderBottom: rule.hair, paddingBottom: space.sm }}>
+                  <span style={{ color: ink(0.6) }}>{label}</span>
+                  <span style={{ color: color.deepMidnight }}>
                     {label === "Email" ? (
-                      <a href={`mailto:${value}`} style={{ color: "var(--ec-accent)", textDecoration: "none" }}>{value}</a>
+                      <a href={`mailto:${value}`} className="um-link" style={{ color: color.deepMidnight, borderBottom: `1px solid ${ink(0.35)}` }}>{value}</a>
                     ) : label === "Website" ? (
-                      <a href={`https://${value}`} style={{ color: "var(--ec-accent)", textDecoration: "none" }}>{value}</a>
+                      <a href={`https://${value}`} className="um-link" style={{ color: color.deepMidnight, borderBottom: `1px solid ${ink(0.35)}` }}>{value}</a>
                     ) : value}
                   </span>
                 </div>
@@ -418,15 +422,6 @@ export default function TermsOfUsePage() {
             </div>
           </Card>
         </div>
-
-      </div>
-
-      {/* Footer note */}
-      <div style={{ maxWidth: "680px", margin: "48px auto 0", borderTop: "1px solid var(--ec-line)", paddingTop: "24px" }}>
-        <p style={{ fontSize: "12px", color: "var(--ec-ink-faint)", lineHeight: 1.65, fontStyle: "italic" }}>
-          These Terms of Use were prepared in good faith to reflect current federal and Texas state legal standards as of the effective date above. UnpackMath recommends periodic legal review as laws and regulations evolve. This document does not constitute legal advice.
-        </p>
-      </div>
-    </Shell>
+    </LegalPage>
   );
 }
