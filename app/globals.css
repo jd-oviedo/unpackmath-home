@@ -3,7 +3,7 @@
 
   Design values live in lib/tokens.ts and are applied through inline React
   style props. This file carries the reset, the document defaults, and the
-  keyframes that inline styles cannot express. Component-specific responsive
+  rules that inline styles cannot express. Component-specific responsive
   rules live in each component's own colocated <style> tag, not here.
 */
 
@@ -13,52 +13,14 @@
   padding: 0;
 }
 
-/*
-  LEGACY TOKENS, being removed page by page.
-
-  These are the old Deep Navy / Sky Blue variables. They are superseded by the
-  brand system in lib/tokens.ts, but /for-teachers, /pricing, /privacy, /terms
-  and /success still reference them until each is redesigned in Phase 3. Delete
-  this block once the last var(--ec-*) reference is gone.
-*/
-:root {
-  --ec-bg: #f0ede8;
-  --ec-surface: #ffffff;
-  --ec-surface2: #f7f5f2;
-  --ec-ink: #1a1f2e;
-  --ec-ink-muted: rgba(26, 31, 46, 0.55);
-  --ec-ink-faint: rgba(26, 31, 46, 0.32);
-  --ec-line: rgba(26, 31, 46, 0.08);
-  --ec-accent: #0f69ba;
-  --ec-accent-soft: rgba(15, 105, 186, 0.1);
-  --ec-green: #3d9e6a;
-  --ec-green-bg: rgba(61, 158, 106, 0.11);
-  --ec-green-border: rgba(61, 158, 106, 0.32);
-  --ec-red: #c95f55;
-  --ec-red-bg: rgba(201, 95, 85, 0.1);
-  --ec-red-border: rgba(201, 95, 85, 0.3);
-  --ec-orange: #cb7119;
-  --ec-orange-bg: rgba(203, 113, 25, 0.09);
-  --ec-orange-border: rgba(203, 113, 25, 0.28);
-  --ec-shadow: 0 2px 16px rgba(26, 31, 46, 0.07);
-  --ec-shadow-btn: 0 4px 18px rgba(15, 105, 186, 0.22);
-  --ec-header-bg: rgba(240, 237, 232, 0.88);
-  --ec-glass-bg: rgba(255, 255, 255, 0.55);
-  --ec-header-border: rgba(26, 31, 46, 0.08);
-  --ec-btn-bg: #1a1f2e;
-  --ec-btn-text: #f0ede8;
-  --ec-blob-a: rgba(175, 208, 230, 0.55);
-  --ec-blob-b: rgba(185, 225, 228, 0.45);
-  --ec-blob-c: rgba(242, 200, 148, 0.38);
-}
-
 html {
   scroll-behavior: smooth;
 }
 
 /*
   The sticky nav is 72px, so in-page anchors need to clear it or the target
-  heading lands underneath the bar.
+  heading lands underneath the bar. Load-bearing for the legal-page tables of
+  contents.
 */
 :target {
   scroll-margin-top: 88px;
@@ -74,9 +36,9 @@ body {
 }
 
 /*
-  Links inherit by default. The brand link color is applied per component
-  rather than globally, because links on Deep Midnight bands and links on light
-  surfaces use different colors.
+  Links inherit by default. Link colour is applied per component rather than
+  globally, because links on Deep Midnight bands and links on light surfaces
+  use different colours.
 */
 a {
   color: inherit;
@@ -92,49 +54,9 @@ video {
   max-width: 100%;
 }
 
-/* Used by the legacy DemoSection until Phase 2 replaces it. */
-@keyframes ecpulse {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 /*
-  LEGACY glass-card utilities, being removed page by page alongside the --ec-*
-  block above. The redesign replaces these with flat surfaces and hairline
-  rules. Delete once no page references them.
-*/
-.um-glass-card {
-  background: rgba(255, 255, 255, 0.6) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.7) !important;
-  box-shadow: 0 2px 16px rgba(26, 31, 46, 0.06), 0 1px 3px rgba(26, 31, 46, 0.04);
-}
-
-.um-glass-card--strong {
-  background: rgba(255, 255, 255, 0.75) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.8) !important;
-  box-shadow: 0 4px 24px rgba(26, 31, 46, 0.08), 0 1px 4px rgba(26, 31, 46, 0.05);
-}
-
-@media (max-width: 500px) {
-  .um-form-row {
-    flex-direction: column !important;
-  }
-}
-
-/*
-  The handoff allows one subtle scroll behavior at most. Everything the
-  redesign animates is a reveal or a bar growth, and all of it is opt-out here.
+  Every reveal, bar growth and carousel on the site is opt-out here, in addition
+  to each component checking the query itself before starting anything.
 */
 @media (prefers-reduced-motion: reduce) {
   html {

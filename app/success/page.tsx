@@ -1,118 +1,74 @@
-"use client";
-
+import type { Metadata } from "next";
+import { color, ink, inkMuted, rule, type, space } from "../../lib/tokens";
 import { Nav } from "../components/Nav";
 import { SiteFooter } from "../components/SiteFooter";
+import { SectionShell, Button, Eyebrow } from "../components/ui";
+
+/**
+ * /success
+ *
+ * Post-checkout confirmation. Converted from a client component: after the theme
+ * force-write came out in Phase 1 it held no state, no hooks and no handlers, so
+ * "use client" was buying nothing and blocking a metadata export.
+ *
+ * Excluded from search indexing. A purchase confirmation has no business in
+ * results, and a stranger arriving at "You're all set" has no idea what they
+ * are all set for.
+ *
+ * Copy is unchanged from the Phase 2 fix.
+ *
+ * KNOWN ISSUE, recorded in legal-audit-2026-08.md: this copy addresses a
+ * teacher, but all four paid CTAs on /pricing route through checkout to here,
+ * including the two one-time student passes. A student or parent who buys a pass
+ * is told to add classes and share a join code. Needs buyer-aware copy or
+ * separate destinations.
+ */
+
+export const metadata: Metadata = {
+  title: "You're all set | UnpackMath",
+  description:
+    "Your UnpackMath subscription is active. Head to your dashboard to add your classes and share a join code with your students.",
+  robots: { index: false, follow: false },
+};
+
+const DASHBOARD_HREF = "https://app.unpackmath.com/teacher";
+const SUPPORT_EMAIL = "juan@unpackmath.com";
 
 export default function Success() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        background: "var(--ec-bg)",
-        position: "relative",
-      }}
-    >
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Nav />
-      <main
-        style={{
-          flex: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "120px 24px 80px",
-        }}
-      >
-        <div
-          className="um-glass-card--strong"
-          style={{
-            maxWidth: 520,
-            width: "100%",
-            borderRadius: 20,
-            padding: "48px 40px",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              width: 56,
-              height: 56,
-              borderRadius: "50%",
-              background: "var(--ec-green-bg)",
-              border: "1px solid var(--ec-green-border)",
-              color: "var(--ec-green)",
-              fontSize: 26,
-              fontWeight: 800,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "0 auto 24px",
-            }}
-          >
-            ✓
+      <main style={{ flex: 1, display: "flex", alignItems: "center" }}>
+        <SectionShell surface="sand" paddingY="88px" style={{ width: "100%" }}>
+          <div style={{ maxWidth: "560px", border: rule.medium, background: color.white, padding: "40px 36px" }}>
+            <Eyebrow>Payment confirmed</Eyebrow>
+
+            <h1 style={{ ...type.h2, color: color.deepMidnight, margin: `0 0 ${space.md}` }}>
+              You&apos;re all set.
+            </h1>
+
+            <p style={{ ...type.body, color: ink(0.85), margin: `0 0 ${space.xl}` }}>
+              Your subscription is active. Head to your dashboard to add your classes and share a join code with your
+              students.
+            </p>
+
+            <Button href={DASHBOARD_HREF} size="lg" external>
+              Go to my dashboard
+            </Button>
+
+            <p style={{ ...type.bodySm, color: ink(inkMuted), margin: `${space.lg} 0 0` }}>
+              Questions or trouble getting started? Email{" "}
+              <a
+                className="um-link"
+                href={`mailto:${SUPPORT_EMAIL}`}
+                style={{ color: color.deepMidnight, borderBottom: `1px solid ${ink(0.35)}` }}
+              >
+                {SUPPORT_EMAIL}
+              </a>{" "}
+              and I will help you directly.
+            </p>
           </div>
-
-          <h1
-            style={{
-              fontSize: "clamp(26px,4vw,34px)",
-              fontWeight: 800,
-              color: "var(--ec-ink)",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
-              margin: "0 0 16px",
-            }}
-          >
-            You&apos;re all set.
-          </h1>
-
-          <p
-            style={{
-              fontSize: 16,
-              lineHeight: 1.7,
-              color: "var(--ec-ink-muted)",
-              margin: "0 0 32px",
-            }}
-          >
-            Your subscription is active. Head to your dashboard to add your
-            classes and share a join code with your students.
-          </p>
-
-          <a
-            href="https://app.unpackmath.com/teacher"
-            style={{
-              display: "block",
-              background: "var(--ec-btn-bg)",
-              color: "var(--ec-btn-text)",
-              fontWeight: 700,
-              fontSize: 15,
-              padding: 14,
-              borderRadius: 12,
-              textDecoration: "none",
-              boxShadow: "var(--ec-shadow-btn)",
-            }}
-          >
-            Go to my dashboard
-          </a>
-
-          <p
-            style={{
-              marginTop: 16,
-              fontSize: 13,
-              color: "var(--ec-ink-faint)",
-              fontWeight: 600,
-            }}
-          >
-            Questions or trouble getting started? Email{" "}
-            <a
-              href="mailto:juan@unpackmath.com"
-              style={{ color: "var(--ec-accent)", textDecoration: "none" }}
-            >
-              juan@unpackmath.com
-            </a>{" "}
-            and I will help you directly.
-          </p>
-        </div>
+        </SectionShell>
       </main>
       <SiteFooter />
     </div>
