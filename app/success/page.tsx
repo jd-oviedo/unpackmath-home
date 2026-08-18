@@ -63,7 +63,7 @@ export default function Success() {
               margin: "0 0 16px",
             }}
           >
-            You&apos;re in.
+            You&apos;re all set.
           </h1>
 
           <p
@@ -74,13 +74,12 @@ export default function Success() {
               margin: "0 0 32px",
             }}
           >
-            Your founding spot is locked in. You won&apos;t be charged until
-            the Misconception Dashboard launches, and your rate stays the same
-            forever.
+            Your subscription is active. Head to your dashboard to add your
+            classes and share a join code with your students.
           </p>
 
           <a
-            href="https://app.unpackmath.com/adaptive-test"
+            href="https://app.unpackmath.com/teacher"
             style={{
               display: "block",
               background: "var(--ec-btn-bg)",
@@ -93,7 +92,7 @@ export default function Success() {
               boxShadow: "var(--ec-shadow-btn)",
             }}
           >
-            Try the practice test while you wait
+            Go to my dashboard
           </a>
 
           <p
@@ -104,13 +103,14 @@ export default function Success() {
               fontWeight: 600,
             }}
           >
-            Questions? Reach us at{" "}
+            Questions or trouble getting started? Email{" "}
             <a
               href="mailto:juan@unpackmath.com"
               style={{ color: "var(--ec-accent)", textDecoration: "none" }}
             >
               juan@unpackmath.com
-            </a>
+            </a>{" "}
+            and I will help you directly.
           </p>
         </div>
       </main>

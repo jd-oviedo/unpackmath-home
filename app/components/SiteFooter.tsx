@@ -22,7 +22,7 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
     links: [
       { label: "How it works", href: "/#demo" },
       { label: "For teachers", href: "/for-teachers" },
-      { label: "For schools and districts", href: "/for-schools" },
+      { label: "For schools", href: "/for-schools" },
       { label: "Pricing", href: "/pricing" },
     ],
   },
@@ -81,7 +81,7 @@ export function SiteFooter() {
                 maxWidth: "280px",
               }}
             >
-              Adaptive TSIA2 math prep built by a Texas math teacher. Free for students, always.
+              Adaptive TSIA2 math prep built by a Texas math teacher. Free diagnostic for students, always.
             </p>
             <p style={{ ...type.bodySm, color: onDark(0.8), margin: "0 0 6px" }}>
               <a className="um-flink" href="mailto:hello@unpackmath.com">

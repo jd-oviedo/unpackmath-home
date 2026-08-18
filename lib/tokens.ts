@@ -44,6 +44,17 @@ export function onDark(alpha: number): string {
   return `rgba(255, 255, 255, ${alpha})`;
 }
 
+/**
+ * Floor for muted text on any light surface: the lightest ink alpha that still
+ * clears 4.5:1 in the worst case, which is small text sitting directly on a
+ * full-strength grid line in a Mercury Cream section.
+ *
+ * Measured: 4.62:1 on the deepest line, 5.40:1 on plain white. Anything
+ * secondary, an eyebrow, a caption, a deck line, an attribution, uses this
+ * rather than picking its own alpha. Do not go lighter.
+ */
+export const inkMuted = 0.62;
+
 /* --------------------------------- rules ---------------------------------- */
 
 /**
@@ -239,6 +250,63 @@ export const maxWidth = "1140px";
 export const radius = {
   none: "0px",
   button: "2px",
+} as const;
+
+/* ------------------------------ grid backdrop ------------------------------ */
+
+/**
+ * Warm graph-paper grid, applied to every light section by SectionShell.
+ * Deep Midnight bands and the footer stay flat.
+ *
+ * The lines are warm, not gray: each is the next step deeper in the cream
+ * family than the surface it sits on, so the texture reads as paper rather
+ * than as a table rule. Opacity is not used, because compositing a neutral ink
+ * over cream desaturates it toward gray, which is exactly the look this is
+ * avoiding. These are solid values instead.
+ *
+ * Worst case for legibility is body copy sitting directly on a line. Measured:
+ * Deep Midnight clears 12.58:1 even on the deepest line, and ink(0.8) clears
+ * 6.96:1. Do not deepen these without rechecking.
+ *
+ * The cell steps down at mobile so the pattern keeps its density on a narrow
+ * viewport instead of becoming a handful of large boxes.
+ */
+export const grid = {
+  cell: "64px",
+  cellMobile: "40px",
+  /** Keyed by the surface the grid is drawn on. */
+  line: {
+    white: "#F2EDDF",
+    sand: "#E8E0CF",
+    cream: "#D8D0C1",
+  },
+} as const;
+
+/* ------------------------------ semantic color ----------------------------- */
+
+/**
+ * Answer states for the interactive demo.
+ *
+ * Deliberately NOT brand colors and deliberately not named as such: the eight
+ * brand colors carry no right/wrong meaning, and inventing "brand green" would
+ * imply otherwise. These are muted and warm-leaning so they sit beside Sunset
+ * Orange without clashing, and neither is a saturated alert tone.
+ *
+ * All measured. Text on fill: 8.20:1 correct, 6.92:1 incorrect. Borders clear
+ * 4.5:1 against their own fill and against every light section surface. Never
+ * use these as the only signal; the demo pairs them with a glyph and a label.
+ */
+export const answerState = {
+  correct: {
+    fill: "#E4EBDD",
+    border: "#516943",
+    text: "#33482A",
+  },
+  incorrect: {
+    fill: "#F6E5DE",
+    border: "#90523B",
+    text: "#7A3B27",
+  },
 } as const;
 
 /* ------------------------------- breakpoints ------------------------------- */

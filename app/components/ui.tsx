@@ -12,7 +12,7 @@
  */
 
 import type { CSSProperties, ReactNode } from "react";
-import { color, ink, onDark, rule, type, space, maxWidth, radius, motion, mq } from "../../lib/tokens";
+import { color, ink, inkMuted, onDark, rule, type, space, maxWidth, radius, motion, mq, grid } from "../../lib/tokens";
 
 /* -------------------------------------------------------------------------- */
 /*                                section shell                               */
@@ -43,6 +43,8 @@ export function SectionShell({
   id,
   children,
   paddingY = space.sectionY,
+  showGrid = true,
+  className,
   style,
 }: {
   surface?: Surface;
@@ -50,14 +52,38 @@ export function SectionShell({
   children: ReactNode;
   /** Override the default vertical rhythm where the comp calls for it. */
   paddingY?: string;
+  /**
+   * The warm graph-paper grid, on by default for every light surface and
+   * never drawn on a Deep Midnight band. Set false to opt a light section out.
+   * Driving it from here rather than per section keeps it one decision.
+   */
+  showGrid?: boolean;
+  /**
+   * Extra class on the content column, so a section can reach its own shell
+   * from a media query. Inline styles cannot express breakpoints, and a child
+   * cannot restyle its parent, so this is the hook for cases like the stat
+   * band needing tighter vertical padding at mobile than the shell default.
+   */
+  className?: string;
   /** Extra styles for the inner content column, not the outer band. */
   style?: CSSProperties;
 }) {
+  // Narrowed rather than a boolean, so GridBackdrop is only ever handed a
+  // surface it actually has a line color for.
+  const gridSurface = showGrid && surface !== "midnight" ? surface : null;
   return (
-    <section id={id} style={{ background: SURFACE_BG[surface] }}>
+    <section
+      id={id}
+      style={{
+        background: SURFACE_BG[surface],
+        ...(gridSurface ? { position: "relative", isolation: "isolate" } : null),
+      }}
+    >
+      {gridSurface && <GridBackdrop surface={gridSurface} />}
       <div
-        className="um-shell"
+        className={className ? `um-shell ${className}` : "um-shell"}
         style={{
+          position: "relative",
           maxWidth,
           margin: "0 auto",
           padding: `${paddingY} ${space.gutter}`,
@@ -80,6 +106,73 @@ export function SectionShell({
         }
       `}</style>
     </section>
+  );
+}
+
+/** Two repeating gradients: vertical rules, then horizontal. */
+function gridImage(line: string, cell: string): string {
+  return [
+    `repeating-linear-gradient(to right, ${line} 0 1px, transparent 1px ${cell})`,
+    `repeating-linear-gradient(to bottom, ${line} 0 1px, transparent 1px ${cell})`,
+  ].join(", ");
+}
+
+/**
+ * Soft elliptical fade, so the grid dissolves through the middle of a section,
+ * where the capped content column and therefore all the copy sits, and returns
+ * toward full strength out in the open margins.
+ *
+ * Deliberately a long, many-stop ramp: the whole point is that no edge is
+ * traceable. This replaces the alternative of lightening the grid per section,
+ * which would have made density vary from section to section.
+ *
+ * Alpha drives the mask, so rgba(0,0,0,0) hides the grid and opaque black
+ * shows it.
+ */
+const GRID_MASK = [
+  "radial-gradient(ellipse 54% 56% at 50% 50%",
+  "rgba(0, 0, 0, 0) 0%",
+  "rgba(0, 0, 0, 0) 30%",
+  "rgba(0, 0, 0, 0.12) 48%",
+  "rgba(0, 0, 0, 0.38) 66%",
+  "rgba(0, 0, 0, 0.7) 84%",
+  "rgba(0, 0, 0, 1) 100%)",
+].join(", ");
+
+/**
+ * Warm graph-paper grid. Rendered by SectionShell, not used directly.
+ *
+ * Pure CSS gradients, so there is no image asset, no extra network request and
+ * no new CSP origin. Absolutely positioned and fully inert, so it cannot take a
+ * pointer event, reach the accessibility tree, or shift layout.
+ *
+ * The line color is chosen per surface, since a single value cannot be
+ * simultaneously visible on white and subtle on Mercury Cream.
+ */
+export function GridBackdrop({ surface }: { surface: Exclude<Surface, "midnight"> }) {
+  const line = grid.line[surface];
+  return (
+    <div
+      aria-hidden="true"
+      className={`um-grid um-grid--${surface}`}
+      style={{
+        position: "absolute",
+        inset: 0,
+        pointerEvents: "none",
+        zIndex: 0,
+        backgroundImage: gridImage(line, grid.cell),
+        WebkitMaskImage: GRID_MASK,
+        maskImage: GRID_MASK,
+      }}
+    >
+      <style href="um-grid" precedence="medium">{`
+        ${mq.md} {
+          .um-grid--white { background-image: ${gridImage(grid.line.white, grid.cellMobile)} !important; }
+          .um-grid--sand { background-image: ${gridImage(grid.line.sand, grid.cellMobile)} !important; }
+          .um-grid--cream { background-image: ${gridImage(grid.line.cream, grid.cellMobile)} !important; }
+        }
+      `}</style>
+    </div>
   );
 }
 
@@ -210,7 +303,7 @@ export function Eyebrow({
       <span
         style={{
           ...type.eyebrow,
-          color: onDarkBand ? color.sunsetOrange : ink(0.6),
+          color: onDarkBand ? color.sunsetOrange : ink(inkMuted),
         }}
       >
         {children}
@@ -301,15 +394,15 @@ export function Frame({
             background: headerBackground,
           }}
         >
-          {label && <span style={{ ...type.monoLabel, color: ink(0.7) }}>{label}</span>}
+          {label && <span style={{ ...type.monoLabel, color: ink(inkMuted) }}>{label}</span>}
           {meta && (
-            <span style={{ ...type.monoLabel, letterSpacing: 0, color: ink(0.5) }}>{meta}</span>
+            <span style={{ ...type.monoLabel, letterSpacing: 0, color: ink(inkMuted) }}>{meta}</span>
           )}
         </div>
       )}
       {children}
       {footer && (
-        <div style={{ borderTop: rule.medium, padding: "11px 16px", ...type.monoLabel, letterSpacing: 0, color: ink(0.5) }}>
+        <div style={{ borderTop: rule.medium, padding: "11px 16px", ...type.monoLabel, letterSpacing: 0, color: ink(inkMuted) }}>
           {footer}
         </div>
       )}
@@ -368,6 +461,188 @@ export function BulletList({
         </li>
       ))}
     </ul>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                 stat band                                  */
+/* -------------------------------------------------------------------------- */
+
+export type Stat = {
+  /** Pre-formatted. Numeric values come from lib/stats.ts via formatStat. */
+  value: string;
+  label: string;
+  /** Sunset Orange instead of Gemini Blue, for the one non-numeric column. */
+  emphasis?: boolean;
+};
+
+/**
+ * Full-width credibility band, four columns split by hairline vertical rules.
+ *
+ * The rules are drawn with borderLeft on every column after the first, rather
+ * than as separate elements, so the grid stays a plain four-column grid.
+ */
+export function StatBand({ stats, surface = "midnight" }: { stats: Stat[]; surface?: Surface }) {
+  const dark = isDark(surface);
+  const cellRule = dark ? rule.onDarkMedium : `1px solid ${ink(0.2)}`;
+  return (
+    <SectionShell surface={surface} paddingY="52px" className="um-statshell">
+      <div className="um-statband" style={{ display: "grid", gridTemplateColumns: `repeat(${stats.length}, 1fr)` }}>
+        {stats.map((stat, i) => (
+          <div
+            key={stat.label}
+            className="um-stat"
+            style={{
+              padding: i === 0 ? "0 28px 0 0" : `0 28px`,
+              borderLeft: i === 0 ? undefined : dark ? rule.onDarkMedium : `1px solid ${ink(0.2)}`,
+            }}
+          >
+            <div
+              style={{
+                ...type.stat,
+                color: stat.emphasis ? color.sunsetOrange : dark ? color.geminiBlue : color.deepMidnight,
+                marginBottom: space.sm,
+              }}
+            >
+              {stat.value}
+            </div>
+            <div style={{ ...type.bodySm, fontSize: "14px", color: dark ? onDark(0.75) : ink(0.7) }}>
+              {stat.label}
+            </div>
+          </div>
+        ))}
+      </div>
+      <style href="um-statband" precedence="medium">{`
+        ${mq.md} {
+          /*
+            A 2x2 block rather than a four-item list: at phone widths a single
+            column left most of the band as empty dark space. Cells centre
+            their own numeral and label, and the desktop rules are reassigned
+            to the new grid, a vertical rule between the columns and a
+            horizontal one between the rows.
+
+            Padding absorbs the squeeze rather than the numerals, which stay at
+            their desktop size and colour.
+          */
+          .um-statshell { padding-top: 34px !important; padding-bottom: 34px !important; }
+          .um-statband { grid-template-columns: 1fr 1fr !important; row-gap: 0 !important; }
+          .um-statband .um-stat {
+            padding: 20px 12px !important;
+            text-align: center;
+            border-left: none !important;
+          }
+          .um-statband .um-stat:nth-child(even) { border-left: ${cellRule} !important; }
+          .um-statband .um-stat:nth-child(-n + 2) { border-bottom: ${cellRule}; }
+        }
+        @media (max-width: 360px) {
+          /* Keeps "1,116" on one line once the cell drops below ~130px. */
+          .um-statband .um-stat { padding: 18px 6px !important; }
+        }
+      `}</style>
+    </SectionShell>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                            numbered feature row                            */
+/* -------------------------------------------------------------------------- */
+
+export type NumberedFeature = { title: string; body: string };
+
+/**
+ * Editorial numbered columns sitting on a top hairline rule. Used for the
+ * three-step demo strip and the four-up campus feature row.
+ */
+export function NumberedFeatureRow({
+  features,
+  tone = "light",
+  style,
+}: {
+  features: NumberedFeature[];
+  tone?: "light" | "dark";
+  style?: CSSProperties;
+}) {
+  const dark = tone === "dark";
+  const cellRule = dark ? rule.onDarkMedium : `1px solid ${ink(0.2)}`;
+  return (
+    <div
+      // The count modifier drives the mobile layout: four items become a 2x2,
+      // three stay stacked. The rule colour rides a custom property because the
+      // stylesheet is emitted once and shared by every instance, so it cannot
+      // be interpolated per tone.
+      className={`um-numrow um-numrow--${features.length}`}
+      style={
+        {
+          display: "grid",
+          gridTemplateColumns: `repeat(${features.length}, 1fr)`,
+          borderTop: cellRule,
+          "--um-numrule": cellRule,
+          ...style,
+        } as CSSProperties
+      }
+    >
+      {features.map((feature, i) => (
+        <div
+          key={feature.title}
+          className="um-numcol"
+          style={{
+            padding: i === 0 ? "26px 26px 0 0" : "26px 26px 0",
+            borderLeft: i === 0 ? undefined : dark ? rule.onDarkMedium : `1px solid ${ink(0.2)}`,
+          }}
+        >
+          <div
+            style={{
+              ...type.monoLabel,
+              letterSpacing: 0,
+              fontSize: "12px",
+              color: dark ? color.geminiBlue : color.sunsetOrange,
+              marginBottom: space.md,
+            }}
+          >
+            {String(i + 1).padStart(2, "0")}
+          </div>
+          <h3 style={{ ...type.h3, color: dark ? color.white : color.deepMidnight, margin: `0 0 ${space.sm}` }}>
+            {feature.title}
+          </h3>
+          <p style={{ ...type.bodySm, color: dark ? onDark(0.72) : ink(0.8), margin: 0 }}>{feature.body}</p>
+        </div>
+      ))}
+      <style href="um-numrow" precedence="medium">{`
+        ${mq.lg} {
+          .um-numrow { grid-template-columns: 1fr 1fr !important; }
+          .um-numcol { padding: 26px 20px 26px 20px !important; }
+          .um-numrow .um-numcol:nth-child(odd) { border-left: none !important; padding-left: 0 !important; }
+        }
+        ${mq.md} {
+          /*
+            Shared mobile base, matching the stat band: centred cells, rules
+            between them, and padding tight enough that the row reads as a
+            designed block rather than a scrolling list.
+          */
+          .um-numrow { grid-template-columns: 1fr !important; row-gap: 0 !important; }
+          .um-numcol {
+            border-left: none !important;
+            text-align: center;
+            padding: 18px 12px !important;
+          }
+          .um-numrow .um-numcol + .um-numcol { border-top: var(--um-numrule); }
+
+          /*
+            Four items go 2x2, one vertical rule and one horizontal crossing at
+            centre. Three items stay stacked: at 375px a two-column cell is
+            about 19 characters wide, which is too narrow for a full sentence,
+            and a 2x2 would leave an orphan cell.
+          */
+          .um-numrow--4 { grid-template-columns: 1fr 1fr !important; }
+          .um-numrow--4 .um-numcol + .um-numcol { border-top: none; }
+          .um-numrow--4 .um-numcol:nth-child(even) { border-left: var(--um-numrule) !important; }
+          .um-numrow--4 .um-numcol:nth-child(-n + 2) { border-bottom: var(--um-numrule); }
+        }
+        @media (max-width: 360px) {
+          .um-numcol { padding: 16px 6px !important; }
+        }
+      `}</style>
+    </div>
   );
 }
 

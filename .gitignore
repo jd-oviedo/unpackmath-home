@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Build artifacts that were committed into public/ by mistake
 public/.next/
+
+# Python bytecode from the image slicing script
+__pycache__/

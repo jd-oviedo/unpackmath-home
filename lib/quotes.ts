@@ -31,7 +31,7 @@ export const quotes: Quote[] = [
   },
   {
     text: "This is amazing! I wish I had something like this. I struggled so much with math in the past.",
-    attribution: "Victoria P., educator",
+    attribution: "Victoria P., student",
   },
 ];
 

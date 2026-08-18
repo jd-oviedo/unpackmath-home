@@ -29,7 +29,7 @@ const WORDMARK_WIDTH = Math.round(WORDMARK_HEIGHT * (2000 / 485));
 const NAV_LINKS = [
   { label: "How it works", href: "/#demo" },
   { label: "For teachers", href: "/for-teachers" },
-  { label: "For schools and districts", href: "/for-schools" },
+  { label: "For schools", href: "/for-schools" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/#faq" },
@@ -125,8 +125,17 @@ export function Nav() {
           >
             Log in
           </a>
+          {/*
+            Two labels, one shown at a time by CSS rather than by JS, so there
+            is no viewport measurement on the client and no flash of the wrong
+            label during hydration. Below 430px the full label plus the
+            hamburger leaves the wordmark almost no room, and the wordmark is
+            the only shrinkable item in the bar, so it was the thing being
+            crushed.
+          */}
           <Button href={PRACTICE_TEST_HREF} size="sm" external>
-            Take the free practice test
+            <span className="um-cta-full">Take the free practice test</span>
+            <span className="um-cta-short">Practice test</span>
           </Button>
         </div>
 
@@ -230,19 +239,26 @@ export function Nav() {
           .um-wordmark-link { flex-shrink: 1 !important; min-width: 0 !important; }
           .um-wordmark { height: auto !important; max-height: 36px; max-width: 100%; }
         }
+        /* One label at a time. Full label is the default. */
+        .um-cta-short { display: none; }
         /*
           Below ~430px the wordmark, the CTA and the hamburger stop fitting on
-          one line. The CTA label steps down and the wordmark is the one item
-          allowed to shrink, so any remaining overrun is absorbed by the logo
-          rather than pushing the hamburger off screen.
+          one line. Swapping to the short CTA label returns roughly 95px to the
+          wordmark, which is the only shrinkable item in the bar and was
+          otherwise being crushed to a few pixels.
         */
         @media (max-width: 430px) {
           .um-nav { gap: ${space.sm} !important; }
           .um-wordmark { max-height: 30px; }
+          .um-cta-full { display: none; }
+          .um-cta-short { display: inline; }
           .um-nav-cta .um-btn {
             font-size: 13px !important;
             padding: 10px 12px !important;
           }
+        }
+        @media (max-width: 360px) {
+          .um-wordmark { max-height: 26px; }
         }
         .um-nav-links .um-link:hover,
         .um-nav-login:hover { color: ${color.sunsetOrange}; }
