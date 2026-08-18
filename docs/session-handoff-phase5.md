@@ -42,14 +42,32 @@
 | `/success` | Restyled, converted to a server component, buyer-neutral copy, `noindex`. |
 
 All nine routes return 200. `npx tsc --noEmit` and `npx next build` are clean.
-`npx eslint` reports 0 errors and 19 warnings, all pre-existing
-`react/no-unescaped-entities` in legal prose.
+`npx eslint` reports 0 errors and 19 warnings.
+
+The 19 warnings are 9 `react/no-unescaped-entities` (8 in `/terms`, 1 in
+`AdaptiveDemo`) and 10 `@typescript-eslint/no-unused-vars`, across six files. An
+earlier revision of this section described all 19 as unescaped entities in legal
+prose. The count was right, the characterization was not.
+
+**How the build actually runs.** `npm run build` is `npm run lint && next build`,
+and `lint` is bare `eslint`. A lint *error* therefore fails the deploy before
+`next build` starts, and the Vercel log still calls it a build failure. Note also
+that `next lint` was removed in Next 16 (installed: 16.2.9); running it produces a
+misleading `no such directory` error, because `lint` is parsed as a directory
+argument. Use `npm run lint` or `npx eslint`.
+
+**This section was stale once already.** The "0 errors" claim above predated
+`feefe97` and was carried forward rather than re-run. `feefe97` shipped two
+`@next/next/no-html-link-for-pages` errors on `/for-students`, which failed the
+Vercel deploy for `400e934`. Fixed in `04c9300`. Re-run the three commands rather
+than trusting this paragraph.
 
 ---
 
 ## Phase 5 verification checklist
 
-1. `npx tsc --noEmit && npx next build` clean.
+1. `npx tsc --noEmit && npx next build` clean. Run `npm run lint` too: it is the
+   step that actually gates the deploy, and it is not covered by the other two.
 2. Browser console clean on every route: no CSP violations, no invalid attribute
    errors, no hydration warnings.
 3. All six security headers still present in `next.config.ts`, and the CSP still
@@ -62,7 +80,9 @@ All nine routes return 200. `npx tsc --noEmit` and `npx next build` are clean.
    applies to the whole redirect chain. No other origin, no other directive.
 5. Mobile check at ~375px on every route.
 6. Homepage demo section visual check at 375, 780, 980, 1280. See the LiveDemo
-   PR note below.
+   PR note below. **Still open.** The hash-scroll verification recorded in the PR
+   notes covers scroll behavior at one viewport width, not layout across four, so
+   it does not close this item.
 7. Open the PR with a summary of every file changed and every page redesigned.
    Include both PR notes below. Do not merge.
 
@@ -72,9 +92,12 @@ All nine routes return 200. `npx tsc --noEmit` and `npx next build` are clean.
 
 **Not blocking the PR. Record them in the PR description.**
 
-1. **`/terms` line 149** still describes the Misconception Dashboard as
+1. **`/terms` line 170** still describes the Misconception Dashboard as
    "available to founding teacher subscribers". The founding tier is closed.
-   Untouched pending legal review. Do not edit it.
+   Untouched pending legal review. Do not edit it. An earlier revision of this
+   item said line 149; that is unrelated section 01 boilerplate. The file-header
+   comment at `app/terms/page.tsx:32` already flags this same founding-tier
+   reference.
 2. **The six plan slugs in `lib/plans.ts`** (`practice-pass`, `full-course`,
    `teacher-monthly`, `teacher-annual`, `teacher-pro-monthly`,
    `teacher-pro-annual`) are not yet resolvable by app.unpackmath.com. The four
@@ -92,6 +115,20 @@ All nine routes return 200. `npx tsc --noEmit` and `npx next build` are clean.
 5. **The full legal audit** is at `legal-audit-2026-08.md` in the repo root. Six
    factual defects, missing AI disclosure, two unnamed subprocessors. For the
    lawyer, not for this branch.
+6. **`app/api/stripe/checkout` is a live dynamic route in this repo.**
+   Pre-existing on `main` at `d9ce1aa`, not added by this branch, and orphaned by
+   the redesign: nothing calls it, there is no `CheckoutButton`, and no `priceId`
+   reference survives outside the route file. It accepts a `priceId` from the
+   request body and creates a Stripe session. Invariant 7 holds literally, since
+   no secrets or price IDs are committed and all are env-sourced, but "the
+   marketing site passes a plan slug and nothing more" does not.
+
+   Resolution belongs to the TSIA2Math session, and **must happen before the six
+   Stripe prices are created**: an open endpoint accepting an arbitrary `priceId`
+   is harmless only while no live prices exist. Recommended resolution is to
+   delete it here, since real checkout belongs in the app repo alongside
+   `lib/plans.ts`. The alternative is to constrain it to a server-side allowlist
+   of plan slugs.
 
 ---
 
@@ -106,6 +143,20 @@ client-boundary flush order. The two blocks target disjoint selectors, so
 rendering is unaffected. Accepted deliberately. `LiveDemo` is now a server
 component.
 
+**Cross-route hash scroll is verified, and the extraction is load-bearing for it.**
+The two "How it works" links on `/for-students` point at `/#demo`, a cross-route
+nav plus a hash rather than a same-page anchor. Both were `<a>` until `04c9300`
+swapped them to `next/link`. Verified working in a real browser on both paths,
+cold load of `/#demo` and warm click-through, for both the Hero and the Closing
+anchor: all three land on `/` and settle at the demo section.
+
+The likely reason it holds is that `#demo` is present in the initial HTML,
+because `LiveDemo` is a server component. That makes the `LiveDemo` extraction
+load-bearing for this behavior, not just a code-organization choice. **Anyone who
+re-adds `"use client"` to `LiveDemo` should know it may break these two links.**
+This does not close checklist item 6, which is a layout check at four widths; see
+the checklist.
+
 **`/for-students` FAQ.** The FAQ band is suppressed while `FAQS` is empty, and
 `Closing` is temporarily `surface="sand"` rather than `cream` so no two adjacent
 sections share a surface. When the FAQ lands as a sand band between `Placement`
@@ -117,7 +168,10 @@ and `Closing`, flip `Closing` back to `cream`.
 
 1. **Two measures only.** `MEASURE` (680px) for standalone prose, 1140px shell
    for structure. `MEASURE` is exported from `app/components/legal.tsx` and is
-   the single source of truth; `"680px"` appears in exactly one file. Documented
+   the single source of truth. `680px` appears as a style value in exactly one
+   file, `app/components/legal.tsx`, as the `MEASURE` export. It also appears as
+   body copy in `app/about/page.tsx:163`, which is prose describing the measure,
+   not a style. Documented
    exceptions, both captions to structure above them at 19px spanning the
    content column: `/about` section 03's payoff line and `/for-schools`'s pilot
    closer.
