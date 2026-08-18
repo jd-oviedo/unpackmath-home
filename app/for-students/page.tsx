@@ -62,8 +62,36 @@ const CAPABILITIES = [
   },
 ];
 
-/** Answers are Juan's to write. Questions proposed in the build report. */
-const FAQS: AccordionItem[] = [];
+/**
+ * Questions and answers are both Juan's, approved 2026-08-18.
+ *
+ * AccordionItem.a is a string rendered into a single <p>, so the paragraph
+ * breaks in the source copy for 3 and 4 are joined with a space. No wording is
+ * changed. Restoring the breaks means teaching Accordion about multi-paragraph
+ * answers, which is a shared component used by the homepage and /pricing.
+ */
+const FAQS: AccordionItem[] = [
+  {
+    q: "Is the free test really free, or does it ask for a card at the end?",
+    a: `Really free. No card, no trial that converts, no "unlock your results" screen. You take all ${stats.diagnosticQuestions} questions, you see your score and your strand breakdown, and that's it. The paid product is the practice course you'd take after, if you want it. The diagnostic stands on its own.`,
+  },
+  {
+    q: "Do I need an account to take the diagnostic?",
+    a: "No. Start it and go. An account only matters if you want your results saved so you can compare a second attempt to the first, or if your teacher is using UnpackMath with your class. If you're just here to see where you stand, skip it.",
+  },
+  {
+    q: "What is the difference between Practice Pass and Full Course?",
+    a: `Practice Pass is six months of practice problems across all four strands, with the same misconception feedback you get on the diagnostic. You work problems, you find out what's actually going wrong, you keep going. Full Course is twelve months and adds everything else: the full curriculum with lessons for all ${stats.curriculumTopics} topics, plus GUMU, an AI tutor that asks you questions when you get something wrong instead of just showing you the answer. If you know the material and need reps before test day, Practice Pass. If there are topics you never really learned, Full Course.`,
+  },
+  {
+    q: "I already took the TSIA2 and did not pass. Is this still useful?",
+    a: "Probably more useful than it was the first time. A score report tells you that you missed algebra questions. It doesn't tell you which wrong idea you kept using. UnpackMath does: every wrong answer traces to a specific misconception, so you find out what you're actually doing instead of just what you're getting wrong. Start with the free diagnostic. If it surfaces the same things you already knew were shaky, at least you'll know where to spend your time.",
+  },
+  {
+    q: "I am under 18. Can I buy a pass myself?",
+    a: "No. A parent or guardian has to make the purchase, since the buyer needs to be 18 or older to enter into the agreement. Your account and your progress stay yours either way. They pay, you use it, and the work under your name is your work.",
+  },
+];
 
 /** Standalone prose, same measure and weight as /about and /for-schools. */
 function P({ children, tone = "light" }: { children: React.ReactNode; tone?: "light" | "dark" }) {
@@ -249,14 +277,9 @@ function Faq() {
 
 /* --------------------------------- closing -------------------------------- */
 
-/**
- * Sand, not cream, ONLY while the FAQ band above is suppressed for want of
- * answers. When the FAQ lands as sand between Placement and this, flip this
- * back to cream so the run reads cream, sand, cream.
- */
 function Closing() {
   return (
-    <SectionShell surface="sand" paddingY="70px">
+    <SectionShell surface="cream" paddingY="70px">
       <SectionHeading style={{ marginBottom: space.xl }}>
         Twenty questions, and you will know where you stand
       </SectionHeading>
