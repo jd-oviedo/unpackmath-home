@@ -627,7 +627,7 @@ export function StatBand({ stats, surface = "midnight" }: { stats: Stat[]; surfa
           .um-statband .um-stat:nth-child(-n + 2) { border-bottom: ${cellRule}; }
         }
         @media (max-width: 360px) {
-          /* Keeps "1,116" on one line once the cell drops below ~130px. */
+          /* Keeps "1,124" on one line once the cell drops below ~130px. */
           .um-statband .um-stat { padding: 18px 6px !important; }
         }
       `}</style>

@@ -12,15 +12,25 @@
 export const stats = {
   /**
    * Adaptive items in the live item bank.
-   * Source: confirmed by Juan Oviedo, 2026-08-18. Pending verification against
-   * Supabase before merge.
+   *
+   * Verified against Supabase by Juan Oviedo, 2026-08-18:
+   *   select count(*) from questions;  -- 1124
+   *
+   * All 1124 carry status = 'draft', which is correct: questions_public
+   * filters to draft. A previous value of 1116 was an estimate.
    */
-  adaptiveItems: 1116,
+  adaptiveItems: 1124,
 
   /**
    * Distinct misconceptions tagged across the item bank.
-   * Source: confirmed by Juan Oviedo, 2026-08-18. Pending verification against
-   * Supabase before merge.
+   *
+   * Verified exact against Supabase by Juan Oviedo, 2026-08-18:
+   *   select count(distinct value)
+   *   from questions, jsonb_each_text(misconception_tag)
+   *   where misconception_tag is not null;  -- 475
+   *
+   * misconception_tag is a jsonb object keyed by answer letter with slug
+   * values, so this counts distinct slugs across the bank, not tagged rows.
    */
   taggedMisconceptions: 475,
 
@@ -33,8 +43,16 @@ export const stats = {
 
   /**
    * Curriculum topics across Units 0 through 5.
-   * Source: confirmed by Juan Oviedo, 2026-08-18. Pending verification against
-   * Supabase before merge.
+   *
+   * Verified against Supabase by Juan Oviedo, 2026-08-18.
+   *
+   * DO NOT "correct" this to 100 without checking placeholder status first.
+   * curriculum_topics_public holds 100 rows, 3 of which are still
+   * placeholders, so 97 topics have real authored content. 97 is the correct
+   * public number because it describes what a buyer actually receives, not
+   * what is in the table.
+   *
+   * This becomes 100 when those 3 placeholders are authored.
    */
   curriculumTopics: 97,
 
