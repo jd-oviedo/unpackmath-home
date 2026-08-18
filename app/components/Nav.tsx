@@ -27,7 +27,7 @@ const WORDMARK_HEIGHT = 40;
 const WORDMARK_WIDTH = Math.round(WORDMARK_HEIGHT * (2000 / 485));
 
 const NAV_LINKS = [
-  { label: "How it works", href: "/#demo" },
+  { label: "For students", href: "/for-students" },
   { label: "For teachers", href: "/for-teachers" },
   { label: "For schools", href: "/for-schools" },
   { label: "Pricing", href: "/pricing" },

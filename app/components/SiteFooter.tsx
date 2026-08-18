@@ -20,7 +20,7 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
   {
     heading: "Product",
     links: [
-      { label: "How it works", href: "/#demo" },
+      { label: "For students", href: "/for-students" },
       { label: "For teachers", href: "/for-teachers" },
       { label: "For schools", href: "/for-schools" },
       { label: "Pricing", href: "/pricing" },
