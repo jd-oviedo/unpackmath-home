@@ -1,117 +1,151 @@
+/*
+  Global baseline only.
+
+  Design values live in lib/tokens.ts and are applied through inline React
+  style props. This file carries the reset, the document defaults, and the
+  keyframes that inline styles cannot express. Component-specific responsive
+  rules live in each component's own colocated <style> tag, not here.
+*/
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+/*
+  LEGACY TOKENS, being removed page by page.
+
+  These are the old Deep Navy / Sky Blue variables. They are superseded by the
+  brand system in lib/tokens.ts, but /for-teachers, /pricing, /privacy, /terms
+  and /success still reference them until each is redesigned in Phase 3. Delete
+  this block once the last var(--ec-*) reference is gone.
+*/
 :root {
-  --ec-bg:            #F0EDE8;
-  --ec-surface:       #FFFFFF;
-  --ec-surface2:      #F7F5F2;
-  --ec-ink:           #1A1F2E;
-  --ec-ink-muted:     rgba(26,31,46,0.55);
-  --ec-ink-faint:     rgba(26,31,46,0.32);
-  --ec-line:          rgba(26,31,46,0.08);
-  --ec-accent:        #0F69BA;
-  --ec-accent-soft:   rgba(15,105,186,0.10);
-  --ec-green:         #3D9E6A;
-  --ec-green-bg:      rgba(61,158,106,0.11);
-  --ec-green-border:  rgba(61,158,106,0.32);
-  --ec-red:           #C95F55;
-  --ec-red-bg:        rgba(201,95,85,0.10);
-  --ec-red-border:    rgba(201,95,85,0.30);
-  --ec-orange:        #CB7119;
-  --ec-orange-bg:     rgba(203,113,25,0.09);
-  --ec-orange-border: rgba(203,113,25,0.28);
-  --ec-shadow:        0 2px 16px rgba(26,31,46,0.07);
-  --ec-shadow-btn:    0 4px 18px rgba(15,105,186,0.22);
-  --ec-header-bg:     rgba(240,237,232,0.88);
-  --ec-glass-bg:      rgba(255,255,255,0.55);
-  --ec-header-border: rgba(26,31,46,0.08);
-  --ec-btn-bg:        #1A1F2E;
-  --ec-btn-text:      #F0EDE8;
-  --ec-blob-a:        rgba(175,208,230,0.55);
-  --ec-blob-b:        rgba(185,225,228,0.45);
-  --ec-blob-c:        rgba(242,200,148,0.38);
+  --ec-bg: #f0ede8;
+  --ec-surface: #ffffff;
+  --ec-surface2: #f7f5f2;
+  --ec-ink: #1a1f2e;
+  --ec-ink-muted: rgba(26, 31, 46, 0.55);
+  --ec-ink-faint: rgba(26, 31, 46, 0.32);
+  --ec-line: rgba(26, 31, 46, 0.08);
+  --ec-accent: #0f69ba;
+  --ec-accent-soft: rgba(15, 105, 186, 0.1);
+  --ec-green: #3d9e6a;
+  --ec-green-bg: rgba(61, 158, 106, 0.11);
+  --ec-green-border: rgba(61, 158, 106, 0.32);
+  --ec-red: #c95f55;
+  --ec-red-bg: rgba(201, 95, 85, 0.1);
+  --ec-red-border: rgba(201, 95, 85, 0.3);
+  --ec-orange: #cb7119;
+  --ec-orange-bg: rgba(203, 113, 25, 0.09);
+  --ec-orange-border: rgba(203, 113, 25, 0.28);
+  --ec-shadow: 0 2px 16px rgba(26, 31, 46, 0.07);
+  --ec-shadow-btn: 0 4px 18px rgba(15, 105, 186, 0.22);
+  --ec-header-bg: rgba(240, 237, 232, 0.88);
+  --ec-glass-bg: rgba(255, 255, 255, 0.55);
+  --ec-header-border: rgba(26, 31, 46, 0.08);
+  --ec-btn-bg: #1a1f2e;
+  --ec-btn-text: #f0ede8;
+  --ec-blob-a: rgba(175, 208, 230, 0.55);
+  --ec-blob-b: rgba(185, 225, 228, 0.45);
+  --ec-blob-c: rgba(242, 200, 148, 0.38);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  font-family: var(--font-hanken), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: var(--ec-bg);
-  color: var(--ec-ink);
-  -webkit-font-smoothing: antialiased;
-}
-
-@keyframes ecpulse {
-  0%, 100% { opacity: 0.3; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1); }
-}
 /*
-  UnpackMath Glass Card Utilities
-  Add these rules to app/globals.css (or paste at the bottom).
-
-  These replace the solid white card backgrounds with a frosted-glass
-  treatment so the sand background bleeds through gently as you scroll.
-
-  Usage: add className="um-glass-card" to any surface div that currently
-  has a white or solid background.
+  The sticky nav is 72px, so in-page anchors need to clear it or the target
+  heading lands underneath the bar.
 */
+:target {
+  scroll-margin-top: 88px;
+}
 
+body {
+  font-family: var(--font-fredoka), Fredoka, system-ui, sans-serif;
+  font-weight: 300;
+  background: #ffffff;
+  color: #0e0e11;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/*
+  Links inherit by default. The brand link color is applied per component
+  rather than globally, because links on Deep Midnight bands and links on light
+  surfaces use different colors.
+*/
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+/* Used by the legacy DemoSection until Phase 2 replaces it. */
+@keyframes ecpulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/*
+  LEGACY glass-card utilities, being removed page by page alongside the --ec-*
+  block above. The redesign replaces these with flat surfaces and hairline
+  rules. Delete once no page references them.
+*/
 .um-glass-card {
-  background: rgba(255, 255, 255, 0.60) !important;
+  background: rgba(255, 255, 255, 0.6) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.70) !important;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
   box-shadow: 0 2px 16px rgba(26, 31, 46, 0.06), 0 1px 3px rgba(26, 31, 46, 0.04);
 }
 
-/*
-  Slightly more opaque variant for cards that need higher contrast
-  (e.g. FAQ accordion items, waitlist form card).
-*/
 .um-glass-card--strong {
   background: rgba(255, 255, 255, 0.75) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.80) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
   box-shadow: 0 4px 24px rgba(26, 31, 46, 0.08), 0 1px 4px rgba(26, 31, 46, 0.05);
 }
 
-/*
-  If you prefer to target by existing class names rather than adding new ones,
-  you can use the selectors below instead. Edit to match your actual classnames.
-
-  Example:
-    .who-card,
-    .roadmap-card,
-    .faq-item {
-      background: rgba(255, 255, 255, 0.60) !important;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.70) !important;
-    }
-*/
-/* Dark mode glass card overrides */
-[data-theme="dark"] .um-glass-card,
-html[style*="--ec-bg: #0C1120"] .um-glass-card {
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1px solid rgba(255, 255, 255, 0.10) !important;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.2);
-}
-
-[data-theme="dark"] .um-glass-card--strong,
-html[style*="--ec-bg: #0C1120"] .um-glass-card--strong {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.25);
-}
-
-/* Mobile: stack name/role fields vertically */
 @media (max-width: 500px) {
   .um-form-row {
     flex-direction: column !important;
+  }
+}
+
+/*
+  The handoff allows one subtle scroll behavior at most. Everything the
+  redesign animates is a reveal or a bar growth, and all of it is opt-out here.
+*/
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { Header, Footer } from "../components/Header";
+import { Nav } from "../components/Nav";
+import { SiteFooter } from "../components/SiteFooter";
 
 function Blobs() {
   return (
@@ -17,12 +18,12 @@ function Shell({ children }: { children: React.ReactNode }) {
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--ec-bg)", position: "relative" }}>
       <Blobs />
       <div style={{ position: "relative" }}>
-        <Header />
+        <Nav />
       </div>
       <main style={{ flex: 1, maxWidth: "800px", margin: "0 auto", width: "100%", padding: "24px 24px 80px" }}>
         {children}
       </main>
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }

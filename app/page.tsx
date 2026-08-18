@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Header, Footer } from "./components/Header";
+import { Nav } from "./components/Nav";
+import { SiteFooter } from "./components/SiteFooter";
 import { DemoSection } from "./components/DemoSection";
 import { HeroSection } from "./components/HeroSection";
 import { FAQ } from "./components/FAQ";
@@ -25,7 +26,7 @@ export default function Home() {
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--ec-bg)", position: "relative", overflow: "hidden" }}>
       <Blobs />
-      <Header />
+      <Nav />
 
       <main style={{ flex: 1, position: "relative", zIndex: 1 }}>
 
@@ -216,7 +217,7 @@ export default function Home() {
         </section>
 
       </main>
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }

@@ -1,17 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-import { Header, Footer } from "../components/Header";
-import { themes } from "../theme/themes";
+import { Nav } from "../components/Nav";
+import { SiteFooter } from "../components/SiteFooter";
 
 export default function Success() {
-  useEffect(() => {
-    const vars = themes["light"].vars;
-    Object.entries(vars).forEach(([k, v]) =>
-      document.documentElement.style.setProperty(k, v)
-    );
-  }, []);
-
   return (
     <div
       style={{
@@ -22,7 +14,7 @@ export default function Success() {
         position: "relative",
       }}
     >
-      <Header />
+      <Nav />
       <main
         style={{
           flex: 1,
@@ -122,7 +114,7 @@ export default function Success() {
           </p>
         </div>
       </main>
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }

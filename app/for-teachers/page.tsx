@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Header, Footer } from "../components/Header";
+import { Nav } from "../components/Nav";
+import { SiteFooter } from "../components/SiteFooter";
 
 /**
  * /for-teachers
@@ -490,7 +491,7 @@ export default function ForTeachers() {
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--ec-bg)", position: "relative", overflow: "hidden" }}>
       <Blobs />
-      <Header />
+      <Nav />
 
       <main style={{ flex: 1, position: "relative", zIndex: 1 }}>
         <Hero />
@@ -502,7 +503,7 @@ export default function ForTeachers() {
         <ClosingCta />
       </main>
 
-      <Footer />
+      <SiteFooter />
 
       <style>{`
         .um-hov { transition: opacity 0.15s ease; }

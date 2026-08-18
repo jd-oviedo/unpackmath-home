@@ -3,36 +3,16 @@
 /**
  * /pricing
  *
- * v3, rebuilt against the real Header.tsx / page.tsx / themes.ts, not
- * guesses. Corrections from v2:
- *
- *   - Primary buttons use --ec-btn-bg / --ec-btn-text / --ec-shadow-btn
- *     (the ink/accent pair that flips per theme, dark navy button in
- *     light mode, light-blue button in dark mode), not --ec-accent.
- *     --ec-accent is reserved for text, icons, and the "Locked in for
- *     life" badge, not CTA buttons.
- *   - FAQ items use um-glass-card--strong (not the plain variant), a
- *     filled circular ×/+ badge instead of bare characters, and a flat
- *     conditional render, no expand/collapse animation, matching the
- *     home page's actual FAQ exactly.
- *   - Section h2s (FAQ heading) are plain Hanken Grotesk, not Kodchasan.
- *     Kodchasan is reserved for the hero-scale headline, the nav
- *     wordmark, and the footer.
- *   - Hover states are imperative onMouseEnter/onMouseLeave opacity dims
- *     (to 0.85), matching the nav links and the Practice Test CTA. Dropped
- *     the scale-transform/useHover hook from v2.
- *   - Card radius is 20px (matches the teacher-dashboard and waitlist
- *     cards), not 24px.
- *   - This page now renders its own <Header/>, <Footer/>, <Blobs/>, and
- *     theme-init effect. There's no shared layout doing this, same as
- *     Home(). Adjust the import paths below if your folder layout
- *     differs from app/pricing/page.tsx + app/components/Header.tsx +
- *     app/theme/themes.ts.
+ * PRE-REDESIGN STATE. Still on the legacy --ec-* variables and the old
+ * glass-card treatment; only the nav and footer have been swapped to the new
+ * shell. This whole page is rewritten in Phase 3 against the new tier
+ * structure, at which point the founding-teacher tier and everything that
+ * reads /api/founding-count are deleted.
  */
 
 import { useEffect, useState, type CSSProperties } from "react";
-import { Header, Footer } from "../components/Header";
-import { themes } from "../theme/themes";
+import { Nav } from "../components/Nav";
+import { SiteFooter } from "../components/SiteFooter";
 
 type Billing = "monthly" | "annual";
 
@@ -647,18 +627,13 @@ export default function Pricing() {
   const [billing, setBilling] = useState<Billing>("monthly");
   const annual = billing === "annual";
 
-  useEffect(() => {
-    const vars = themes["light"].vars;
-    Object.entries(vars).forEach(([k, v]) => document.documentElement.style.setProperty(k, v));
-  }, []);
-
   return (
     <div
       className="um-pricing-page"
       style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--ec-bg)", position: "relative", overflow: "hidden" }}
     >
       <Blobs />
-      <Header />
+      <Nav />
 
       <main style={{ flex: 1, position: "relative", zIndex: 1 }}>
         <Hero />
@@ -667,7 +642,7 @@ export default function Pricing() {
         <Faq />
       </main>
 
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }
