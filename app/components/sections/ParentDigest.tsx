@@ -8,16 +8,37 @@ import { PhoneCarousel, type Panel } from "../PhoneCarousel";
  */
 const PANELS: Panel[] = [
   {
-    src: "/images/parent-report-1.png",
-    alt: "Weekly report, panel 1: the focus area is Shapes and space, with a note that a little more practice here will keep her improving, and an observation that Camila has trouble telling the difference between a shape that changes size and one that only changes position.",
+    src: "/images/parent-report-1-en.png",
+    group: "English",
+    alt: "Weekly report in English. One area to practice: Shapes and space, with the note that a little more practice here will keep her improving, and the observation that Camila has trouble telling the difference between a shape that changes size and one that only changes position.",
   },
   {
-    src: "/images/parent-report-2.png",
-    alt: "Weekly report, panel 2: two diagrams on grid paper for the family to look at together. The first shows a hexagon that changed size in the same spot, the second shows a hexagon that only moved position.",
+    src: "/images/parent-report-2-en.png",
+    group: "English",
+    alt: "Weekly report in English. Show her this picture: two diagrams on grid paper. The first is a hexagon that changed size in the same spot, labelled bigger, same spot. The second is a hexagon that only moved, labelled same size, different spot.",
   },
   {
-    src: "/images/parent-report-3.png",
-    alt: "Weekly report, panel 3: tonight at the table. Ask her how she knows this shape changed size and did not just move, and listen for whether she talks about size rather than position. Includes options to hear the question read aloud or play a question game.",
+    src: "/images/parent-report-3-en.png",
+    group: "English",
+    alt: "Weekly report in English. Tonight at the table: ask her how she knows this shape changed size and did not just move, and listen for whether she talks about size rather than position. Buttons offer to hear the question aloud or play a question game.",
+  },
+  {
+    src: "/images/parent-report-1-es.png",
+    group: "Spanish",
+    lang: "es",
+    alt: "Reporte semanal en español. Un área para mejorar: Figuras y espacio, con la nota de que con un poco más de práctica seguirá mejorando, y la observación de que Camila tiene dificultad para identificar la diferencia entre una figura que cambia de tamaño y una que solo cambia de posición.",
+  },
+  {
+    src: "/images/parent-report-2-es.png",
+    group: "Spanish",
+    lang: "es",
+    alt: "Reporte semanal en español. Muéstrale este dibujo: dos diagramas en papel cuadriculado. El primero es una figura que cambió de tamaño, más grande y en el mismo lugar. El segundo es una figura que cambió de lugar, del mismo tamaño y en otro lugar.",
+  },
+  {
+    src: "/images/parent-report-3-es.png",
+    group: "Spanish",
+    lang: "es",
+    alt: "Reporte semanal en español. Esta noche en la mesa: pregúntale cómo sabe que esta figura cambió de tamaño y no solo de lugar, y escucha si habla del tamaño en vez de solo del movimiento. Hay botones para escuchar la pregunta y para jugar un juego de preguntas.",
   },
 ];
 
