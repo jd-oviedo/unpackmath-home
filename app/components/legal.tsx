@@ -229,7 +229,10 @@ export function LegalDefinition({ label, sub, children }: { label: string; sub?:
         {label}
         {sub && <span style={{ marginLeft: "8px", textTransform: "none", letterSpacing: 0, color: ink(inkMuted) }}>{sub}</span>}
       </p>
-      <p style={{ ...type.bodySm, fontSize: "14.5px", lineHeight: 1.7, color: ink(0.85), margin: 0 }}>{children}</p>
+      {/* A div, not a p: children may be a LegalList, and a ul inside a p is
+          invalid nesting that the browser silently repairs differently on the
+          server and the client, which cost /privacy its hydration. */}
+      <div style={{ ...type.bodySm, fontSize: "14.5px", lineHeight: 1.7, color: ink(0.85), margin: 0 }}>{children}</div>
     </div>
   );
 }
