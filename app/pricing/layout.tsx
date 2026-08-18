@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Pricing | UnpackMath",
-  description: "Simple, transparent UnpackMath pricing. Students practice free, and founding teachers lock in today's rate for life.",
+  description:
+    "Pricing for UnpackMath: a free TSIA2 diagnostic for every student, paid practice and course passes, and classroom tools for teachers and campuses.",
 };
 
 export default function PricingLayout({ children }: { children: React.ReactNode }) {
