@@ -266,6 +266,7 @@ If the requirement becomes "a parent or guardian must complete any purchase for 
 | Finding | Detail |
 |---|---|
 | **`app.unpackmath.com` is never named in either document** | Both reference only `www.unpackmath.com` (`privacy:347`, `privacy:355`, `terms:88`, `terms:406`). The app subdomain is where accounts, test responses, rosters, GUMU conversations and checkout all live, i.e. substantially all the personal data these documents describe |
+| **Contact channels verified working** | `contact@unpackmath.com` (Terms §21) and `privacy@unpackmath.com` (Privacy §01, §07, §11) both exist and route to the operator, confirmed 2026-08-18. Recorded so the reviewer knows the published channels were checked rather than assumed. No action needed |
 | **"Platform" is defined as the marketing domain** | `privacy:396` defines the Platform as "unpackmath.com"; `terms:114` likewise. Read strictly, the definitions do not cover the subdomain where processing occurs |
 | Stripe is not named | See §3 |
 | Anthropic is not named | See §3 |
