@@ -23,7 +23,15 @@ import { SectionShell, Eyebrow } from "./ui";
  * than a caption does.
  */
 
-const MEASURE = "680px";
+/**
+ * Reading measure for long-form prose, about 68 characters.
+ *
+ * Exported because /about adopted it page-wide: it is the one deliberately
+ * chosen measure on the site, so it is the single source of truth rather than
+ * a number two files happen to agree on. Do not replace a usage with a local
+ * value.
+ */
+export const MEASURE = "680px";
 
 /* ---------------------------------- shell --------------------------------- */
 
