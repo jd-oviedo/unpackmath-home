@@ -217,7 +217,29 @@ function CampusPlan() {
               margin: `0 0 ${space.md}`,
             }}
           >
-            Everything in Teacher Pro, campus-wide
+            {/*
+              Core, not Pro. This said Pro, which promised a campus-wide version
+              of the two Pro bullets now tagged coming, and for one of them it
+              contradicted itself inside this block: multi-class comparison
+              campus-wide IS campus-level reporting, which is the first row of
+              the list directly below.
+
+              Core is the largest tier this label can name and stay true. It
+              costs four shipped Pro capabilities from the campus pitch,
+              unlimited classes, CSV export, the co-teacher seat and early
+              access, which understates what a campus buyer gets. That is the
+              trade and it was made deliberately: campus licensing has no public
+              price and the CTA is a mailto, so the specifics are settled in the
+              conversation this band exists to start, and understating there is
+              recoverable in a way that overstating is not.
+
+              One caveat if you revisit this: Core is not entirely shipped
+              either. Its worksheet generator row is tagged coming, so this
+              label still promises a campus-wide version of one forthcoming
+              feature. Unlike the Pro version it does not contradict the list
+              beneath it. Item 10 in legal-audit-2026-08.md.
+            */}
+            Everything in Teacher Core, campus-wide
           </p>
           {/*
             Shares FeatureList with the cards rather than hand-rolling the rows

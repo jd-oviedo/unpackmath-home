@@ -101,7 +101,7 @@ Listed for the reviewer's orientation. **No analysis, no position taken.** Engin
 
 Numbering continues from §2 rather than restarting, so a reviewer can cite an item without naming a subsection.
 
-Item 7 was fixed in the same change that added this section. Item 8 records a claim that is now correct on `/pricing` and still wrong on the homepage. Item 9 cannot be fixed from this repository. Item 10 was added on 2026-08-20 and is fixed on `/pricing`, with three related claims elsewhere on the site left open.
+Item 7 was fixed in the same change that added this section. Item 8 records a claim that is now correct on `/pricing` and still wrong on the homepage. Item 9 cannot be fixed from this repository. Item 10 was added on 2026-08-20 and is fixed on `/pricing`, both in the feature list and in the group label above it, with three related claims elsewhere on the site left open.
 
 ### 7. Practice Pass advertised a worked solution on every problem. It does not include one.
 
@@ -248,13 +248,19 @@ The `/pricing` band is the weakest of the four claims, because it is a contact t
 
 `app/for-schools/page.tsx:29`, the page metadata description, also promises "misconception-level reporting for your math team". It is search-result and social-preview text rather than page copy, so it is noted rather than tabled, but it carries the same claim.
 
-#### One more, left deliberately: "Everything in Teacher Pro, campus-wide"
+#### Also fixed: the group label above the campus list
 
-`app/pricing/page.tsx`, the group label above the campus list, still reads "Everything in Teacher Pro, campus-wide". **Two Teacher Pro bullets are now tagged COMING, and this label promises a campus-wide version of each.**
+**Before:** "Everything in Teacher Pro, campus-wide". **After:** "Everything in Teacher **Core**, campus-wide".
 
-For multi-class comparison the label is self-contradicting inside a single block: "multi-class comparison, campus-wide" **is** campus-level reporting, which sits three lines below it tagged COMING.
+The old label promised a campus-wide version of each Teacher Pro bullet, two of which are now tagged COMING. For multi-class comparison it contradicted itself inside a single block: "multi-class comparison, campus-wide" **is** campus-level reporting, which sat three lines below it tagged COMING.
 
-It was left alone because correcting it means rewording rather than retagging, and the honest replacement is a product decision. Flagged here so it is not mistaken for something the reviewer overlooked. Note that "Everything in Teacher **Core**, campus-wide" would be true today, since every Core bullet except the worksheet generator has shipped.
+This one is a rewording rather than a retagging, so it was raised as a product decision rather than made as a copy fix. **The founder chose Core, 2026-08-20.**
+
+**What it costs, recorded because it is a real trade and not a free fix.** Four shipped Teacher Pro capabilities drop out of what the campus band advertises: unlimited classes, CSV export of roster and misconception data, the co-teacher seat, and early access to new features. All four exist. **The label now understates the campus offer**, which is the opposite failure from the one it replaces.
+
+That was accepted because campus licensing carries no public price and its CTA is `mailto:schools@unpackmath.com`. Nobody buys off this band; they email and the specifics get settled in that conversation. **Understating a claim that opens a negotiation is recoverable. Overstating one that closes a sale is not.** The four dropped capabilities can be named in the reply.
+
+**One caveat on the new label:** Core is not entirely shipped either. Its worksheet generator row is tagged COMING, so this label still promises a campus-wide version of one forthcoming feature. It is a materially smaller defect than the one it replaces, because it does not contradict the list printed directly beneath it, but it is not zero and it is recorded rather than glossed.
 
 ---
 
