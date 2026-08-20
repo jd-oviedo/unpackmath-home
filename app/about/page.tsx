@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { color, ink, inkMuted, onDark, rule, type, space, mq } from "../../lib/tokens";
 import { stats, formatStat } from "../../lib/stats";
+import { misconceptions } from "../../lib/misconceptions";
 import { Nav } from "../components/Nav";
 import { SiteFooter } from "../components/SiteFooter";
-import { SectionShell, SectionHeading, Button, Eyebrow, Frame, BulletList } from "../components/ui";
+import { SectionShell, SectionHeading, Button, Eyebrow, MisconceptionCard, BulletList } from "../components/ui";
 // The reading measure from the legal pages, adopted page-wide here. It is the
 // one deliberately chosen measure on the site, so it is imported rather than
 // redeclared. Do not swap a usage back to a local number.
@@ -35,22 +36,6 @@ export const metadata: Metadata = {
 
 const PRACTICE_TEST_HREF = "https://app.unpackmath.com/adaptive-test";
 const GENERAL_EMAIL = "hello@unpackmath.com";
-
-/** The three worked examples in section 03, pulled out of the paragraph. */
-const MISCONCEPTIONS = [
-  {
-    label: "Rise over run, inverted",
-    body: "The student divides the run by the rise. Same two numbers, reciprocal answer.",
-  },
-  {
-    label: "One step too early",
-    body: "The student solves correctly, then hands in the intermediate result.",
-  },
-  {
-    label: "A second increase, not a reversal",
-    body: "Asked for the original price, the student adds another twenty percent instead of undoing the first one.",
-  },
-];
 
 /** The three people in section 04. A set, so no numerals. */
 const TRIANGLE = [
@@ -278,18 +263,9 @@ function WhatThatMeans() {
           padding: 0,
         }}
       >
-        {MISCONCEPTIONS.map((item) => (
+        {misconceptions.map((item) => (
           <li key={item.label} style={{ display: "flex" }}>
-            <Frame
-              label={item.label.toUpperCase()}
-              headerBackground={color.mercuryCream}
-              style={{ display: "flex", flexDirection: "column", width: "100%" }}
-            >
-              {/* flex:1 so a two-line and a three-line body match height in a row */}
-              <p style={{ ...type.bodySm, flex: 1, color: ink(0.85), margin: 0, padding: "16px 16px 18px" }}>
-                {item.body}
-              </p>
-            </Frame>
+            <MisconceptionCard label={item.label} body={item.body} />
           </li>
         ))}
       </ul>

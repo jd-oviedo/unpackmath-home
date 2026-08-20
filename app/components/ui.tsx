@@ -503,6 +503,42 @@ export function Frame({
 }
 
 /* -------------------------------------------------------------------------- */
+/*                             misconception card                             */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * One named wrong-answer pattern in a Frame.
+ *
+ * Mercury Cream header strip carrying the mono uppercase label, white body,
+ * hairline border, squared corners. Extracted from the three-across row on
+ * /about so the /pricing hero can show one without a second copy of the markup.
+ *
+ * Content comes from lib/misconceptions.ts, so the two pages cannot drift.
+ */
+export function MisconceptionCard({
+  label,
+  body,
+  style,
+}: {
+  label: string;
+  body: string;
+  style?: CSSProperties;
+}) {
+  return (
+    <Frame
+      label={label.toUpperCase()}
+      headerBackground={color.mercuryCream}
+      style={{ display: "flex", flexDirection: "column", width: "100%", ...style }}
+    >
+      {/* flex:1 so a two-line and a three-line body match height in a row */}
+      <p style={{ ...type.bodySm, flex: 1, color: ink(0.85), margin: 0, padding: "16px 16px 18px" }}>
+        {body}
+      </p>
+    </Frame>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
 /*                                 bullet list                                */
 /* -------------------------------------------------------------------------- */
 
