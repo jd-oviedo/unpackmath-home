@@ -101,7 +101,7 @@ Listed for the reviewer's orientation. **No analysis, no position taken.** Engin
 
 Numbering continues from §2 rather than restarting, so a reviewer can cite an item without naming a subsection.
 
-Items 7 and 8 were fixed in the same change that added this section. **Item 8's fix was then reversed later the same day and the row is back where it started; the entry records both moves.** Item 9 was never fixed, and cannot be from this repository.
+Item 7 was fixed in the same change that added this section. Item 8 records a claim that is now correct on `/pricing` and still wrong on the homepage. Item 9 cannot be fixed from this repository. Item 10 was added on 2026-08-20 and is fixed on `/pricing`, with three related claims elsewhere on the site left open.
 
 ### 7. Practice Pass advertised a worked solution on every problem. It does not include one.
 
@@ -136,44 +136,47 @@ Items 7 and 8 were fixed in the same change that added this section. **Item 8's 
 
 **For the reviewer:** this is the kind of claim that would need a decision about purchasers who bought under the old wording. Engineering has no view on that and is not proposing one. Flagged because the fix stops the exposure going forward and does nothing about what came before.
 
-### 8. The parent digest COMING label was removed on the strength of a preview page, then restored.
+### 8. The parent digest is not built. `/pricing` briefly advertised it as shipped.
 
-**Status: the 2026-08-20 fix recorded below was REVERSED on 2026-08-20 in `app/pricing/TeacherPlans.tsx`. The row reads `status: "coming"` again, which is where it started. Read the reversal note at the end of this entry before relying on anything above it. One related defect is NOT fixed and needs attorney sign-off; it is unaffected by the reversal.**
+**Status: correct on `/pricing` as of 2026-08-20. `app/pricing/TeacherPlans.tsx` carries `status: "coming"` on the parent digest row. One related defect is NOT fixed and needs attorney sign-off. Two live claims elsewhere on the site are recorded below as unfixed.**
 
 | | |
 |---|---|
-| **Where** | `app/pricing/TeacherPlans.tsx:38-41`, the `Parent digest` row of `TEACHER_PRO_FEATURES` |
+| **Where** | `app/pricing/TeacherPlans.tsx`, the `Parent digest` row of `TEACHER_PRO_FEATURES` |
 | **Product** | Teacher Pro. Live Stripe Payment Links, monthly and annual. |
 
-**Before:** `status: "coming"`, which renders the feature in muted text with a hollow bullet and an uppercase `Coming` pill beside it.
+#### The finding
 
-**After:** `status: "shipped"`, which renders it identically to the other five live features on that card. **The label text did not change and did not need to**: "Parent digest, a weekly email in English and Spanish that you review before it sends" is accurate.
+**The weekly parent digest does not exist in production. A Teacher Pro subscriber cannot send one today.** Confirmed by the founder, 2026-08-20.
 
-**Verification.** `https://app.unpackmath.com/reporte` returns HTTP 200 and renders the digest itself: a weekly per-student report, an English/Spanish toggle, "Se envia cada viernes", a named-misconception writeup, and a parent conversation prompt. Confirmed 2026-08-20.
+`https://app.unpackmath.com/reporte` returns HTTP 200 and renders a weekly report with an English/Spanish toggle. **That page is a sample render, not the live per-class digest.** It shows what the email would look like. Nothing behind it generates a digest from a real roster, holds it for a teacher to review, or sends it to a parent.
 
-**This defect ran in the opposite direction from item 7.** It understated a shipped feature rather than overstating an absent one, so it is not a misrepresentation to a purchaser in the same sense. It is recorded because a live feature marked COMING on the tier that sells it is a factual error in paid-product copy either way, and because a buyer who chose a cheaper tier on the basis of that label was misinformed.
+The `/pricing` row sells "Parent digest, a weekly email in English and Spanish that you review before it sends". The label is an accurate description of the intended feature and has never changed. Only its status has been wrong, and only for one day.
 
-**Corroborating internal contradiction:** the homepage has been linking to `/reporte` as "Preview a parent report" with no coming treatment (`app/components/sections/ParentDigest.tsx:61`). `/pricing` was contradicting `/` on the same site.
+#### What happened on 2026-08-20, briefly, because a reviewer will see it in the history
+
+The row was tagged COMING from the start. Commit `76940ba` flipped it to shipped, reading the `/reporte` 200 as proof of delivery. **That was the error.** A sample render is not a shipped feature. The row was returned to COMING the same day, in the change that also tagged multi-class comparison.
+
+**For roughly one day, `/pricing` advertised an undelivered feature as live on a tier with active Stripe Payment Links.** That is a misrepresentation to a purchaser and is the reason this entry is kept rather than deleted. It is recorded for the reviewer to decide whether a one-day exposure window needs anything further. Engineering has no view on that.
+
+**The claim that `/pricing` and `/` were in contradiction, made in that commit message, was wrong in both directions.** They were never in contradiction. Both treat `/reporte` as a preview, and the homepage component says so in its own source: `app/components/sections/ParentDigest.tsx:57` reads *"The digest is not built yet, and dating it is a promise this page should not make."* That comment predates the flip. The evidence against it was in the file it cited.
+
+#### NOT FIXED: the homepage describes the digest in the present tense
+
+**`app/components/sections/ParentDigest.tsx` is a full section of the homepage devoted to a feature that does not exist, written as though it does.** It is not covered by the `/pricing` fix and is left for a decision rather than edited here.
+
+The rendered copy carries no coming treatment of any kind:
+
+- heading: "A weekly note home, in plain language"
+- body: "One short message a week: what their student worked on, and one thing to ask at dinner."
+- bullet: "Every note goes out in English and Spanish"
+- link: "Preview a parent report", pointing at `/reporte`
+
+A visitor has nothing available to read this as forthcoming. "Preview" reads as a sample of a live product, not as a mockup of an unbuilt one. **The component's own source comment acknowledges the gap and treats present tense as the safe choice**, on the reasoning that naming a date would be the real promise. That reasoning is worth putting in front of the reviewer, because the section is unpriced and sits on the marketing homepage rather than on a checkout path, which may or may not change how it is treated.
 
 #### Correction to a row in §2 made by this entry
 
-**§2.1, the `terms:152` row, has been corrected and the change is recorded here deliberately rather than made silently.**
-
-That row previously ended: *"The parent digest is still correctly described as forthcoming."* That was accurate on 2026-08-18 when this audit was written. It is not accurate now. Left as it was, it would have told the reviewer that a stale clause in the Terms was fine.
-
-#### REVERSED: the row is `status: "coming"` again
-
-**Everything above this heading describes a change that no longer stands, and the reasoning that produced it does not survive review.**
-
-The fix rested on one piece of evidence: `https://app.unpackmath.com/reporte` returns HTTP 200 and renders a weekly report. That page is a **preview of what the digest looks like**, not the digest operating for a subscriber. The homepage says as much: `app/components/sections/ParentDigest.tsx:61` links to it under "Preview a parent report". A rendering preview is not the shipped feature, and reading a 200 as proof of delivery was the error.
-
-What the `/pricing` row sells is "a weekly email in English and Spanish that you review before it sends". Nothing verified on 2026-08-20 showed a Teacher Pro subscriber receiving that email, holding it for review, or releasing it. The row was therefore returned to `status: "coming"`, alongside the multi-class comparison row, which was tagged in the same change.
-
-**This entry is left standing rather than deleted.** The original defect was real when this audit was written, and the reversal is itself the kind of thing a reviewer needs to see: a paid-product claim on `/pricing` was widened, briefly, on evidence that did not support it. **The direction of the risk flipped with it.** As recorded above, a shipped feature marked COMING understates the product. A feature that is not yet delivered marked as shipped, on a tier with live Stripe Payment Links, is a misrepresentation to a purchaser, and that is the more serious of the two. It was live for less than a day.
-
-**The "Corroborating internal contradiction" paragraph above is withdrawn.** `/pricing` and `/` were never in contradiction. Both treat `/reporte` as a preview.
-
-**The §2.1 correction made by this entry is also withdrawn.** The `terms:152` row is restored to its original reading: the parent digest is still correctly described as forthcoming. That row's other finding, that the curriculum has shipped, was never in question and stands.
+**§2.1, the `terms:152` row, is unchanged in substance and says what it always said:** the parent digest is correctly described as forthcoming in the Terms. It was briefly amended on 2026-08-20 to say the digest had shipped and then restored. The note recording that round trip is kept in the row itself so a reviewer working from a diff is not misled.
 
 #### NOT FIXED, and requiring attorney sign-off: `app/terms/page.tsx:174`
 
@@ -183,11 +186,11 @@ What the `/pricing` row sells is "a weekly email in English and Spanish that you
 
 > "A weekly parent digest and expanded curriculum features are in active development and will be added in future releases. These Terms will be updated to reflect new features as they become available."
 
-**One of the two named items has shipped.** The curriculum shipped before this audit was first written and is already recorded in the §2.1 `terms:152` row. **The parent digest has not**, per the reversal above, so that half of the sentence is accurate and this notice cannot simply be emptied. The defect is narrower than it looked on 2026-08-20: the sentence names one shipped feature and one forthcoming feature as though both were forthcoming.
+**One of the two named items has shipped.** The curriculum shipped before this audit was first written and is already recorded in the §2.1 `terms:152` row. **The parent digest has not**, per the finding above, so that half of the sentence is accurate and this notice cannot simply be emptied. The defect is one of two: the sentence names one shipped feature and one forthcoming feature as though both were forthcoming.
 
-**It was not corrected in the change that fixed item 7, and that was on purpose.** It is legal text. §12 of this audit records that no legal text has been edited, and that holds through both the digest flip and its reversal. This entry exists so the defect reaches counsel and gets revised under sign-off, rather than being quietly corrected by engineering as a copy tidy. **Any revision to this sentence is the attorney's, not engineering's.**
+**It was not corrected in the change that fixed item 7, and that was on purpose.** It is legal text. §12 of this audit records that no legal text has been edited, and that holds. This entry exists so the defect reaches counsel and gets revised under sign-off, rather than being quietly corrected by engineering as a copy tidy. **Any revision to this sentence is the attorney's, not engineering's.**
 
-Worth noting for whoever drafts it: the curriculum is the half that needs to come out, and the surrounding feature list at `terms:145-149` is already flagged in §2.1 as materially incomplete for the same underlying reason, since the curriculum is missing there too. Those two are probably one edit. **Nothing on `/pricing` should be read as settling whether the digest has shipped**, given that the row describing it has now been flipped in both directions inside a single day.
+Worth noting for whoever drafts it: the curriculum is the half that needs to come out, and the surrounding feature list at `terms:145-149` is already flagged in §2.1 as materially incomplete for the same underlying reason, since the curriculum is missing there too. Those two are probably one edit. **The digest half of the sentence should stay.** It is the only place in either legal document that describes the digest accurately.
 
 ### 9. The worksheet print footer carries no non-affiliation disclaimer.
 
@@ -209,6 +212,49 @@ Worth noting for whoever drafts it: the curriculum is the half that needs to com
 That makes it the print counterpart to the web copy in items 7 and 8, and the reviewer should see all three together rather than being shown the web surfaces and left to assume print is covered. It is not.
 
 **Action sits with the TSIA2Math repository.** This entry is a pointer, so that print copy is in front of the attorney alongside web copy at the same review.
+
+### 10. Campus-level and department-level reporting is sold across four surfaces. None of it exists.
+
+**Status: fixed on `/pricing`. THREE OTHER LIVE CLAIMS ARE NOT FIXED, including the `/for-schools` landing page and the homepage schools band.**
+
+| | |
+|---|---|
+| **Where** | `app/pricing/page.tsx` (fixed), `app/components/sections/SchoolsBand.tsx`, `app/for-schools/page.tsx` (not fixed) |
+| **Product** | Campus and department licensing. No public price. The CTA is `mailto:schools@unpackmath.com`, so the buyer is a campus or district and the sale is a conversation. |
+
+#### The finding
+
+**Nothing in production aggregates across classes or across teachers.** There is no campus-level view, no department-level view, no cohort view, and no cross-teacher dashboard. Confirmed by the founder, 2026-08-20.
+
+This is the same absent capability as the multi-class comparison view on the Teacher Pro card, which is tagged COMING per the change that added this entry. **Campus-level reporting is a superset of it.** A campus view aggregates what a multi-class view aggregates and then some, so no surface can honestly sell the campus version while the single-teacher version is marked forthcoming.
+
+#### Fixed: `app/pricing/page.tsx`
+
+The `CAMPUS_FEATURES` list read "Campus and department-level reporting" with no status, in a band whose renderer had no way to express one. It now reads **"Campus-level reporting"** with `status: "coming"`.
+
+**Department-level was dropped from the label rather than tagged alongside campus.** The two named different scopes of a single absent feature, and listing both implied a granularity that does not exist even in outline. One forthcoming capability is one bullet.
+
+This required the COMING treatment to render on a Deep Midnight band for the first time. Recorded in `app/pricing/PriceCard.tsx` at the `TONE` table.
+
+#### NOT FIXED, and these are the more exposed of the four
+
+The `/pricing` band is the weakest of the four claims, because it is a contact tier with no price attached. **The two on `/for-schools` and the homepage are more specific and more load-bearing, and they are what a campus decision maker actually reads before emailing.** None is edited here; the wording is a founder call, not an engineering tidy.
+
+| Where | Claim | Against the finding |
+|---|---|---|
+| `app/for-schools/page.tsx:48-49` | "**Report.** Class, teacher, and campus-level views of where student thinking is breaking down." | Class-level views exist. **Teacher-level and campus-level do not.** The most specific of the four: it enumerates three tiers of aggregation by name and two of them are absent. |
+| `app/components/sections/SchoolsBand.tsx:17` | "**Campus-level reporting.** Strand and cohort views for college-readiness reporting." | Directly contradicted, and "cohort views" names a second absent capability. On the homepage. |
+| `app/components/sections/SchoolsBand.tsx:16` | "**Dashboards for the team.** Misconception dashboards for the full TSIA2 math department." | Per-class misconception dashboards exist. **There is no department-wide view**, so "for the full TSIA2 math department" is the part that fails. |
+
+`app/for-schools/page.tsx:29`, the page metadata description, also promises "misconception-level reporting for your math team". It is search-result and social-preview text rather than page copy, so it is noted rather than tabled, but it carries the same claim.
+
+#### One more, left deliberately: "Everything in Teacher Pro, campus-wide"
+
+`app/pricing/page.tsx`, the group label above the campus list, still reads "Everything in Teacher Pro, campus-wide". **Two Teacher Pro bullets are now tagged COMING, and this label promises a campus-wide version of each.**
+
+For multi-class comparison the label is self-contradicting inside a single block: "multi-class comparison, campus-wide" **is** campus-level reporting, which sits three lines below it tagged COMING.
+
+It was left alone because correcting it means rewording rather than retagging, and the honest replacement is a product decision. Flagged here so it is not mistaken for something the reviewer overlooked. Note that "Everything in Teacher **Core**, campus-wide" would be true today, since every Core bullet except the worksheet generator has shipped.
 
 ---
 

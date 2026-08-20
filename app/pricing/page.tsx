@@ -5,7 +5,7 @@ import { Nav } from "../components/Nav";
 import { SiteFooter } from "../components/SiteFooter";
 import { Accordion, type AccordionItem } from "../components/Accordion";
 import { SectionShell, SectionHeading, Button, Eyebrow } from "../components/ui";
-import { PriceCard, CardRow, type Tier } from "./PriceCard";
+import { PriceCard, CardRow, FeatureList, type Tier, type Feature } from "./PriceCard";
 import { TeacherPlans } from "./TeacherPlans";
 
 /**
@@ -85,10 +85,27 @@ const STUDENT_TIERS: Tier[] = [
   },
 ];
 
-const CAMPUS_FEATURES = [
-  "Campus and department-level reporting",
-  "Onboarding and implementation support",
-  "Direct line to the founder",
+/*
+  Typed as Feature rather than left as bare strings, so this list carries the
+  same shipped/coming distinction the cards do. It was a string[] with an
+  unconditional filled marker, which meant the band could only ever assert that
+  everything in it had shipped.
+
+  "Campus-level reporting", not "Campus and department-level reporting", and
+  coming rather than shipped. Nothing in production aggregates across classes or
+  across teachers today. Department-level reporting is dropped from the label
+  rather than tagged alongside campus, because the two named different scopes of
+  one absent feature and listing both implied a granularity that does not exist
+  even in outline. Campus-level reporting is a superset of the multi-class
+  comparison view on the Teacher Pro card above, which is tagged coming for the
+  same reason. Recorded as item 10 in legal-audit-2026-08.md.
+
+  The other two are services rather than product features and are unaffected.
+*/
+const CAMPUS_FEATURES: Feature[] = [
+  { label: "Campus-level reporting", status: "coming" },
+  { label: "Onboarding and implementation support", status: "shipped" },
+  { label: "Direct line to the founder", status: "shipped" },
 ];
 
 const FAQS: AccordionItem[] = [
@@ -202,20 +219,16 @@ function CampusPlan() {
           >
             Everything in Teacher Pro, campus-wide
           </p>
-          <ul style={{ listStyle: "none", margin: `0 0 ${space.xl}`, padding: 0, display: "flex", flexDirection: "column", gap: "11px" }}>
-            {CAMPUS_FEATURES.map((feature) => (
-              <li
-                key={feature}
-                style={{ display: "flex", gap: "11px", alignItems: "flex-start", ...type.bodySm, color: onDark(0.85) }}
-              >
-                <span
-                  aria-hidden="true"
-                  style={{ flexShrink: 0, width: "7px", height: "7px", marginTop: "7px", background: color.sunsetOrange }}
-                />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
+          {/*
+            Shares FeatureList with the cards rather than hand-rolling the rows
+            again. This band is not a card and does not want one, but the row
+            geometry it used to duplicate was identical to the card rows down to
+            the 7px marker, and the coming treatment should not exist in two
+            places that can drift.
+          */}
+          <div style={{ marginBottom: space.xl }}>
+            <FeatureList features={CAMPUS_FEATURES} tone="dark" />
+          </div>
           <Button href={SCHOOLS_MAILTO} size="md">
             Talk to us
           </Button>

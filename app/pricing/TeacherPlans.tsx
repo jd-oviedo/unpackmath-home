@@ -36,20 +36,21 @@ const TEACHER_PRO_FEATURES: Tier["features"] = [
   { label: "A co-teacher seat, so a partner teacher shares the roster", status: "shipped" },
   { label: "Early access to new features", status: "shipped" },
   /*
-    Back to coming, reversing the 2026-08-20 flip to shipped. That flip read
-    app.unpackmath.com/reporte returning 200 as proof the digest had shipped to
-    Teacher Pro. It has not: /reporte is a preview of what the digest looks
-    like, which is also all the homepage claims when it links there as "Preview
-    a parent report". The thing this row sells, a weekly email you review before
-    it sends, is not live for a paying Teacher Pro subscriber.
+    The digest is not built. A Teacher Pro subscriber cannot send one today.
 
-    Only the status is wrong, in this direction as in the last one. The label is
-    accurate as written and has never changed.
+    app.unpackmath.com/reporte returns 200 and renders a weekly report, but that
+    page is a sample render showing what the email would look like. Nothing
+    behind it builds a digest from a real roster, holds it for review, or sends
+    it. Commit 76940ba read that 200 as proof of delivery and flipped this row
+    to shipped for a day. It was wrong for the same reason the homepage says so
+    in its own source: ParentDigest.tsx:57 records that the digest is not built.
 
-    Recorded as item 8 in legal-audit-2026-08.md, which now carries both the
-    flip and this reversal. app/terms/page.tsx:174, calling the digest "in
-    active development", is correct again as a result. It was left alone through
-    both changes because it is legal copy, per section 12 of that audit.
+    The label is an accurate description of the intended feature and has never
+    changed. Only the status has ever been wrong here.
+
+    Item 8 in legal-audit-2026-08.md. app/terms/page.tsx:174 describes the
+    digest as in active development, which is correct, and is legal copy left
+    alone under section 12 of that audit either way.
   */
   { label: "Parent digest, a weekly email in English and Spanish that you review before it sends", status: "coming" },
   { label: "Unlimited worksheets, including two-version output", status: "coming" },
