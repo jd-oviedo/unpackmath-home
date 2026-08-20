@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
-import { color, ink, inkMuted, type, space, radius, mq } from "../../../lib/tokens";
+import { color, ink, inkMuted, type, space, radius, motion, mq } from "../../../lib/tokens";
 import { SectionShell, SectionHeading } from "../ui";
 
 /**
@@ -174,10 +174,18 @@ export function WaitlistBand() {
                 <button
                   type="submit"
                   disabled={!ready || loading}
-                  className="um-btn"
+                  /*
+                    This is a real submit element rather than the Button
+                    component, so it borrows um-btn for the focus ring and picks
+                    up the primary hover only while it is actually submittable.
+                    Disabled, it deliberately has no hover, and its fill is a
+                    plain value the hover variable cannot reach.
+                  */
+                  className={ready ? "um-btn um-btn--primary" : "um-btn"}
                   style={{
-                    background: ready ? color.sunsetOrange : ink(0.12),
+                    background: ready ? `var(--um-btn-bg, ${color.sunsetOrange})` : ink(0.12),
                     color: ready ? color.deepMidnight : ink(0.4),
+                    transition: `background ${motion.fast}`,
                     border: "1px solid transparent",
                     borderRadius: radius.button,
                     fontFamily: type.nav.fontFamily,
