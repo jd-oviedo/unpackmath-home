@@ -13,8 +13,8 @@ import { MEASURE } from "../components/legal";
 /**
  * /about
  *
- * Founder and origin, not product. The homepage carries a short founder section
- * and this is the long version; /for-teachers no longer carries one at all.
+ * Founder and origin, not product. This is the only founder content on the site:
+ * the homepage no longer carries a short version and /for-teachers never did.
  *
  * Voice is first person throughout, per the copy decision. The three paragraphs
  * preserved from the old /for-teachers founder block are NOT reinstated here,

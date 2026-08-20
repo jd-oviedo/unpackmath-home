@@ -9,7 +9,6 @@ import { TeacherDashboard } from "./components/sections/TeacherDashboard";
 import { SchoolsBand } from "./components/sections/SchoolsBand";
 import { ParentDigest } from "./components/sections/ParentDigest";
 import { EducatorVoices } from "./components/sections/EducatorVoices";
-import { Founder } from "./components/sections/Founder";
 import { Faq } from "./components/sections/Faq";
 import { WaitlistBand } from "./components/sections/WaitlistBand";
 
@@ -43,7 +42,6 @@ export default function Home() {
         <SchoolsBand />
         <ParentDigest />
         <EducatorVoices />
-        <Founder />
         <Faq />
         <WaitlistBand />
       </main>
