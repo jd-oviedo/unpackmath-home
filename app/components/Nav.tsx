@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { color, ink, rule, type, space, maxWidth, motion, bp, mq } from "../../lib/tokens";
+import { color, ink, radius, rule, type, space, maxWidth, motion, bp, mq } from "../../lib/tokens";
 import { Button, UiStyles } from "./ui";
 
 /**
@@ -120,7 +120,7 @@ export function Nav() {
         >
           {NAV_LINKS.map((link) => {
             const props = {
-              className: "um-link",
+              className: "um-link um-navlink",
               style: { ...type.nav, color: color.deepMidnight, whiteSpace: "nowrap" as const },
               children: link.label,
             };
@@ -133,12 +133,32 @@ export function Nav() {
         </div>
 
         <div className="um-nav-cta" style={{ display: "flex", alignItems: "center", gap: "20px", flexShrink: 0 }}>
+          {/*
+            Framed rather than plain, so it reads as its own control sitting
+            between the bare nav links and the solid CTA beside it.
+
+            The box model is copied from Button size="sm" on purpose: same
+            14.5px type, same 11px/18px padding, same 1px border, same 2px
+            radius, and lineHeight overridden back to normal because type.nav
+            pins it to 1 and that alone would leave this ~4px shorter than the
+            CTA. The two are meant to read as a pair on one baseline.
+          */}
           <a
             href={LOGIN_HREF}
             target="_blank"
             rel="noopener noreferrer"
             className="um-link um-nav-login"
-            style={{ ...type.nav, color: color.deepMidnight, whiteSpace: "nowrap" }}
+            style={{
+              ...type.nav,
+              lineHeight: "normal",
+              color: color.deepMidnight,
+              whiteSpace: "nowrap",
+              border: rule.medium,
+              borderRadius: radius.button,
+              padding: "11px 18px",
+              background: "transparent",
+              transition: `border-color ${motion.fast}`,
+            }}
           >
             Log in
           </a>
@@ -279,8 +299,39 @@ export function Nav() {
         @media (max-width: 360px) {
           .um-wordmark { max-height: 26px; }
         }
-        .um-nav-links .um-link:hover,
-        .um-nav-login:hover { color: ${color.sunsetOrange}; }
+        /*
+          Nav link hover: a hairline that grows left to right under the text.
+
+          The rule is an absolutely positioned pseudo-element scaled on the X
+          axis, not a border-bottom, so it cannot add height and cannot shift
+          the bar on hover. Text colour deliberately stays put; the underline
+          is the whole signal. This overrides the site-wide
+          .um-link:hover colour shift from UiStyles for nav links only, and
+          wins on specificity rather than on source order.
+        */
+        .um-navlink { position: relative; }
+        .um-navlink::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: -6px;
+          height: 1px;
+          background: ${color.sunsetOrange};
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform ${motion.fast};
+        }
+        .um-nav-links .um-navlink:hover,
+        .um-nav-links .um-navlink:focus-visible { color: ${color.deepMidnight}; }
+        .um-navlink:hover::after,
+        .um-navlink:focus-visible::after { transform: scaleX(1); }
+        /*
+          !important because the border is set inline, and an inline shorthand
+          outranks a stylesheet longhand no matter the selector. This is the
+          case the um- class hooks exist for: overriding an inline value.
+        */
+        .um-nav-login:hover { border-color: ${color.sunsetOrange} !important; }
         .um-hamburger:hover { background: ${ink(0.04)}; }
         .um-hamburger { transition: background ${motion.fast}; }
       `}</style>
