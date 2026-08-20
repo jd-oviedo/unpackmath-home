@@ -8,8 +8,12 @@ import { useState, type ReactNode } from "react";
  *
  * The wrapper is keyed on the pathname. A client-side navigation changes the
  * key, React remounts the subtree, and the mount restarts the `um-page-in`
- * keyframe declared in globals.css. Opacity and a 6px lift only, per the flat
- * system: no scale, no shadow, no gradient.
+ * keyframe declared in globals.css. Opacity only, per the flat system: no
+ * scale, no shadow, no gradient.
+ *
+ * Deliberately no position shift. A transform here would offset every anchor in
+ * the page, and a hash scroll target is computed while that transform is still
+ * running, which left /#demo settling short by exactly the lift distance.
  *
  * The first render deliberately gets no animation class. On a cold load the page
  * is server-rendered HTML the browser can paint immediately, and starting it at
