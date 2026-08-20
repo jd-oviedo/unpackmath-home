@@ -81,7 +81,7 @@ Listed for the reviewer's orientation. **No analysis, no position taken.** Engin
 | **340** | 14 Termination (By You) | "Termination does not entitle you to a refund **except as described in Section 5**." | Section 5 does not describe pass refunds, so this cross-reference resolves to nothing for a pass holder. |
 | **145–149** | 02 Description of Service | Five-item feature list | **Materially incomplete.** Omits the GUMU Socratic tutor, the full curriculum (97 topics, Units 0–5), the practice bank, worked solutions, CSV export, multi-class comparison, and the co-teacher seat. All are advertised as shipped on `/pricing`. |
 | **148** | 02 Description of Service | "Quantitative Reasoning, Algebraic Reasoning, **Geometric Reasoning**, and **Probabilistic Reasoning**" | Strand names disagree with the rest of the site, which uses "Geometric **and Spatial** Reasoning" and "Probabilistic **and Statistical** Reasoning" (homepage FAQ, `/pricing`). One of the two is wrong against the official TSIA2 blueprint. |
-| **152** | 02 Notice, "Coming Soon" | "A weekly parent digest **and expanded curriculum features** are in active development and will be added in future releases." | The curriculum has shipped: `/pricing` sells "Lessons for all 97 topics, Units 0 through 5" as a live feature. The parent digest is still correctly described as forthcoming. |
+| **152** | 02 Notice, "Coming Soon" | "A weekly parent digest **and expanded curriculum features** are in active development and will be added in future releases." | **Both halves of this sentence are now stale, and this row has been corrected.** The curriculum shipped first: `/pricing` sells "Lessons for all 97 topics, Units 0 through 5" as a live feature. **The parent digest has since shipped too**, at `app.unpackmath.com/reporte`, verified 2026-08-20. This row previously read "The parent digest is still correctly described as forthcoming," which was true when written on 2026-08-18 and is not true now. See item 8 in §2a. |
 
 ### 2.2 Privacy Policy
 
@@ -92,6 +92,109 @@ Listed for the reviewer's orientation. **No analysis, no position taken.** Engin
 | **196** | 05 Service Providers | Names Supabase, Vercel, PostHog, Sentry, Resend, Upstash | **Anthropic and Stripe are absent.** See §3. |
 | **74** | 02 Information We Collect | "Payment information: processed securely through a **third-party processor**." | Stripe is not named. |
 | **218** | 06 Data Retention | "Active Accounts: Data is retained for the duration of your **subscription** or institutional agreement." | A pass holder has neither. The document does not state what happens to data when a 6- or 12-month pass expires. |
+
+---
+
+## 2a. Product and marketing copy defects
+
+**Added 2026-08-20. Scope note: these are not Terms or Privacy defects.** They are live product copy, on `unpackmath.com` and in the app's printed output, describing paid products that currently have live Stripe Payment Links behind them. They are recorded here rather than in §13 because §13 is scoped to engineering work that does not need legal review, and these do: each one is a claim a purchaser relied on at checkout.
+
+Numbering continues from §2 rather than restarting, so a reviewer can cite an item without naming a subsection.
+
+Items 7 and 8 were fixed in the same change that added this section. Item 9 was not, and cannot be from this repository.
+
+### 7. Practice Pass advertised a worked solution on every problem. It does not include one.
+
+**Status: fixed 2026-08-20 in `app/pricing/page.tsx`. Recorded here because the false version was live while Practice Pass was on sale.**
+
+| | |
+|---|---|
+| **Where** | `app/pricing/page.tsx:52`, the Practice Pass feature list, and `app/pricing/page.tsx:91`, the FAQ answer to "What do the paid student passes add?" |
+| **Product** | Practice Pass, $49, one-time, six months. Live Stripe Payment Link. |
+
+**Before**, card:
+
+> "A worked solution on every problem, not just the answer"
+
+**After**, card:
+
+> "A worked solution on every problem you get right, not just the answer"
+
+**Before**, FAQ:
+
+> "The named misconception behind every wrong answer, a worked solution on every problem, and the full practice bank across all 97 topics."
+
+**After**, FAQ:
+
+> "The named misconception behind every wrong answer, a worked solution on every problem you get right, and the full practice bank across all 97 topics."
+
+**Why the original was false.** The gate is `loadEarnedSolutions`, in the TSIA2Math repository. It releases a worked solution only for items the student has **already answered correctly**, or that have been **disclosed through GUMU**. Practice Pass does not include GUMU: GUMU is a Full Course and teacher-plan feature, and `/pricing` itself lists it under Full Course as "GUMU, an AI tutor that asks you questions when you get a lesson problem wrong". So for a Practice Pass holder, exactly one of the two release paths exists, and a problem answered wrong and left alone yields no worked solution at all. "On every problem" described a product the buyer did not receive.
+
+**Why "you get right" and not "you solve".** "Solve" is readable as "attempted". "Get right" is not. On a claim that a purchaser relied on, the phrasing that cannot be read two ways is the correct one.
+
+**Both instances were changed together and must stay in sync.** The FAQ instance is arguably the more direct misstatement, because that answer names the paid student passes explicitly and Practice Pass is one of the two it is answering for. Fixing only the card would have left the same claim live one screen down and put the page in contradiction with itself.
+
+**For the reviewer:** this is the kind of claim that would need a decision about purchasers who bought under the old wording. Engineering has no view on that and is not proposing one. Flagged because the fix stops the exposure going forward and does nothing about what came before.
+
+### 8. The parent digest was labelled COMING on `/pricing` while it was live in production.
+
+**Status: fixed 2026-08-20 in `app/pricing/TeacherPlans.tsx`. One related defect is NOT fixed and needs attorney sign-off. See below.**
+
+| | |
+|---|---|
+| **Where** | `app/pricing/TeacherPlans.tsx:38-41`, the `Parent digest` row of `TEACHER_PRO_FEATURES` |
+| **Product** | Teacher Pro. Live Stripe Payment Links, monthly and annual. |
+
+**Before:** `status: "coming"`, which renders the feature in muted text with a hollow bullet and an uppercase `Coming` pill beside it.
+
+**After:** `status: "shipped"`, which renders it identically to the other five live features on that card. **The label text did not change and did not need to**: "Parent digest, a weekly email in English and Spanish that you review before it sends" is accurate.
+
+**Verification.** `https://app.unpackmath.com/reporte` returns HTTP 200 and renders the digest itself: a weekly per-student report, an English/Spanish toggle, "Se envia cada viernes", a named-misconception writeup, and a parent conversation prompt. Confirmed 2026-08-20.
+
+**This defect ran in the opposite direction from item 7.** It understated a shipped feature rather than overstating an absent one, so it is not a misrepresentation to a purchaser in the same sense. It is recorded because a live feature marked COMING on the tier that sells it is a factual error in paid-product copy either way, and because a buyer who chose a cheaper tier on the basis of that label was misinformed.
+
+**Corroborating internal contradiction:** the homepage has been linking to `/reporte` as "Preview a parent report" with no coming treatment (`app/components/sections/ParentDigest.tsx:61`). `/pricing` was contradicting `/` on the same site.
+
+#### Correction to a row in §2 made by this entry
+
+**§2.1, the `terms:152` row, has been corrected and the change is recorded here deliberately rather than made silently.**
+
+That row previously ended: *"The parent digest is still correctly described as forthcoming."* That was accurate on 2026-08-18 when this audit was written. It is not accurate now. Left as it was, it would have told the reviewer that a stale clause in the Terms was fine.
+
+#### NOT FIXED, and requiring attorney sign-off: `app/terms/page.tsx:174`
+
+**This is a live legal-text defect in production and it is deliberately still there.**
+
+`app/terms/page.tsx:174`, inside the §02 "Coming Soon" notice, currently reads:
+
+> "A weekly parent digest and expanded curriculum features are in active development and will be added in future releases. These Terms will be updated to reflect new features as they become available."
+
+**Both named items have shipped.** The curriculum shipped before this audit was first written and is already recorded in the §2.1 `terms:152` row. The parent digest has now shipped as well. The sentence describes a product state that no longer exists, in the document that defines what the service is.
+
+**It was not corrected in the change that fixed items 7 and 8, and that was on purpose.** It is legal text. §12 of this audit records that no legal text has been edited, and that holds. This entry exists so the defect reaches counsel and gets revised under sign-off, rather than being quietly corrected by engineering as a copy tidy. **Any revision to this sentence is the attorney's, not engineering's.**
+
+Worth noting for whoever drafts it: the notice may not need replacing so much as emptying. If both named items have shipped, there may be nothing left for a "Coming Soon" section in §02 to describe, and the surrounding feature list at `terms:145-149` is already flagged in §2.1 as materially incomplete for the same underlying reason. Those two are probably one edit.
+
+### 9. The worksheet print footer carries no non-affiliation disclaimer.
+
+**Status: NOT FIXED, and not fixable from this repository.**
+
+| | |
+|---|---|
+| **Where** | The print template at `/teacher/worksheets/[id]/print`, which lives in the **TSIA2Math** repository, not here |
+| **Product** | Worksheet generator. Listed on `/pricing` under Teacher ("Worksheet generator, up to 15 per month") and Teacher Pro ("Unlimited worksheets, including two-version output"). |
+
+**What the print footer shows today:** "UnpackMath · app.unpackmath.com" and the date. Nothing else.
+
+**What it needs, verbatim:**
+
+> Not affiliated with or endorsed by College Board or ACCUPLACER. TSIA2 is a trademark of its respective owner. Practice materials only.
+
+**Why this entry is in a marketing-repo audit.** It is not a defect in any file in this repository and no attempt was made to fix it here. It is recorded because **worksheets are the one product surface that leaves the browser.** A generated worksheet is printed, photocopied, and handed to a classroom of students, and it travels with no context, no URL bar and no surrounding site chrome to identify who made it or what it is not. Every other place this disclaimer might appear is a web page the reader arrived at deliberately. This one is a piece of paper on a desk.
+
+That makes it the print counterpart to the web copy in items 7 and 8, and the reviewer should see all three together rather than being shown the web surfaces and left to assume print is covered. It is not.
+
+**Action sits with the TSIA2Math repository.** This entry is a pointer, so that print copy is in front of the attorney alongside web copy at the same review.
 
 ---
 
