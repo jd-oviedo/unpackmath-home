@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Kodchasan, Fredoka } from "next/font/google";
+import { PageTransition } from "./components/PageTransition";
 import "./globals.css";
 
 /**
@@ -58,7 +59,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${kodchasan.variable} ${kodchasanMath.variable} ${fredoka.variable}`}>
-      <body>{children}</body>
+      <body>
+        <PageTransition>{children}</PageTransition>
+      </body>
     </html>
   );
 }

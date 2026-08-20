@@ -15,6 +15,16 @@ import { Button, UiStyles } from "./ui";
  *
  * The full link row is wide, so below the lg breakpoint everything except the
  * wordmark and the primary CTA folds into the hamburger menu.
+ *
+ * Internal destinations use next/link so navigation is client side, which is
+ * what lets the route-change fade in PageTransition run at all: a plain anchor
+ * is a full document load and the pathname it keys on never changes. The two
+ * deliberate exceptions stay bare anchors, because neither is an internal route
+ * change: Log in is an external origin opened in a new tab, and /#faq is a hash
+ * on a page Link would gain nothing on.
+ *
+ * There is no analytics or pageview tracking in this repo, so moving these to
+ * client-side routing cannot silently drop pageviews.
  */
 
 const LOGIN_HREF = "https://app.unpackmath.com/login";
@@ -26,13 +36,18 @@ const NAV_HEIGHT = 72;
 const WORDMARK_HEIGHT = 40;
 const WORDMARK_WIDTH = Math.round(WORDMARK_HEIGHT * (2000 / 485));
 
+/**
+ * `hash` marks the one entry that targets an anchor rather than a route. It
+ * renders as a plain <a>, since there is no route change for Link to make
+ * client side and the browser handles the jump.
+ */
 const NAV_LINKS = [
   { label: "For students", href: "/for-students" },
   { label: "For teachers", href: "/for-teachers" },
   { label: "For schools", href: "/for-schools" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "FAQ", href: "/#faq", hash: true },
 ];
 
 export function Nav() {
@@ -103,16 +118,18 @@ export function Nav() {
           className="um-nav-links"
           style={{ display: "flex", alignItems: "center", gap: "26px" }}
         >
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="um-link"
-              style={{ ...type.nav, color: color.deepMidnight, whiteSpace: "nowrap" }}
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const props = {
+              className: "um-link",
+              style: { ...type.nav, color: color.deepMidnight, whiteSpace: "nowrap" as const },
+              children: link.label,
+            };
+            return link.hash ? (
+              <a key={link.label} href={link.href} {...props} />
+            ) : (
+              <Link key={link.label} href={link.href} {...props} />
+            );
+          })}
         </div>
 
         <div className="um-nav-cta" style={{ display: "flex", alignItems: "center", gap: "20px", flexShrink: 0 }}>
@@ -187,21 +204,23 @@ export function Nav() {
               padding: `${space.sm} 0`,
             }}
           >
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                style={{
+            {NAV_LINKS.map((link) => {
+              const props = {
+                onClick: () => setMenuOpen(false),
+                style: {
                   ...type.nav,
                   lineHeight: 1.4,
                   color: color.deepMidnight,
                   padding: `13px ${space.gutterMobile}`,
-                }}
-              >
-                {link.label}
-              </a>
-            ))}
+                },
+                children: link.label,
+              };
+              return link.hash ? (
+                <a key={link.label} href={link.href} {...props} />
+              ) : (
+                <Link key={link.label} href={link.href} {...props} />
+              );
+            })}
             <a
               href={LOGIN_HREF}
               target="_blank"
