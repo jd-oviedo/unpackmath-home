@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { color, ink, rule, type, space, maxWidth, motion, bp, mq } from "../../lib/tokens";
+import { color, ink, radius, rule, type, space, maxWidth, motion, mq } from "../../lib/tokens";
 import { Button, UiStyles } from "./ui";
 
 /**
@@ -15,6 +15,16 @@ import { Button, UiStyles } from "./ui";
  *
  * The full link row is wide, so below the lg breakpoint everything except the
  * wordmark and the primary CTA folds into the hamburger menu.
+ *
+ * Internal destinations use next/link so navigation is client side, which is
+ * what lets the route-change fade in PageTransition run at all: a plain anchor
+ * is a full document load and the pathname it keys on never changes. The two
+ * deliberate exceptions stay bare anchors, because neither is an internal route
+ * change: Log in is an external origin opened in a new tab, and /#faq is a hash
+ * on a page Link would gain nothing on.
+ *
+ * There is no analytics or pageview tracking in this repo, so moving these to
+ * client-side routing cannot silently drop pageviews.
  */
 
 const LOGIN_HREF = "https://app.unpackmath.com/login";
@@ -22,17 +32,50 @@ const PRACTICE_TEST_HREF = "https://app.unpackmath.com/adaptive-test";
 
 const NAV_HEIGHT = 72;
 
+/**
+ * Viewport width below which the full link row folds into the hamburger.
+ *
+ * Measured, not guessed. The three flex groups need 1037px between them
+ * (wordmark 165, links 503, CTA group 325, plus two 22px gaps). The document
+ * stops overflowing at 1108px, which is the 70px left gutter plus that 1037,
+ * but at that width the CTA sits 1px from the edge of the screen because the
+ * content is simply covering the right gutter. The nav only clears the site's
+ * own 70px gutter on both sides at 1037 + 140 = 1177px, so that is the number
+ * this keys on, plus a few pixels of slack.
+ *
+ * This is deliberately not bp.lg. That breakpoint is 980px and is shared with
+ * the section grids on several pages, and the nav needs to fold ~200px earlier
+ * than they do.
+ */
+const NAV_COLLAPSE = 1180;
+
+/**
+ * Width of the folded menu panel above phone widths.
+ *
+ * The panel is anchored under the hamburger rather than stretched across the
+ * bar. It used to span the full nav, which was fine on a phone and looked
+ * unfinished at 1024px, where seven short labels sat down the left of a panel
+ * that was roughly 85 percent empty. At mq.md and below it goes back to full
+ * width, so the phone layout is untouched.
+ */
+const MENU_WIDTH = "380px";
+
 // Source is 2000x485, so ~4.12:1. Height is pinned and width follows.
 const WORDMARK_HEIGHT = 40;
 const WORDMARK_WIDTH = Math.round(WORDMARK_HEIGHT * (2000 / 485));
 
+/**
+ * `hash` marks the one entry that targets an anchor rather than a route. It
+ * renders as a plain <a>, since there is no route change for Link to make
+ * client side and the browser handles the jump.
+ */
 const NAV_LINKS = [
   { label: "For students", href: "/for-students" },
   { label: "For teachers", href: "/for-teachers" },
   { label: "For schools", href: "/for-schools" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "FAQ", href: "/#faq", hash: true },
 ];
 
 export function Nav() {
@@ -50,7 +93,7 @@ export function Nav() {
       if (navRef.current && !navRef.current.contains(e.target as Node)) setMenuOpen(false);
     };
     const onResize = () => {
-      if (window.innerWidth > bp.lg) setMenuOpen(false);
+      if (window.innerWidth >= NAV_COLLAPSE) setMenuOpen(false);
     };
     document.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onPointerDown);
@@ -103,25 +146,47 @@ export function Nav() {
           className="um-nav-links"
           style={{ display: "flex", alignItems: "center", gap: "26px" }}
         >
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="um-link"
-              style={{ ...type.nav, color: color.deepMidnight, whiteSpace: "nowrap" }}
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const props = {
+              className: "um-link um-navlink",
+              style: { ...type.nav, color: color.deepMidnight, whiteSpace: "nowrap" as const },
+              children: link.label,
+            };
+            return link.hash ? (
+              <a key={link.label} href={link.href} {...props} />
+            ) : (
+              <Link key={link.label} href={link.href} {...props} />
+            );
+          })}
         </div>
 
         <div className="um-nav-cta" style={{ display: "flex", alignItems: "center", gap: "20px", flexShrink: 0 }}>
+          {/*
+            Framed rather than plain, so it reads as its own control sitting
+            between the bare nav links and the solid CTA beside it.
+
+            The box model is copied from Button size="sm" on purpose: same
+            14.5px type, same 11px/18px padding, same 1px border, same 2px
+            radius, and lineHeight overridden back to normal because type.nav
+            pins it to 1 and that alone would leave this ~4px shorter than the
+            CTA. The two are meant to read as a pair on one baseline.
+          */}
           <a
             href={LOGIN_HREF}
             target="_blank"
             rel="noopener noreferrer"
             className="um-link um-nav-login"
-            style={{ ...type.nav, color: color.deepMidnight, whiteSpace: "nowrap" }}
+            style={{
+              ...type.nav,
+              lineHeight: "normal",
+              color: color.deepMidnight,
+              whiteSpace: "nowrap",
+              border: rule.medium,
+              borderRadius: radius.button,
+              padding: "11px 18px",
+              background: "transparent",
+              transition: `border-color ${motion.fast}`,
+            }}
           >
             Log in
           </a>
@@ -174,34 +239,47 @@ export function Nav() {
         {menuOpen && (
           <div
             id="um-mobile-menu"
+            className="um-menu"
             style={{
               position: "absolute",
               top: "100%",
-              left: 0,
-              right: 0,
+              left: "auto",
+              /*
+                Offset by the gutter rather than pinned to 0. The panel is
+                absolute against the nav's padding box, so right:0 would land it
+                on the viewport edge, 70px past the hamburger it belongs to.
+                This lines its right edge up with the nav's content column, and
+                therefore with the hamburger, which is the last item in it.
+              */
+              right: space.gutter,
+              width: MENU_WIDTH,
+              maxWidth: "100%",
               display: "flex",
               flexDirection: "column",
               background: color.white,
               borderTop: rule.hair,
+              borderLeft: rule.hair,
               borderBottom: rule.medium,
               padding: `${space.sm} 0`,
             }}
           >
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                style={{
+            {NAV_LINKS.map((link) => {
+              const props = {
+                onClick: () => setMenuOpen(false),
+                style: {
                   ...type.nav,
                   lineHeight: 1.4,
                   color: color.deepMidnight,
                   padding: `13px ${space.gutterMobile}`,
-                }}
-              >
-                {link.label}
-              </a>
-            ))}
+                },
+                children: link.label,
+              };
+              return link.hash ? (
+                <a key={link.label} href={link.href} {...props} />
+              ) : (
+                <Link key={link.label} href={link.href} {...props} />
+              );
+            })}
             <a
               href={LOGIN_HREF}
               target="_blank"
@@ -224,17 +302,41 @@ export function Nav() {
 
       <UiStyles />
       <style href="um-nav" precedence="medium">{`
-        ${mq.lg} {
-          .um-nav { padding-left: 40px !important; padding-right: 40px !important; }
+        /*
+          The fold happens at NAV_COLLAPSE rather than at bp.lg, because the
+          link row runs out of room roughly 200px before the section grids do.
+          Below bp.lg the gutters also tighten, which is a separate concern and
+          stays on its own breakpoint.
+        */
+        @media (max-width: ${NAV_COLLAPSE - 0.02}px) {
           .um-nav-links,
           .um-nav-login { display: none !important; }
           .um-hamburger { display: flex !important; }
+          /*
+            With the link row gone the bar is down to three items, and
+            space-between then strands the CTA in the middle of an otherwise
+            empty bar. Pushing it right groups it with the hamburger and leaves
+            the wordmark alone on the left.
+          */
+          .um-nav-cta { margin-left: auto !important; }
+        }
+        ${mq.lg} {
+          .um-nav { padding-left: 40px !important; padding-right: 40px !important; }
+          /* Track the tighter gutter, so the panel stays under the hamburger. */
+          .um-menu { right: 40px !important; }
         }
         ${mq.md} {
           .um-nav {
             padding-left: ${space.gutterMobile} !important;
             padding-right: ${space.gutterMobile} !important;
             gap: ${space.md} !important;
+          }
+          /* Phone layout unchanged: the panel spans the bar as it always did. */
+          .um-menu {
+            left: 0 !important;
+            right: 0 !important;
+            width: auto !important;
+            border-left: none !important;
           }
           .um-wordmark-link { flex-shrink: 1 !important; min-width: 0 !important; }
           .um-wordmark { height: auto !important; max-height: 36px; max-width: 100%; }
@@ -260,8 +362,39 @@ export function Nav() {
         @media (max-width: 360px) {
           .um-wordmark { max-height: 26px; }
         }
-        .um-nav-links .um-link:hover,
-        .um-nav-login:hover { color: ${color.sunsetOrange}; }
+        /*
+          Nav link hover: a hairline that grows left to right under the text.
+
+          The rule is an absolutely positioned pseudo-element scaled on the X
+          axis, not a border-bottom, so it cannot add height and cannot shift
+          the bar on hover. Text colour deliberately stays put; the underline
+          is the whole signal. This overrides the site-wide
+          .um-link:hover colour shift from UiStyles for nav links only, and
+          wins on specificity rather than on source order.
+        */
+        .um-navlink { position: relative; }
+        .um-navlink::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: -6px;
+          height: 1px;
+          background: ${color.sunsetOrange};
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform ${motion.fast};
+        }
+        .um-nav-links .um-navlink:hover,
+        .um-nav-links .um-navlink:focus-visible { color: ${color.deepMidnight}; }
+        .um-navlink:hover::after,
+        .um-navlink:focus-visible::after { transform: scaleX(1); }
+        /*
+          !important because the border is set inline, and an inline shorthand
+          outranks a stylesheet longhand no matter the selector. This is the
+          case the um- class hooks exist for: overriding an inline value.
+        */
+        .um-nav-login:hover { border-color: ${color.sunsetOrange} !important; }
         .um-hamburger:hover { background: ${ink(0.04)}; }
         .um-hamburger { transition: background ${motion.fast}; }
       `}</style>

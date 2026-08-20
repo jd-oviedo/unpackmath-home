@@ -349,10 +349,22 @@ export const mq = {
 /**
  * The handoff allows one subtle behavior maximum and nothing that delays first
  * paint, so this is intentionally a very short list.
+ *
+ * `fast` and `base` are composed from the CSS custom properties declared in
+ * app/globals.css rather than from literals. That is deliberate: keyframes and
+ * hover rules can only read the custom properties, and inline style props can
+ * only read this object, so writing the numbers in both places would give the
+ * site two motion systems that drift apart. The durations live in globals.css
+ * and nowhere else.
+ *
+ * var() inside a transition shorthand substitutes at computed-value time, which
+ * works the same for an inline style attribute as for a stylesheet rule. The
+ * properties are declared on :root, so every element inherits them and the
+ * declaration can never fall back to invalid.
  */
 export const motion = {
-  fast: "0.15s ease",
-  base: "0.25s ease",
+  fast: "var(--um-motion-fast) var(--um-ease)",
+  base: "var(--um-motion-mid) var(--um-ease)",
   /** For the scroll-triggered reveals and the bar growth. */
   reveal: "0.7s cubic-bezier(0.2, 0.7, 0.3, 1)",
 } as const;

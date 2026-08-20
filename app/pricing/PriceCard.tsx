@@ -23,6 +23,15 @@ export type Tier = {
   price?: string;
   /** Term or cadence beneath the figure, e.g. "6 months", "per month". */
   unit?: string;
+  /**
+   * Set only on tiers whose figure changes in place, which today is the two
+   * teacher tiers under the billing toggle. It does two things at once, because
+   * they are the same concern: it reserves the width of the widest value the
+   * tier can show, so the card cannot reflow mid swap, and it opts the figure
+   * into the crossfade. A tier without it renders a static price with no
+   * reserved space and no animation, which is what the student cards want.
+   */
+  priceSwapWidth?: string;
   /** Sits with the price, not in the fine print, so it lands in the same glance. */
   oneTime?: boolean;
   subLine?: string;
@@ -142,7 +151,31 @@ export function PriceCard({
 
         {tier.price && (
           <div style={{ marginTop: space.md, display: "flex", alignItems: "baseline", gap: "9px", flexWrap: "wrap" }}>
-            <span style={{ ...type.stat, fontSize: "40px", color: color.deepMidnight }}>{tier.price}</span>
+            {/*
+              Keyed on the value, so swapping monthly to annual remounts the
+              span and restarts the um-price-in keyframe. Without the key React
+              would patch the text in place and the figure would hard swap.
+
+              tabular-nums holds the digit advance steady, but it cannot help
+              across a digit count change, so a swapping tier also reserves the
+              width of its widest value. Between them the row cannot reflow
+              while the number changes.
+            */}
+            <span
+              key={tier.price}
+              className={tier.priceSwapWidth ? "um-price-swap" : undefined}
+              style={{
+                ...type.stat,
+                fontSize: "40px",
+                color: color.deepMidnight,
+                fontVariantNumeric: "tabular-nums",
+                ...(tier.priceSwapWidth
+                  ? { display: "inline-block", minWidth: tier.priceSwapWidth }
+                  : null),
+              }}
+            >
+              {tier.price}
+            </span>
             {tier.unit && <span style={{ ...type.bodySm, color: ink(inkMuted) }}>{tier.unit}</span>}
           </div>
         )}

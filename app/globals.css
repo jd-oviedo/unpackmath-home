@@ -21,8 +21,21 @@ html {
   The sticky nav is 72px, so in-page anchors need to clear it or the target
   heading lands underneath the bar. Load-bearing for the legal-page tables of
   contents.
+
+  section[id] is here alongside :target because :target does not match after a
+  client-side hash navigation. Going from /for-students to /#demo left the
+  offset unapplied and dropped the section under the sticky bar, while a cold
+  load of the same URL landed correctly. Every in-page anchor on the marketing
+  pages is a SectionShell, which renders a <section id>, so keying on the
+  element rather than on its target state makes the offset apply on all three
+  paths: cold load, same-page jump and client nav.
+
+  Kept as one rule so the offset exists in exactly one place. The legal pages
+  set the same value inline on their own targets, which is why their tables of
+  contents were never affected by this.
 */
-:target {
+:target,
+section[id] {
   scroll-margin-top: 88px;
 }
 
@@ -33,6 +46,73 @@ body {
   color: #0e0e11;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* -------------------------------- motion ---------------------------------- */
+
+/*
+  Motion tokens, the single source of truth for every duration and easing curve
+  on the site.
+
+  They live here rather than in lib/tokens.ts because CSS keyframes and hover
+  rules cannot read a JS object, while inline style props can read a CSS custom
+  property. lib/tokens.ts `motion` composes these into transition shorthands, so
+  the nine components using inline transitions and the rules in this file are
+  driven by the same two numbers.
+
+  Opacity and small position shifts only, per the flat design system. No scale
+  bounces, no shadows appearing on hover, no gradients.
+*/
+:root {
+  --um-motion-fast: 160ms;
+  --um-motion-mid: 220ms;
+  --um-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/*
+  Route-change fade, applied by app/components/PageTransition.tsx to a wrapper
+  keyed on the pathname. Never applied on the first render, so a cold load
+  paints its text immediately instead of waiting out a fade.
+
+  Opacity only, deliberately. This used to lift 6px as well, but a transform on
+  the wrapper offsets every anchor inside it, and the browser computes a hash
+  scroll target while that transform is still part way through. The landing
+  error came out equal to the lift distance, measured 1:1, so /#demo settled 6px
+  high on a client-side navigation. Exact anchor landing is worth more than a
+  rise nobody consciously registers.
+*/
+@keyframes um-page-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.um-page-in {
+  animation: um-page-in var(--um-motion-mid) var(--um-ease) both;
+}
+
+/*
+  Price figure swap on /pricing, applied by app/pricing/PriceCard.tsx to a span
+  keyed on the price string, so toggling monthly to annual restarts it. The
+  outgoing figure is replaced rather than crossfaded against, which is why this
+  is a fade in on its own and not a pair of stacked nodes.
+*/
+@keyframes um-price-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.um-price-swap {
+  animation: um-price-in var(--um-motion-mid) var(--um-ease) both;
 }
 
 /*
@@ -69,5 +149,20 @@ video {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  /*
+    The rules above flatten duration but leave a transform in place, and a
+    keyframe's `from` transform can still land for a frame. The price swap is
+    the only hook left that animates position; the page fade is listed with it
+    so neither can start from a hidden state.
+  */
+  .um-page-in,
+  .um-price-swap {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .um-navlink::after {
+    transition: none !important;
   }
 }

@@ -197,6 +197,27 @@ const BUTTON_SIZE: Record<ButtonSize, CSSProperties> = {
   lg: { fontSize: "15.5px", padding: "15px 26px" },
 };
 
+/** Hover hook per variant, so the CSS below can target one without the others. */
+const BUTTON_CLASS: Record<ButtonVariant, string> = {
+  primary: "um-btn--primary",
+  outline: "um-btn--outline",
+  outlineOnDark: "um-btn--outline-dark",
+};
+
+/**
+ * Sunset Orange one step deeper, for the hover state of a filled button.
+ *
+ * Deliberately not in lib/tokens.ts. That file is the brand palette and says
+ * not to add colours that are not in the brand system; this is a UI state shade
+ * of an existing colour, used in exactly one place. Same hue, 8 percent darker.
+ * Deep Midnight text measures 7.6:1 on it, against 9.1:1 on the base fill, so
+ * the label stays well clear of 4.5:1.
+ */
+const BUTTON_PRIMARY_HOVER_FILL = "#DD9639";
+
+/** On-dark outline hover fill. A sand fill would bury the white label. */
+const BUTTON_ON_DARK_HOVER_FILL = onDark(0.08);
+
 /**
  * The only button in the system.
  *
@@ -207,6 +228,15 @@ const BUTTON_SIZE: Record<ButtonSize, CSSProperties> = {
  * Note the 1px padding compensation on the outline variants: their border
  * occupies a pixel the filled variant does not have, so without it an outline
  * button sitting beside a primary would stand a pixel taller.
+ *
+ * Fill and border colour are read through custom properties rather than written
+ * as plain values. That is what lets the hover rules in UiStyles change them:
+ * these styles are applied inline, and an inline shorthand outranks a
+ * stylesheet longhand at any specificity, so a plain `.um-btn:hover { border-
+ * color }` would simply lose. A custom property substitutes at computed-value
+ * time instead, so the stylesheet changes the variable and the inline
+ * declaration picks the new value up. No !important, and the border stays where
+ * the rest of this file keeps its styling.
  */
 export function Button({
   href,
@@ -228,22 +258,22 @@ export function Button({
   const variantStyle: CSSProperties =
     variant === "primary"
       ? {
-          background: color.sunsetOrange,
+          background: `var(--um-btn-bg, ${color.sunsetOrange})`,
           color: color.deepMidnight,
-          border: "1px solid transparent",
+          border: `1px solid var(--um-btn-border, transparent)`,
           fontWeight: 500,
         }
       : variant === "outline"
         ? {
-            background: "transparent",
+            background: `var(--um-btn-bg, transparent)`,
             color: color.deepMidnight,
-            border: `1px solid ${color.deepMidnight}`,
+            border: `1px solid var(--um-btn-border, ${color.deepMidnight})`,
             fontWeight: 400,
           }
         : {
-            background: "transparent",
+            background: `var(--um-btn-bg, transparent)`,
             color: color.white,
-            border: `1px solid ${onDark(0.5)}`,
+            border: `1px solid var(--um-btn-border, ${onDark(0.5)})`,
             fontWeight: 400,
           };
 
@@ -251,14 +281,14 @@ export function Button({
     <a
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="um-btn"
+      className={`um-btn ${BUTTON_CLASS[variant]}`}
       style={{
         display: "inline-block",
         fontFamily: type.nav.fontFamily,
         borderRadius: radius.button,
         textDecoration: "none",
         whiteSpace: "nowrap",
-        transition: `opacity ${motion.fast}, background ${motion.fast}, color ${motion.fast}`,
+        transition: `background ${motion.fast}, border-color ${motion.fast}, color ${motion.fast}`,
         ...sized,
         ...variantStyle,
         ...style,
@@ -749,7 +779,27 @@ export function NumberedFeatureRow({
 export function UiStyles() {
   return (
     <style href="um-ui" precedence="medium">{`
-      .um-btn:hover { opacity: 0.86; }
+      /*
+        One hover language for every button on the site. It used to be a flat
+        opacity fade, which on an outline button over a light surface was close
+        to invisible, so the plan CTAs read as having no hover at all.
+
+        Border and background only. No shadow, no scale, no lift: this system
+        has no shadow to lift against, so a raised button would read as broken.
+
+        These set custom properties rather than the properties themselves,
+        because Button applies its fill and border inline. See the note on
+        Button for why that matters.
+      */
+      .um-btn--outline:hover {
+        --um-btn-bg: ${color.warmSand};
+        --um-btn-border: ${color.sunsetOrange};
+      }
+      .um-btn--outline-dark:hover {
+        --um-btn-bg: ${BUTTON_ON_DARK_HOVER_FILL};
+        --um-btn-border: ${color.sunsetOrange};
+      }
+      .um-btn--primary:hover { --um-btn-bg: ${BUTTON_PRIMARY_HOVER_FILL}; }
       .um-btn:focus-visible,
       .um-link:focus-visible {
         outline: 2px solid ${color.sunsetOrange};

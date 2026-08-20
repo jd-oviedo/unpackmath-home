@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { color, ink, inkMuted, type, space, motion, mq } from "../../lib/tokens";
+import { color, ink, inkMuted, type, space, motion } from "../../lib/tokens";
 
 /**
  * Weekly-report panels cycling inside a phone silhouette.
@@ -19,6 +19,11 @@ import { color, ink, inkMuted, type, space, motion, mq } from "../../lib/tokens"
  *
  * Panels carry a `group`, so the six-panel run reads as two passes of the same
  * report rather than six unrelated screens. The dots render grouped to match.
+ *
+ * There is no mobile size override. At 271px the phone already clears the
+ * narrowest viewport the site supports inside its gutters, so a second value
+ * would only risk drifting larger than the desktop one, which is exactly what
+ * the previous 292px override had become.
  */
 
 export type Panel = {
@@ -36,7 +41,14 @@ const ADVANCE_MS = 3000;
 const PANEL_W = 952;
 const PANEL_H = 1842;
 
-export function PhoneCarousel({ panels, screenWidth = 300 }: { panels: Panel[]; screenWidth?: number }) {
+/**
+ * 255px screen, so the phone including its 8px frame is 271px wide and about
+ * 493px tall. The previous 300px stood ~612px tall, which made the phone rather
+ * than the copy beside it set the height of the section it sits in.
+ */
+const DEFAULT_SCREEN_WIDTH = 255;
+
+export function PhoneCarousel({ panels, screenWidth = DEFAULT_SCREEN_WIDTH }: { panels: Panel[]; screenWidth?: number }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -173,10 +185,6 @@ export function PhoneCarousel({ panels, screenWidth = 300 }: { panels: Panel[]; 
           outline-offset: 3px;
         }
         .um-dot:hover { border-color: ${color.sunsetOrange}; }
-        ${mq.md} {
-          .um-phone { width: 292px !important; }
-          .um-phone-screen { width: 276px !important; height: ${Math.round((276 * PANEL_H) / PANEL_W)}px !important; }
-        }
       `}</style>
     </div>
   );

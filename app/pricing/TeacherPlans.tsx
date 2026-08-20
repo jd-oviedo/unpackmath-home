@@ -42,13 +42,41 @@ const TEACHER_PRO_FEATURES: Tier["features"] = [
   { label: "Unlimited worksheets, including two-version output", status: "coming" },
 ];
 
+/**
+ * Reserved widths, so nothing in this section changes size when the toggle is
+ * clicked. All three are measured from the rendered fonts at the sizes used
+ * here, rounded up to the next whole pixel, and each is the widest state its
+ * element can be in.
+ *
+ * SEGMENT_*: the active segment is 500 weight and the inactive one 400. Fredoka
+ * is not a variable font, so that step is a real width change on every click and
+ * would shove the whole toggle sideways. Weight cannot be interpolated either,
+ * which is why this is a reserved box rather than an animation.
+ *
+ * PRICE: "$20" to "$200" is a digit-count change, which tabular figures cannot
+ * absorb. The reserved box is sized for the three-digit annual value so the
+ * unit label beside it never moves.
+ *
+ * Measured in Chromium against the self-hosted Fredoka and Kodchasan builds:
+ * "Monthly" at 500 is 55px plus 32px padding, "Annual" plus its badge is
+ * 184.23px, and both "$200" and "$300" are 113px at 40px Kodchasan 600. Each
+ * constant is the next whole pixel above its measurement, with a point of
+ * slack. They are only ever floors, so a re-measure that comes in lower costs
+ * nothing and one that comes in higher shows up as a shifting toggle.
+ */
+const SEGMENT_MONTHLY_WIDTH = "94px";
+const SEGMENT_ANNUAL_WIDTH = "186px";
+const PRICE_WIDTH = "114px";
+
 export function TeacherPlans() {
   const [annual, setAnnual] = useState(false);
 
-  const segment = (active: boolean): CSSProperties => ({
+  const segment = (active: boolean, minWidth: string): CSSProperties => ({
     display: "inline-flex",
     alignItems: "center",
+    justifyContent: "center",
     gap: "8px",
+    minWidth,
     border: "none",
     borderRadius: 0,
     cursor: "pointer",
@@ -66,6 +94,7 @@ export function TeacherPlans() {
       name: "Teacher Core",
       price: annual ? "$200" : "$20",
       unit: annual ? "per year" : "per month",
+      priceSwapWidth: PRICE_WIDTH,
       subLine: "For one teacher and up to three classes.",
       features: TEACHER_FEATURES,
       cta: { label: "Get the Teacher Core plan", href: upgradeHref(annual ? "teacherAnnual" : "teacherMonthly"), external: true },
@@ -74,6 +103,7 @@ export function TeacherPlans() {
       name: "Teacher Pro",
       price: annual ? "$300" : "$30",
       unit: annual ? "per year" : "per month",
+      priceSwapWidth: PRICE_WIDTH,
       subLine: "For teachers running more classes, or a department of one.",
       badge: "Most complete",
       groupLabel: "Everything in Teacher Core, plus",
@@ -91,10 +121,10 @@ export function TeacherPlans() {
         <SectionHeading size="sm">For teachers</SectionHeading>
 
         <div role="group" aria-label="Billing period" style={{ display: "inline-flex", border: rule.medium, background: color.warmSand, flexShrink: 0 }}>
-          <button type="button" onClick={() => setAnnual(false)} aria-pressed={!annual} style={segment(!annual)}>
+          <button type="button" onClick={() => setAnnual(false)} aria-pressed={!annual} style={segment(!annual, SEGMENT_MONTHLY_WIDTH)}>
             Monthly
           </button>
-          <button type="button" onClick={() => setAnnual(true)} aria-pressed={annual} style={segment(annual)}>
+          <button type="button" onClick={() => setAnnual(true)} aria-pressed={annual} style={segment(annual, SEGMENT_ANNUAL_WIDTH)}>
             Annual
             <span
               style={{

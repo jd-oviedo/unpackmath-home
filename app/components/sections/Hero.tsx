@@ -95,7 +95,9 @@ export function Hero() {
           <h1 className="um-hero-h1" style={{ ...type.h1, color: color.deepMidnight, margin: `0 0 ${space.lg}`, textWrap: "pretty" }}>
             TSIA2 Math Prep&nbsp;
             <br />
-            <span style={{ color: color.sunsetOrange }}>Made Easy</span>.
+            {/* Period inside the span, not after it: outside it inherited the
+                near-black h1 colour and read as a stray mark. */}
+            <span style={{ color: color.sunsetOrange }}>Made Easy.</span>
           </h1>
 
           <p style={{ ...type.bodyLg, color: color.deepMidnight, margin: `0 0 ${space.xxl}`, maxWidth: "520px", textWrap: "pretty" }}>

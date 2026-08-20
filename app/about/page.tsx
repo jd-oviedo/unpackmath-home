@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { color, ink, inkMuted, onDark, rule, type, space, mq } from "../../lib/tokens";
 import { stats, formatStat } from "../../lib/stats";
+import { misconceptions } from "../../lib/misconceptions";
 import { Nav } from "../components/Nav";
 import { SiteFooter } from "../components/SiteFooter";
 import { SectionShell, SectionHeading, Button, Eyebrow, Frame, BulletList } from "../components/ui";
@@ -13,8 +14,8 @@ import { MEASURE } from "../components/legal";
 /**
  * /about
  *
- * Founder and origin, not product. The homepage carries a short founder section
- * and this is the long version; /for-teachers no longer carries one at all.
+ * Founder and origin, not product. This is the only founder content on the site:
+ * the homepage no longer carries a short version and /for-teachers never did.
  *
  * Voice is first person throughout, per the copy decision. The three paragraphs
  * preserved from the old /for-teachers founder block are NOT reinstated here,
@@ -36,22 +37,6 @@ export const metadata: Metadata = {
 const PRACTICE_TEST_HREF = "https://app.unpackmath.com/adaptive-test";
 const GENERAL_EMAIL = "hello@unpackmath.com";
 
-/** The three worked examples in section 03, pulled out of the paragraph. */
-const MISCONCEPTIONS = [
-  {
-    label: "Rise over run, inverted",
-    body: "The student divides the run by the rise. Same two numbers, reciprocal answer.",
-  },
-  {
-    label: "One step too early",
-    body: "The student solves correctly, then hands in the intermediate result.",
-  },
-  {
-    label: "A second increase, not a reversal",
-    body: "Asked for the original price, the student adds another twenty percent instead of undoing the first one.",
-  },
-];
-
 /** The three people in section 04. A set, so no numerals. */
 const TRIANGLE = [
   { label: "The student", body: "Finds out they are behind when it is too late to act on it." },
@@ -62,6 +47,20 @@ const TRIANGLE = [
 /** Named so the two payoff lines on this page stay identical in weight. */
 const PAYOFF_SIZE = "21px";
 
+/**
+ * Section 02 column sizes. SectionShell's band is maxWidth 1140px minus a 70px
+ * gutter on each side, so 1000px. These two plus MEASURE add to exactly that,
+ * which is what puts the prose on its measure with no leftover space.
+ */
+const ORIGIN_PHOTO = "260px";
+const ORIGIN_GAP = "60px";
+
+/**
+ * Half-leading compensation, so the top of the photo frame lines up with the
+ * cap height of the first line of prose rather than with its box.
+ */
+const ORIGIN_PHOTO_OPTICAL_NUDGE = "6px";
+
 /** Running paragraph, at the same weight the legal pages use for body copy. */
 function P({
   children,
@@ -70,7 +69,11 @@ function P({
 }: {
   children: React.ReactNode;
   tone?: "light" | "dark";
-  /** Section 02 floats an image into its prose, so it opts out. */
+  /**
+   * Every section on this page runs at MEASURE, and nothing currently overrides
+   * it. Kept as an escape hatch for a caller that genuinely needs a different
+   * width.
+   */
   measure?: string;
 }) {
   return (
@@ -125,18 +128,15 @@ function Hero() {
           .um-ab-tri > .um-ab-tricol + .um-ab-tricol { border-top: ${rule.onDarkMedium}; }
         }
         ${mq.md} {
-          /* A 240px float inside a ~327px column leaves an unusable ribbon of
-             text, so the wrap is dropped and the photo becomes a centred block
-             above the prose. */
-          /* Capped near the desktop width so the photo does not grow when the
-             grid stacks. */
-          /* A 190px float inside a ~327px column leaves an unusable ribbon of
-             text, so the wrap is dropped and the photo centres above the prose. */
+          /* One column, photo above the prose. Capped well under the desktop
+             column width so it cannot grow to fill a phone, and centred as a
+             block because a left-aligned image over full-width copy reads as
+             misaligned while scrolling. */
+          .um-ab-origin { grid-template-columns: 1fr !important; gap: 0 !important; }
           .um-ab-photo {
-            float: none !important;
             width: 60%;
-            max-width: 200px;
-            margin: 0 auto 24px !important;
+            max-width: 210px;
+            margin: 0 auto 28px !important;
           }
         }
       `}</style>
@@ -154,59 +154,82 @@ function Origin() {
       </SectionHeading>
 
       {/*
-        Floated photo so the prose wraps under it rather than leaving a column
-        of empty cream beside a short image.
+        Photo and prose as two grid columns, so the section fills the content
+        band the way every other section on this page does.
 
-        The container takes the page-wide prose measure, so section 02 sits
-        flush with every other text block rather than at a width of its own. A
-        float means the lines clearing the photo take the container's full
-        width, which at 680px is about 82 characters, and the text beside the
-        photo about 55.
+        The columns are sized to the band rather than guessed: SectionShell caps
+        content at 1140px and insets it by a 70px gutter on each side, so the
+        band is exactly 1000px, and ORIGIN_PHOTO plus ORIGIN_GAP plus MEASURE
+        adds up to it. The prose column therefore lands on its 680px measure
+        with no slack, which is what stops the section leaving a stretch of dead
+        cream on the right.
 
-        display:flow-root contains the float without a clearfix element.
+        The heading deliberately sits above the grid at full width, flush left,
+        so it still lines up with every other section heading on the page.
+
+        There is no float here and nothing containing one. The prose used to
+        wrap a floated photo, which ran the first two paragraphs about 27
+        characters short of the rest; a grid column gets the photo out of the
+        text flow entirely and lets all four paragraphs run at one measure.
       */}
-      <div style={{ maxWidth: MEASURE, display: "flow-root" }}>
+      <div
+        className="um-ab-origin"
+        style={{
+          display: "grid",
+          gridTemplateColumns: `${ORIGIN_PHOTO} 1fr`,
+          gap: ORIGIN_GAP,
+          alignItems: "start",
+        }}
+      >
         <div
           className="um-ab-photo"
           style={{
-            float: "left",
-            width: "190px",
+            width: ORIGIN_PHOTO,
             aspectRatio: "4 / 5",
             position: "relative",
             border: rule.strong,
             overflow: "hidden",
-            margin: `5px ${space.xxl} 16px 0`,
+            /*
+              alignItems:start puts the image box flush with the top of the
+              grid row, but the first paragraph's cap height sits below its own
+              box top by the font's half-leading. This nudges the frame down to
+              meet the text rather than the text's invisible box.
+            */
+            marginTop: ORIGIN_PHOTO_OPTICAL_NUDGE,
           }}
         >
           <Image
             src="/teacher.png"
             alt="Juan Oviedo, founder of UnpackMath, standing in his classroom in front of a whiteboard"
             fill
-            sizes="(max-width: 780px) 200px, 190px"
+            sizes={`(max-width: 780px) 220px, ${ORIGIN_PHOTO}`}
             style={{ objectFit: "cover", objectPosition: "47% 22%" }}
           />
         </div>
 
-        <P measure="100%">
-          I&apos;m Juan. Mr. O to my students. I taught high school math in East Houston for five years, and every
-          spring I watched the same thing happen. A kid who worked hard all year, who I knew could do the math,
-          would sit down for a college placement test and still land in remedial.
+        <div>
+        <P>
+          I&apos;m Mr.O. I taught high school math in East Houston for five years, and every spring I watched the
+          same thing happen. A kid who worked hard all year, who I knew could do the math, would sit down for a
+          college placement test and still land in remedial.
         </P>
-        <P measure="100%">
+        <P>
           That was not one student. Over five years it was hundreds of them, and it made me start asking what I was
           missing. What they had in common was not that they had failed to learn the math. It was that their
           thinking was breaking down, and for each of them it was breaking down somewhere different.
         </P>
-        <P measure="100%">
+        <P>
           Part of it is a mismatch nobody warns them about. On STAAR they have a graphing calculator, a reference
           sheet, and four years of practice with a familiar format. On the TSIA2 they get a basic calculator and a
           test that adapts to them, which means it finds the edge of what they know and keeps them there. That is a
           different experience, and it deserves different preparation.
         </P>
-        <P measure="100%">
-          I went looking for something that would show me where a student&apos;s thinking actually broke down. I
-          could not find it, so I rebuilt the same clumsy workaround by hand, week after week.
+        <P>
+          I needed a resource that did more than tell students whether an answer was right or wrong. It needed to
+          reflect the TSIA2 and reveal the exact point where their thinking started to slip. When I could not find
+          it, I decided to build it.
         </P>
+        </div>
       </div>
     </SectionShell>
   );
@@ -240,7 +263,7 @@ function WhatThatMeans() {
           padding: 0,
         }}
       >
-        {MISCONCEPTIONS.map((item) => (
+        {misconceptions.map((item) => (
           <li key={item.label} style={{ display: "flex" }}>
             <Frame
               label={item.label.toUpperCase()}
