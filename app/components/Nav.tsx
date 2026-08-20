@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { color, ink, radius, rule, type, space, maxWidth, motion, bp, mq } from "../../lib/tokens";
+import { color, ink, radius, rule, type, space, maxWidth, motion, mq } from "../../lib/tokens";
 import { Button, UiStyles } from "./ui";
 
 /**
@@ -31,6 +31,23 @@ const LOGIN_HREF = "https://app.unpackmath.com/login";
 const PRACTICE_TEST_HREF = "https://app.unpackmath.com/adaptive-test";
 
 const NAV_HEIGHT = 72;
+
+/**
+ * Viewport width below which the full link row folds into the hamburger.
+ *
+ * Measured, not guessed. The three flex groups need 1037px between them
+ * (wordmark 165, links 503, CTA group 325, plus two 22px gaps). The document
+ * stops overflowing at 1108px, which is the 70px left gutter plus that 1037,
+ * but at that width the CTA sits 1px from the edge of the screen because the
+ * content is simply covering the right gutter. The nav only clears the site's
+ * own 70px gutter on both sides at 1037 + 140 = 1177px, so that is the number
+ * this keys on, plus a few pixels of slack.
+ *
+ * This is deliberately not bp.lg. That breakpoint is 980px and is shared with
+ * the section grids on several pages, and the nav needs to fold ~200px earlier
+ * than they do.
+ */
+const NAV_COLLAPSE = 1180;
 
 // Source is 2000x485, so ~4.12:1. Height is pinned and width follows.
 const WORDMARK_HEIGHT = 40;
@@ -65,7 +82,7 @@ export function Nav() {
       if (navRef.current && !navRef.current.contains(e.target as Node)) setMenuOpen(false);
     };
     const onResize = () => {
-      if (window.innerWidth > bp.lg) setMenuOpen(false);
+      if (window.innerWidth >= NAV_COLLAPSE) setMenuOpen(false);
     };
     document.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onPointerDown);
@@ -263,11 +280,19 @@ export function Nav() {
 
       <UiStyles />
       <style href="um-nav" precedence="medium">{`
-        ${mq.lg} {
-          .um-nav { padding-left: 40px !important; padding-right: 40px !important; }
+        /*
+          The fold happens at NAV_COLLAPSE rather than at bp.lg, because the
+          link row runs out of room roughly 200px before the section grids do.
+          Below bp.lg the gutters also tighten, which is a separate concern and
+          stays on its own breakpoint.
+        */
+        @media (max-width: ${NAV_COLLAPSE - 0.02}px) {
           .um-nav-links,
           .um-nav-login { display: none !important; }
           .um-hamburger { display: flex !important; }
+        }
+        ${mq.lg} {
+          .um-nav { padding-left: 40px !important; padding-right: 40px !important; }
         }
         ${mq.md} {
           .um-nav {
