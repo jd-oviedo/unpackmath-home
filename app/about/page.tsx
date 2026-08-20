@@ -62,6 +62,20 @@ const TRIANGLE = [
 /** Named so the two payoff lines on this page stay identical in weight. */
 const PAYOFF_SIZE = "21px";
 
+/**
+ * Section 02 column sizes. SectionShell's band is maxWidth 1140px minus a 70px
+ * gutter on each side, so 1000px. These two plus MEASURE add to exactly that,
+ * which is what puts the prose on its measure with no leftover space.
+ */
+const ORIGIN_PHOTO = "260px";
+const ORIGIN_GAP = "60px";
+
+/**
+ * Half-leading compensation, so the top of the photo frame lines up with the
+ * cap height of the first line of prose rather than with its box.
+ */
+const ORIGIN_PHOTO_OPTICAL_NUDGE = "6px";
+
 /** Running paragraph, at the same weight the legal pages use for body copy. */
 function P({
   children,
@@ -71,10 +85,9 @@ function P({
   children: React.ReactNode;
   tone?: "light" | "dark";
   /**
-   * Every section on this page runs at MEASURE. The override exists for a
-   * caller that needs a different width, and nothing currently does: section 02
-   * used to pass "100%" so its prose could wrap a floated photo, and that float
-   * is gone.
+   * Every section on this page runs at MEASURE, and nothing currently overrides
+   * it. Kept as an escape hatch for a caller that genuinely needs a different
+   * width.
    */
   measure?: string;
 }) {
@@ -130,13 +143,15 @@ function Hero() {
           .um-ab-tri > .um-ab-tricol + .um-ab-tricol { border-top: ${rule.onDarkMedium}; }
         }
         ${mq.md} {
-          /* Same centred block as desktop, just proportional rather than a flat
-             190px, so it does not dominate a narrow column. Capped at 200px so
-             it cannot end up wider than the desktop treatment. */
+          /* One column, photo above the prose. Capped well under the desktop
+             column width so it cannot grow to fill a phone, and centred as a
+             block because a left-aligned image over full-width copy reads as
+             misaligned while scrolling. */
+          .um-ab-origin { grid-template-columns: 1fr !important; gap: 0 !important; }
           .um-ab-photo {
             width: 60%;
-            max-width: 200px;
-            margin: 0 auto 24px !important;
+            max-width: 210px;
+            margin: 0 auto 28px !important;
           }
         }
       `}</style>
@@ -154,40 +169,60 @@ function Origin() {
       </SectionHeading>
 
       {/*
-        The photo sits as a centred block above the prose, which is what this
-        section already did at mobile and now does at every width.
+        Photo and prose as two grid columns, so the section fills the content
+        band the way every other section on this page does.
 
-        It used to float left with the prose wrapping around it. That left the
-        first two paragraphs running at roughly 55 characters against the photo
-        and the rest at the full 82, and the ragged block plus the empty cream
-        to its right read as though the whole section had come loose from the
-        page. Unfloating it lets all four paragraphs run at one measure.
+        The columns are sized to the band rather than guessed: SectionShell caps
+        content at 1140px and insets it by a 70px gutter on each side, so the
+        band is exactly 1000px, and ORIGIN_PHOTO plus ORIGIN_GAP plus MEASURE
+        adds up to it. The prose column therefore lands on its 680px measure
+        with no slack, which is what stops the section leaving a stretch of dead
+        cream on the right.
 
-        The container keeps the page-wide prose measure and stays flush left,
-        matching Hero, WhatThatMeans, Triangle, WhoRunsIt and the legal pages.
-        This section is not centred, because nothing else on the site is.
+        The heading deliberately sits above the grid at full width, flush left,
+        so it still lines up with every other section heading on the page.
+
+        There is no float here and nothing containing one. The prose used to
+        wrap a floated photo, which ran the first two paragraphs about 27
+        characters short of the rest; a grid column gets the photo out of the
+        text flow entirely and lets all four paragraphs run at one measure.
       */}
-      <div style={{ maxWidth: MEASURE }}>
+      <div
+        className="um-ab-origin"
+        style={{
+          display: "grid",
+          gridTemplateColumns: `${ORIGIN_PHOTO} 1fr`,
+          gap: ORIGIN_GAP,
+          alignItems: "start",
+        }}
+      >
         <div
           className="um-ab-photo"
           style={{
-            width: "190px",
+            width: ORIGIN_PHOTO,
             aspectRatio: "4 / 5",
             position: "relative",
             border: rule.strong,
             overflow: "hidden",
-            margin: `0 auto ${space.xxl}`,
+            /*
+              alignItems:start puts the image box flush with the top of the
+              grid row, but the first paragraph's cap height sits below its own
+              box top by the font's half-leading. This nudges the frame down to
+              meet the text rather than the text's invisible box.
+            */
+            marginTop: ORIGIN_PHOTO_OPTICAL_NUDGE,
           }}
         >
           <Image
             src="/teacher.png"
             alt="Juan Oviedo, founder of UnpackMath, standing in his classroom in front of a whiteboard"
             fill
-            sizes="(max-width: 780px) 200px, 190px"
+            sizes={`(max-width: 780px) 220px, ${ORIGIN_PHOTO}`}
             style={{ objectFit: "cover", objectPosition: "47% 22%" }}
           />
         </div>
 
+        <div>
         <P>
           I&apos;m Juan. Mr. O to my students. I taught high school math in East Houston for five years, and every
           spring I watched the same thing happen. A kid who worked hard all year, who I knew could do the math,
@@ -208,6 +243,7 @@ function Origin() {
           I went looking for something that would show me where a student&apos;s thinking actually broke down. I
           could not find it, so I rebuilt the same clumsy workaround by hand, week after week.
         </P>
+        </div>
       </div>
     </SectionShell>
   );
