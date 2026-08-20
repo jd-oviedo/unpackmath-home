@@ -224,9 +224,9 @@ function Origin() {
 
         <div>
         <P>
-          I&apos;m Juan. Mr. O to my students. I taught high school math in East Houston for five years, and every
-          spring I watched the same thing happen. A kid who worked hard all year, who I knew could do the math,
-          would sit down for a college placement test and still land in remedial.
+          I&apos;m Mr.O. I taught high school math in East Houston for five years, and every spring I watched the
+          same thing happen. A kid who worked hard all year, who I knew could do the math, would sit down for a
+          college placement test and still land in remedial.
         </P>
         <P>
           That was not one student. Over five years it was hundreds of them, and it made me start asking what I was
@@ -240,8 +240,9 @@ function Origin() {
           different experience, and it deserves different preparation.
         </P>
         <P>
-          I went looking for something that would show me where a student&apos;s thinking actually broke down. I
-          could not find it, so I rebuilt the same clumsy workaround by hand, week after week.
+          I needed a resource that did more than tell students whether an answer was right or wrong. It needed to
+          reflect the TSIA2 and reveal the exact point where their thinking started to slip. When I could not find
+          it, I decided to build it.
         </P>
         </div>
       </div>
