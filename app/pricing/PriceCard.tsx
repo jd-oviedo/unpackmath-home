@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { color, ink, inkMuted, rule, type, space } from "../../lib/tokens";
+import { color, ink, inkMuted, onDark, rule, type, space } from "../../lib/tokens";
 import { Button } from "../components/ui";
 
 /**
@@ -45,7 +45,52 @@ export type Tier = {
 
 const ONE_TIME_NOTE = "One-time purchase, no renewal.";
 
-function FeatureList({ features }: { features: Feature[] }) {
+/**
+ * Both tones of the feature row, in one place.
+ *
+ * The dark tone exists because the campus band on /pricing needs a coming tag
+ * and is not a card, so it cannot borrow one from PriceCard by rendering one.
+ * It follows the same convention as Eyebrow, SectionHeading, P and
+ * NumberedFeatureRow: a tone prop on the shared component rather than a second
+ * copy of the treatment living in the section that needed it.
+ *
+ * The dark values are not a straight mirror of the light ones. Two of the three
+ * transpose cleanly and one does not:
+ *
+ *   text    ink(0.62) is 5.40:1 on white; onDark(0.6) is 7.25:1 on Deep
+ *           Midnight. 0.6 rather than 0.62 because it is already the muted
+ *           alpha the campus band uses for its group label, so the dark tone
+ *           adds no new number to the palette.
+ *   marker  ink(0.4) transposes to onDark(0.4), 3.81:1, which clears the 3:1
+ *           floor for a non-text shape.
+ *   pill    ink(0.3) does NOT transpose. onDark(0.3) is 2.64:1, under that same
+ *           floor, so the border goes to onDark(0.4) instead. This is the one
+ *           value that had to be chosen rather than converted.
+ *
+ * Worth knowing if you touch the markers: the filled orange square is 9.19:1 on
+ * Deep Midnight and 2.10:1 on white. The shipped-versus-coming distinction is
+ * carried by shape on both tones, which is why that gap is survivable, but it
+ * reads better on the dark band than on the cards.
+ */
+const TONE = {
+  light: {
+    shipped: color.deepMidnight,
+    muted: ink(inkMuted),
+    marker: `1px solid ${ink(0.4)}`,
+    pill: `1px solid ${ink(0.3)}`,
+  },
+  dark: {
+    shipped: onDark(0.85),
+    muted: onDark(0.6),
+    marker: `1px solid ${onDark(0.4)}`,
+    pill: `1px solid ${onDark(0.4)}`,
+  },
+} as const;
+
+export type FeatureTone = keyof typeof TONE;
+
+export function FeatureList({ features, tone = "light" }: { features: Feature[]; tone?: FeatureTone }) {
+  const palette = TONE[tone];
   return (
     <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "11px" }}>
       {features.map((feature) => {
@@ -59,7 +104,7 @@ function FeatureList({ features }: { features: Feature[] }) {
               alignItems: "flex-start",
               ...type.bodySm,
               fontSize: "14.5px",
-              color: coming ? ink(inkMuted) : color.deepMidnight,
+              color: coming ? palette.muted : palette.shipped,
             }}
           >
             {/*
@@ -75,7 +120,7 @@ function FeatureList({ features }: { features: Feature[] }) {
                 height: "7px",
                 marginTop: "7px",
                 background: coming ? "transparent" : color.sunsetOrange,
-                border: coming ? `1px solid ${ink(0.4)}` : "none",
+                border: coming ? palette.marker : "none",
               }}
             />
             <span>
@@ -90,8 +135,8 @@ function FeatureList({ features }: { features: Feature[] }) {
                     fontSize: "9.5px",
                     letterSpacing: "0.1em",
                     textTransform: "uppercase",
-                    color: ink(inkMuted),
-                    border: `1px solid ${ink(0.3)}`,
+                    color: palette.muted,
+                    border: palette.pill,
                     padding: "2px 5px",
                   }}
                 >
