@@ -1,11 +1,10 @@
 import { color, ink, inkMuted, onDark, rule, type, space, mq } from "../../lib/tokens";
 import { upgradeHref } from "../../lib/plans";
 import { stats } from "../../lib/stats";
-import { riseOverRunInverted } from "../../lib/misconceptions";
 import { Nav } from "../components/Nav";
 import { SiteFooter } from "../components/SiteFooter";
 import { Accordion, type AccordionItem } from "../components/Accordion";
-import { SectionShell, SectionHeading, Button, Eyebrow, MisconceptionCard } from "../components/ui";
+import { SectionShell, SectionHeading, Button, Eyebrow } from "../components/ui";
 import { PriceCard, CardRow, type Tier } from "./PriceCard";
 import { TeacherPlans } from "./TeacherPlans";
 
@@ -110,59 +109,21 @@ const FAQS: AccordionItem[] = [
 function Hero() {
   return (
     <SectionShell surface="white" paddingY="74px">
-      {/*
-        Prose left, one product surface right, matching the other page heroes.
-        The columns are the pair this page already uses on its campus band,
-        1fr and 360px at a 60px gap, rather than a third set of numbers: in a
-        1000px band that leaves the prose 580px, which is inside the 620px cap
-        the subhead already carried.
-
-        Centred rather than top aligned, matching the /for-teachers and
-        /for-schools heroes. This card is about half the height of the copy
-        beside it, and starting both at the same line left it hanging off the
-        top with the dead space all below it.
-      */}
-      <div
-        className="um-pr-hero"
-        style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: "60px", alignItems: "center" }}
-      >
-        <div>
-          <Eyebrow>Pricing</Eyebrow>
-          <h1
-            className="um-pr-h1"
-            style={{ ...type.h1Compact, color: color.deepMidnight, margin: `0 0 ${space.lg}`, textWrap: "pretty" }}
-          >
-            Pick the plan that fits.
-          </h1>
-          <p style={{ ...type.bodyLg, color: color.deepMidnight, margin: 0, maxWidth: "620px", textWrap: "pretty" }}>
-            The adaptive diagnostic is free for every student, always. Everything below is for people who want the
-            misconception data behind it.
-          </p>
-        </div>
-
-        {/*
-          The subhead promises "the misconception data behind it", so the figure
-          is that data rather than decoration: one real tagged pattern from the
-          item bank, in the same card the /about section uses.
-
-          Deliberately not aria-hidden. The homepage hero figure is, because it
-          is a fake test question a screen reader gains nothing from. This one
-          is a short piece of real product copy that backs up the sentence next
-          to it, so it stays in the accessibility tree.
-
-          Static by design. No rotation, no animation.
-        */}
-        <div className="um-pr-hero-card">
-          <MisconceptionCard label={riseOverRunInverted.label} body={riseOverRunInverted.body} />
-        </div>
+      <div style={{ maxWidth: "720px" }}>
+        <Eyebrow>Pricing</Eyebrow>
+        <h1
+          className="um-pr-h1"
+          style={{ ...type.h1Compact, color: color.deepMidnight, margin: `0 0 ${space.lg}`, textWrap: "pretty" }}
+        >
+          Pick the plan that fits.
+        </h1>
+        <p style={{ ...type.bodyLg, color: color.deepMidnight, margin: 0, maxWidth: "620px", textWrap: "pretty" }}>
+          The adaptive diagnostic is free for every student, always. Everything below is for people who want the
+          misconception data behind it.
+        </p>
       </div>
 
       <style href="um-pr-hero" precedence="medium">{`
-        ${mq.lg} {
-          .um-pr-hero { grid-template-columns: 1fr !important; gap: 40px !important; }
-          /* Capped at its desktop width, so stacking cannot make it grow. */
-          .um-pr-hero-card { max-width: 360px; }
-        }
         ${mq.md} { .um-pr-h1 { font-size: 38px !important; } }
         ${mq.sm} { .um-pr-h1 { font-size: 30px !important; } }
       `}</style>
