@@ -35,10 +35,21 @@ const TEACHER_PRO_FEATURES: Tier["features"] = [
   { label: "CSV export of roster, scores, and misconception data", status: "shipped" },
   { label: "A co-teacher seat, so a partner teacher shares the roster", status: "shipped" },
   { label: "Early access to new features", status: "shipped" },
-  {
-    label: "Parent digest, a weekly email in English and Spanish that you review before it sends",
-    status: "coming",
-  },
+  /*
+    Shipped, not coming. The digest is live at app.unpackmath.com/reporte, which
+    returns 200 and renders the weekly report itself with the English/Spanish
+    toggle and "Se envia cada viernes" (verified 2026-08-20). The homepage has
+    been linking to it as "Preview a parent report" with no coming treatment, so
+    this row was also putting /pricing in contradiction with /.
+
+    Only the status was wrong. The label is accurate as written.
+
+    Note for whoever revisits this: app/terms/page.tsx:174 still calls the parent
+    digest "in active development". That is legal copy and is deliberately left
+    alone here. It is recorded as item 8 in legal-audit-2026-08.md for attorney
+    sign-off rather than being quietly corrected.
+  */
+  { label: "Parent digest, a weekly email in English and Spanish that you review before it sends", status: "shipped" },
   { label: "Unlimited worksheets, including two-version output", status: "coming" },
 ];
 

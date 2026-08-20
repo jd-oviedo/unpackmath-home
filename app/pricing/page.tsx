@@ -49,7 +49,17 @@ const STUDENT_TIERS: Tier[] = [
     groupLabel: "Everything in Free, plus",
     features: [
       { label: `Full practice bank across all ${stats.curriculumTopics} topics`, status: "shipped" },
-      { label: "A worked solution on every problem, not just the answer", status: "shipped" },
+      /*
+        "you get right" is load-bearing, not a hedge. loadEarnedSolutions releases
+        a worked solution only for items already answered correctly or disclosed
+        through GUMU, and Practice Pass does not include GUMU, so the unqualified
+        "on every problem" this used to read was false for the tier it sits under.
+        Not "you solve" either: that can be read as "attempted". This is a
+        paid-product claim with live Stripe Payment Links behind it, so it is a
+        correctness fix. The same phrase appears in the FAQ below and the two must
+        not drift apart. Recorded as item 7 in legal-audit-2026-08.md.
+      */
+      { label: "A worked solution on every problem you get right, not just the answer", status: "shipped" },
       { label: "The named misconception behind every wrong answer", status: "shipped" },
       { label: "Progress tracking by topic", status: "shipped" },
       { label: "Printable worksheets you can pull yourself", status: "coming" },
@@ -88,7 +98,11 @@ const FAQS: AccordionItem[] = [
   },
   {
     q: "What do the paid student passes add?",
-    a: `The named misconception behind every wrong answer, a worked solution on every problem, and the full practice bank across all ${stats.curriculumTopics} topics. Full Course adds the lessons, a structured sequence, and GUMU, an AI tutor that works through the lesson problems with you.`,
+    // Same "you get right" qualifier as the Practice Pass card above, and for the
+    // same reason. This answer names the paid student passes explicitly, so the
+    // unqualified version was the more direct misstatement of the two. The
+    // wrong-answer / right-answer pairing is a side benefit of the fix.
+    a: `The named misconception behind every wrong answer, a worked solution on every problem you get right, and the full practice bank across all ${stats.curriculumTopics} topics. Full Course adds the lessons, a structured sequence, and GUMU, an AI tutor that works through the lesson problems with you.`,
   },
   {
     q: "What is the difference between the two student passes?",
