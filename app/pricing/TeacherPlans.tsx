@@ -31,25 +31,27 @@ const TEACHER_FEATURES: Tier["features"] = [
 
 const TEACHER_PRO_FEATURES: Tier["features"] = [
   { label: "Unlimited classes", status: "shipped" },
-  { label: "Multi-class comparison view for department-level reporting", status: "shipped" },
+  { label: "Multi-class comparison view for department-level reporting", status: "coming" },
   { label: "CSV export of roster, scores, and misconception data", status: "shipped" },
   { label: "A co-teacher seat, so a partner teacher shares the roster", status: "shipped" },
   { label: "Early access to new features", status: "shipped" },
   /*
-    Shipped, not coming. The digest is live at app.unpackmath.com/reporte, which
-    returns 200 and renders the weekly report itself with the English/Spanish
-    toggle and "Se envia cada viernes" (verified 2026-08-20). The homepage has
-    been linking to it as "Preview a parent report" with no coming treatment, so
-    this row was also putting /pricing in contradiction with /.
+    Back to coming, reversing the 2026-08-20 flip to shipped. That flip read
+    app.unpackmath.com/reporte returning 200 as proof the digest had shipped to
+    Teacher Pro. It has not: /reporte is a preview of what the digest looks
+    like, which is also all the homepage claims when it links there as "Preview
+    a parent report". The thing this row sells, a weekly email you review before
+    it sends, is not live for a paying Teacher Pro subscriber.
 
-    Only the status was wrong. The label is accurate as written.
+    Only the status is wrong, in this direction as in the last one. The label is
+    accurate as written and has never changed.
 
-    Note for whoever revisits this: app/terms/page.tsx:174 still calls the parent
-    digest "in active development". That is legal copy and is deliberately left
-    alone here. It is recorded as item 8 in legal-audit-2026-08.md for attorney
-    sign-off rather than being quietly corrected.
+    Recorded as item 8 in legal-audit-2026-08.md, which now carries both the
+    flip and this reversal. app/terms/page.tsx:174, calling the digest "in
+    active development", is correct again as a result. It was left alone through
+    both changes because it is legal copy, per section 12 of that audit.
   */
-  { label: "Parent digest, a weekly email in English and Spanish that you review before it sends", status: "shipped" },
+  { label: "Parent digest, a weekly email in English and Spanish that you review before it sends", status: "coming" },
   { label: "Unlimited worksheets, including two-version output", status: "coming" },
 ];
 

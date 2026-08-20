@@ -79,9 +79,9 @@ Listed for the reviewer's orientation. **No analysis, no position taken.** Engin
 | **213** | 05 Refund Policy | "7-day refund window for new **individual subscribers** who have not substantially used the Platform (defined as completing fewer than 5 practice sessions)" | Scoped to subscribers. A student who buys a $49 pass is arguably outside the only refund clause in the document. **Highest commercial risk item.** |
 | **214** | 05 Price Changes | "reserves the right to change **subscription** prices... 30 days notice... for existing **subscribers**" | Silent on one-time passes. |
 | **340** | 14 Termination (By You) | "Termination does not entitle you to a refund **except as described in Section 5**." | Section 5 does not describe pass refunds, so this cross-reference resolves to nothing for a pass holder. |
-| **145–149** | 02 Description of Service | Five-item feature list | **Materially incomplete.** Omits the GUMU Socratic tutor, the full curriculum (97 topics, Units 0–5), the practice bank, worked solutions, CSV export, multi-class comparison, and the co-teacher seat. All are advertised as shipped on `/pricing`. |
+| **145–149** | 02 Description of Service | Five-item feature list | **Materially incomplete.** Omits the GUMU Socratic tutor, the full curriculum (97 topics, Units 0–5), the practice bank, worked solutions, CSV export, and the co-teacher seat. All are advertised as shipped on `/pricing`. Multi-class comparison was on this list until 2026-08-20, when `/pricing` retagged it COMING; it is dropped here because an omitted forthcoming feature is not the same defect. See item 8 in §2a. |
 | **148** | 02 Description of Service | "Quantitative Reasoning, Algebraic Reasoning, **Geometric Reasoning**, and **Probabilistic Reasoning**" | Strand names disagree with the rest of the site, which uses "Geometric **and Spatial** Reasoning" and "Probabilistic **and Statistical** Reasoning" (homepage FAQ, `/pricing`). One of the two is wrong against the official TSIA2 blueprint. |
-| **152** | 02 Notice, "Coming Soon" | "A weekly parent digest **and expanded curriculum features** are in active development and will be added in future releases." | **Both halves of this sentence are now stale, and this row has been corrected.** The curriculum shipped first: `/pricing` sells "Lessons for all 97 topics, Units 0 through 5" as a live feature. **The parent digest has since shipped too**, at `app.unpackmath.com/reporte`, verified 2026-08-20. This row previously read "The parent digest is still correctly described as forthcoming," which was true when written on 2026-08-18 and is not true now. See item 8 in §2a. |
+| **152** | 02 Notice, "Coming Soon" | "A weekly parent digest **and expanded curriculum features** are in active development and will be added in future releases." | The curriculum has shipped: `/pricing` sells "Lessons for all 97 topics, Units 0 through 5" as a live feature. The parent digest is still correctly described as forthcoming. **This row was briefly amended on 2026-08-20 to say the digest had shipped, then restored to its original reading when that finding did not hold. See item 8 in §2a.** |
 
 ### 2.2 Privacy Policy
 
@@ -101,7 +101,7 @@ Listed for the reviewer's orientation. **No analysis, no position taken.** Engin
 
 Numbering continues from §2 rather than restarting, so a reviewer can cite an item without naming a subsection.
 
-Items 7 and 8 were fixed in the same change that added this section. Item 9 was not, and cannot be from this repository.
+Items 7 and 8 were fixed in the same change that added this section. **Item 8's fix was then reversed later the same day and the row is back where it started; the entry records both moves.** Item 9 was never fixed, and cannot be from this repository.
 
 ### 7. Practice Pass advertised a worked solution on every problem. It does not include one.
 
@@ -136,9 +136,9 @@ Items 7 and 8 were fixed in the same change that added this section. Item 9 was 
 
 **For the reviewer:** this is the kind of claim that would need a decision about purchasers who bought under the old wording. Engineering has no view on that and is not proposing one. Flagged because the fix stops the exposure going forward and does nothing about what came before.
 
-### 8. The parent digest was labelled COMING on `/pricing` while it was live in production.
+### 8. The parent digest COMING label was removed on the strength of a preview page, then restored.
 
-**Status: fixed 2026-08-20 in `app/pricing/TeacherPlans.tsx`. One related defect is NOT fixed and needs attorney sign-off. See below.**
+**Status: the 2026-08-20 fix recorded below was REVERSED on 2026-08-20 in `app/pricing/TeacherPlans.tsx`. The row reads `status: "coming"` again, which is where it started. Read the reversal note at the end of this entry before relying on anything above it. One related defect is NOT fixed and needs attorney sign-off; it is unaffected by the reversal.**
 
 | | |
 |---|---|
@@ -161,6 +161,20 @@ Items 7 and 8 were fixed in the same change that added this section. Item 9 was 
 
 That row previously ended: *"The parent digest is still correctly described as forthcoming."* That was accurate on 2026-08-18 when this audit was written. It is not accurate now. Left as it was, it would have told the reviewer that a stale clause in the Terms was fine.
 
+#### REVERSED: the row is `status: "coming"` again
+
+**Everything above this heading describes a change that no longer stands, and the reasoning that produced it does not survive review.**
+
+The fix rested on one piece of evidence: `https://app.unpackmath.com/reporte` returns HTTP 200 and renders a weekly report. That page is a **preview of what the digest looks like**, not the digest operating for a subscriber. The homepage says as much: `app/components/sections/ParentDigest.tsx:61` links to it under "Preview a parent report". A rendering preview is not the shipped feature, and reading a 200 as proof of delivery was the error.
+
+What the `/pricing` row sells is "a weekly email in English and Spanish that you review before it sends". Nothing verified on 2026-08-20 showed a Teacher Pro subscriber receiving that email, holding it for review, or releasing it. The row was therefore returned to `status: "coming"`, alongside the multi-class comparison row, which was tagged in the same change.
+
+**This entry is left standing rather than deleted.** The original defect was real when this audit was written, and the reversal is itself the kind of thing a reviewer needs to see: a paid-product claim on `/pricing` was widened, briefly, on evidence that did not support it. **The direction of the risk flipped with it.** As recorded above, a shipped feature marked COMING understates the product. A feature that is not yet delivered marked as shipped, on a tier with live Stripe Payment Links, is a misrepresentation to a purchaser, and that is the more serious of the two. It was live for less than a day.
+
+**The "Corroborating internal contradiction" paragraph above is withdrawn.** `/pricing` and `/` were never in contradiction. Both treat `/reporte` as a preview.
+
+**The §2.1 correction made by this entry is also withdrawn.** The `terms:152` row is restored to its original reading: the parent digest is still correctly described as forthcoming. That row's other finding, that the curriculum has shipped, was never in question and stands.
+
 #### NOT FIXED, and requiring attorney sign-off: `app/terms/page.tsx:174`
 
 **This is a live legal-text defect in production and it is deliberately still there.**
@@ -169,11 +183,11 @@ That row previously ended: *"The parent digest is still correctly described as f
 
 > "A weekly parent digest and expanded curriculum features are in active development and will be added in future releases. These Terms will be updated to reflect new features as they become available."
 
-**Both named items have shipped.** The curriculum shipped before this audit was first written and is already recorded in the §2.1 `terms:152` row. The parent digest has now shipped as well. The sentence describes a product state that no longer exists, in the document that defines what the service is.
+**One of the two named items has shipped.** The curriculum shipped before this audit was first written and is already recorded in the §2.1 `terms:152` row. **The parent digest has not**, per the reversal above, so that half of the sentence is accurate and this notice cannot simply be emptied. The defect is narrower than it looked on 2026-08-20: the sentence names one shipped feature and one forthcoming feature as though both were forthcoming.
 
-**It was not corrected in the change that fixed items 7 and 8, and that was on purpose.** It is legal text. §12 of this audit records that no legal text has been edited, and that holds. This entry exists so the defect reaches counsel and gets revised under sign-off, rather than being quietly corrected by engineering as a copy tidy. **Any revision to this sentence is the attorney's, not engineering's.**
+**It was not corrected in the change that fixed item 7, and that was on purpose.** It is legal text. §12 of this audit records that no legal text has been edited, and that holds through both the digest flip and its reversal. This entry exists so the defect reaches counsel and gets revised under sign-off, rather than being quietly corrected by engineering as a copy tidy. **Any revision to this sentence is the attorney's, not engineering's.**
 
-Worth noting for whoever drafts it: the notice may not need replacing so much as emptying. If both named items have shipped, there may be nothing left for a "Coming Soon" section in §02 to describe, and the surrounding feature list at `terms:145-149` is already flagged in §2.1 as materially incomplete for the same underlying reason. Those two are probably one edit.
+Worth noting for whoever drafts it: the curriculum is the half that needs to come out, and the surrounding feature list at `terms:145-149` is already flagged in §2.1 as materially incomplete for the same underlying reason, since the curriculum is missing there too. Those two are probably one edit. **Nothing on `/pricing` should be read as settling whether the digest has shipped**, given that the row describing it has now been flipped in both directions inside a single day.
 
 ### 9. The worksheet print footer carries no non-affiliation disclaimer.
 
