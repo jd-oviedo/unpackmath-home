@@ -21,8 +21,21 @@ html {
   The sticky nav is 72px, so in-page anchors need to clear it or the target
   heading lands underneath the bar. Load-bearing for the legal-page tables of
   contents.
+
+  section[id] is here alongside :target because :target does not match after a
+  client-side hash navigation. Going from /for-students to /#demo left the
+  offset unapplied and dropped the section under the sticky bar, while a cold
+  load of the same URL landed correctly. Every in-page anchor on the marketing
+  pages is a SectionShell, which renders a <section id>, so keying on the
+  element rather than on its target state makes the offset apply on all three
+  paths: cold load, same-page jump and client nav.
+
+  Kept as one rule so the offset exists in exactly one place. The legal pages
+  set the same value inline on their own targets, which is why their tables of
+  contents were never affected by this.
 */
-:target {
+:target,
+section[id] {
   scroll-margin-top: 88px;
 }
 
