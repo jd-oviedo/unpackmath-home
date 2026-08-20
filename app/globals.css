@@ -35,6 +35,68 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* -------------------------------- motion ---------------------------------- */
+
+/*
+  Motion tokens, the single source of truth for every duration and easing curve
+  on the site.
+
+  They live here rather than in lib/tokens.ts because CSS keyframes and hover
+  rules cannot read a JS object, while inline style props can read a CSS custom
+  property. lib/tokens.ts `motion` composes these into transition shorthands, so
+  the nine components using inline transitions and the rules in this file are
+  driven by the same two numbers.
+
+  Opacity and small position shifts only, per the flat design system. No scale
+  bounces, no shadows appearing on hover, no gradients.
+*/
+:root {
+  --um-motion-fast: 160ms;
+  --um-motion-mid: 220ms;
+  --um-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/*
+  Route-change fade, applied by app/components/PageTransition.tsx to a wrapper
+  keyed on the pathname. Never applied on the first render, so a cold load
+  paints its text immediately instead of waiting out a fade.
+*/
+@keyframes um-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.um-page-in {
+  animation: um-page-in var(--um-motion-mid) var(--um-ease) both;
+}
+
+/*
+  Price figure swap on /pricing, applied by app/pricing/PriceCard.tsx to a span
+  keyed on the price string, so toggling monthly to annual restarts it. The
+  outgoing figure is replaced rather than crossfaded against, which is why this
+  is a fade in on its own and not a pair of stacked nodes.
+*/
+@keyframes um-price-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.um-price-swap {
+  animation: um-price-in var(--um-motion-mid) var(--um-ease) both;
+}
+
 /*
   Links inherit by default. Link colour is applied per component rather than
   globally, because links on Deep Midnight bands and links on light surfaces
@@ -69,5 +131,20 @@ video {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  /*
+    The rules above flatten duration but leave the transform in place, and a
+    keyframe's `from` transform can still land for a frame. These are the only
+    hooks on the site that animate position, so they are neutralised by name
+    rather than by widening the blanket above to every element.
+  */
+  .um-page-in,
+  .um-price-swap {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .um-navlink::after {
+    transition: none !important;
   }
 }
