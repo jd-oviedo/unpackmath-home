@@ -49,6 +49,17 @@ const NAV_HEIGHT = 72;
  */
 const NAV_COLLAPSE = 1180;
 
+/**
+ * Width of the folded menu panel above phone widths.
+ *
+ * The panel is anchored under the hamburger rather than stretched across the
+ * bar. It used to span the full nav, which was fine on a phone and looked
+ * unfinished at 1024px, where seven short labels sat down the left of a panel
+ * that was roughly 85 percent empty. At mq.md and below it goes back to full
+ * width, so the phone layout is untouched.
+ */
+const MENU_WIDTH = "380px";
+
 // Source is 2000x485, so ~4.12:1. Height is pinned and width follows.
 const WORDMARK_HEIGHT = 40;
 const WORDMARK_WIDTH = Math.round(WORDMARK_HEIGHT * (2000 / 485));
@@ -228,15 +239,26 @@ export function Nav() {
         {menuOpen && (
           <div
             id="um-mobile-menu"
+            className="um-menu"
             style={{
               position: "absolute",
               top: "100%",
-              left: 0,
-              right: 0,
+              left: "auto",
+              /*
+                Offset by the gutter rather than pinned to 0. The panel is
+                absolute against the nav's padding box, so right:0 would land it
+                on the viewport edge, 70px past the hamburger it belongs to.
+                This lines its right edge up with the nav's content column, and
+                therefore with the hamburger, which is the last item in it.
+              */
+              right: space.gutter,
+              width: MENU_WIDTH,
+              maxWidth: "100%",
               display: "flex",
               flexDirection: "column",
               background: color.white,
               borderTop: rule.hair,
+              borderLeft: rule.hair,
               borderBottom: rule.medium,
               padding: `${space.sm} 0`,
             }}
@@ -290,15 +312,31 @@ export function Nav() {
           .um-nav-links,
           .um-nav-login { display: none !important; }
           .um-hamburger { display: flex !important; }
+          /*
+            With the link row gone the bar is down to three items, and
+            space-between then strands the CTA in the middle of an otherwise
+            empty bar. Pushing it right groups it with the hamburger and leaves
+            the wordmark alone on the left.
+          */
+          .um-nav-cta { margin-left: auto !important; }
         }
         ${mq.lg} {
           .um-nav { padding-left: 40px !important; padding-right: 40px !important; }
+          /* Track the tighter gutter, so the panel stays under the hamburger. */
+          .um-menu { right: 40px !important; }
         }
         ${mq.md} {
           .um-nav {
             padding-left: ${space.gutterMobile} !important;
             padding-right: ${space.gutterMobile} !important;
             gap: ${space.md} !important;
+          }
+          /* Phone layout unchanged: the panel spans the bar as it always did. */
+          .um-menu {
+            left: 0 !important;
+            right: 0 !important;
+            width: auto !important;
+            border-left: none !important;
           }
           .um-wordmark-link { flex-shrink: 1 !important; min-width: 0 !important; }
           .um-wordmark { height: auto !important; max-height: 36px; max-width: 100%; }
