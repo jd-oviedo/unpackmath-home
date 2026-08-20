@@ -114,9 +114,12 @@ function P({ children, tone = "light" }: { children: React.ReactNode; tone?: "li
  * One misconception across four sections, the transpose of the homepage
  * TeacherDashboard card, which shows many misconceptions inside one section.
  *
- * Page-local, like MisconceptionCard on /for-teachers and EngineCard on the
- * homepage. The two inline style objects for the label and the misconception
- * line are copied from MisconceptionCard rather than extracted: a primitive
+ * Page-local, like the MisconceptionCard defined inside /for-teachers and the
+ * EngineCard inside the homepage hero. Neither is shared, and there is no
+ * misconception card in components/ui.tsx to confuse either of them with.
+ *
+ * The two inline style objects for the label and the misconception line are
+ * copied from that /for-teachers component rather than extracted: a primitive
  * built from a two-line style with two call sites is premature, and the right
  * thing to extract at a third instance is the whole card, not the text style.
  *

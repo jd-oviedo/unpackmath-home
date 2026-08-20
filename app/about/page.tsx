@@ -5,7 +5,7 @@ import { stats, formatStat } from "../../lib/stats";
 import { misconceptions } from "../../lib/misconceptions";
 import { Nav } from "../components/Nav";
 import { SiteFooter } from "../components/SiteFooter";
-import { SectionShell, SectionHeading, Button, Eyebrow, MisconceptionCard, BulletList } from "../components/ui";
+import { SectionShell, SectionHeading, Button, Eyebrow, Frame, BulletList } from "../components/ui";
 // The reading measure from the legal pages, adopted page-wide here. It is the
 // one deliberately chosen measure on the site, so it is imported rather than
 // redeclared. Do not swap a usage back to a local number.
@@ -265,7 +265,16 @@ function WhatThatMeans() {
       >
         {misconceptions.map((item) => (
           <li key={item.label} style={{ display: "flex" }}>
-            <MisconceptionCard label={item.label} body={item.body} />
+            <Frame
+              label={item.label.toUpperCase()}
+              headerBackground={color.mercuryCream}
+              style={{ display: "flex", flexDirection: "column", width: "100%" }}
+            >
+              {/* flex:1 so a two-line and a three-line body match height in a row */}
+              <p style={{ ...type.bodySm, flex: 1, color: ink(0.85), margin: 0, padding: "16px 16px 18px" }}>
+                {item.body}
+              </p>
+            </Frame>
           </li>
         ))}
       </ul>
