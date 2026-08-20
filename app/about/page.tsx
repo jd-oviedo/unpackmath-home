@@ -70,7 +70,12 @@ function P({
 }: {
   children: React.ReactNode;
   tone?: "light" | "dark";
-  /** Section 02 floats an image into its prose, so it opts out. */
+  /**
+   * Every section on this page runs at MEASURE. The override exists for a
+   * caller that needs a different width, and nothing currently does: section 02
+   * used to pass "100%" so its prose could wrap a floated photo, and that float
+   * is gone.
+   */
   measure?: string;
 }) {
   return (
@@ -125,15 +130,10 @@ function Hero() {
           .um-ab-tri > .um-ab-tricol + .um-ab-tricol { border-top: ${rule.onDarkMedium}; }
         }
         ${mq.md} {
-          /* A 240px float inside a ~327px column leaves an unusable ribbon of
-             text, so the wrap is dropped and the photo becomes a centred block
-             above the prose. */
-          /* Capped near the desktop width so the photo does not grow when the
-             grid stacks. */
-          /* A 190px float inside a ~327px column leaves an unusable ribbon of
-             text, so the wrap is dropped and the photo centres above the prose. */
+          /* Same centred block as desktop, just proportional rather than a flat
+             190px, so it does not dominate a narrow column. Capped at 200px so
+             it cannot end up wider than the desktop treatment. */
           .um-ab-photo {
-            float: none !important;
             width: 60%;
             max-width: 200px;
             margin: 0 auto 24px !important;
@@ -154,28 +154,29 @@ function Origin() {
       </SectionHeading>
 
       {/*
-        Floated photo so the prose wraps under it rather than leaving a column
-        of empty cream beside a short image.
+        The photo sits as a centred block above the prose, which is what this
+        section already did at mobile and now does at every width.
 
-        The container takes the page-wide prose measure, so section 02 sits
-        flush with every other text block rather than at a width of its own. A
-        float means the lines clearing the photo take the container's full
-        width, which at 680px is about 82 characters, and the text beside the
-        photo about 55.
+        It used to float left with the prose wrapping around it. That left the
+        first two paragraphs running at roughly 55 characters against the photo
+        and the rest at the full 82, and the ragged block plus the empty cream
+        to its right read as though the whole section had come loose from the
+        page. Unfloating it lets all four paragraphs run at one measure.
 
-        display:flow-root contains the float without a clearfix element.
+        The container keeps the page-wide prose measure and stays flush left,
+        matching Hero, WhatThatMeans, Triangle, WhoRunsIt and the legal pages.
+        This section is not centred, because nothing else on the site is.
       */}
-      <div style={{ maxWidth: MEASURE, display: "flow-root" }}>
+      <div style={{ maxWidth: MEASURE }}>
         <div
           className="um-ab-photo"
           style={{
-            float: "left",
             width: "190px",
             aspectRatio: "4 / 5",
             position: "relative",
             border: rule.strong,
             overflow: "hidden",
-            margin: `5px ${space.xxl} 16px 0`,
+            margin: `0 auto ${space.xxl}`,
           }}
         >
           <Image
@@ -187,23 +188,23 @@ function Origin() {
           />
         </div>
 
-        <P measure="100%">
+        <P>
           I&apos;m Juan. Mr. O to my students. I taught high school math in East Houston for five years, and every
           spring I watched the same thing happen. A kid who worked hard all year, who I knew could do the math,
           would sit down for a college placement test and still land in remedial.
         </P>
-        <P measure="100%">
+        <P>
           That was not one student. Over five years it was hundreds of them, and it made me start asking what I was
           missing. What they had in common was not that they had failed to learn the math. It was that their
           thinking was breaking down, and for each of them it was breaking down somewhere different.
         </P>
-        <P measure="100%">
+        <P>
           Part of it is a mismatch nobody warns them about. On STAAR they have a graphing calculator, a reference
           sheet, and four years of practice with a familiar format. On the TSIA2 they get a basic calculator and a
           test that adapts to them, which means it finds the edge of what they know and keeps them there. That is a
           different experience, and it deserves different preparation.
         </P>
-        <P measure="100%">
+        <P>
           I went looking for something that would show me where a student&apos;s thinking actually broke down. I
           could not find it, so I rebuilt the same clumsy workaround by hand, week after week.
         </P>
