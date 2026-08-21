@@ -51,7 +51,7 @@ const CAPABILITIES = [
     label: "Unlimited practice",
     body: "Work a topic until it holds, with new items each time instead of the same ones back.",
   },
-  { label: "GUMU", body: "A tutor that asks you questions about your reasoning instead of handing you the answer." },
+  { label: "Mu", body: "A tutor that asks you questions about your reasoning instead of handing you the answer." },
   {
     label: "Progress that sticks",
     body: "Your account keeps every attempt, so you can see what moved and what did not.",
@@ -81,7 +81,7 @@ const FAQS: AccordionItem[] = [
   },
   {
     q: "What is the difference between Practice Pass and Full Course?",
-    a: `Practice Pass is six months of practice problems across all four strands, with the same misconception feedback you get on the diagnostic. You work problems, you find out what's actually going wrong, you keep going. Full Course is twelve months and adds everything else: the full curriculum with lessons for all ${stats.curriculumTopics} topics, plus GUMU, an AI tutor that asks you questions when you get something wrong instead of just showing you the answer. If you know the material and need reps before test day, Practice Pass. If there are topics you never really learned, Full Course.`,
+    a: `Practice Pass is six months of practice problems across all four strands, with the same misconception feedback you get on the diagnostic. You work problems, you find out what's actually going wrong, you keep going. Full Course is twelve months and adds everything else: the full curriculum with lessons for all ${stats.curriculumTopics} topics, plus Mu, an AI tutor that asks you questions when you get something wrong instead of just showing you the answer. If you know the material and need reps before test day, Practice Pass. If there are topics you never really learned, Full Course.`,
   },
   {
     q: "I already took the TSIA2 and did not pass. Is this still useful?",
