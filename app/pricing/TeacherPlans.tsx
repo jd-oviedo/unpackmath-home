@@ -23,7 +23,7 @@ const TEACHER_FEATURES: Tier["features"] = [
   { label: "Every student's diagnostic history and strand breakdown", status: "shipped" },
   { label: "Top misconceptions grid, class-wide and per student", status: "shipped" },
   { label: "Full curriculum, assignable to your students", status: "shipped" },
-  { label: "GUMU Socratic tutor for your students", status: "shipped" },
+  { label: "Mu Socratic tutor for your students", status: "shipped" },
   { label: "Up to 3 classes", status: "shipped" },
   { label: "Email support", status: "shipped" },
   { label: "Worksheet generator, up to 15 per month", status: "coming" },
